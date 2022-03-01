@@ -8,17 +8,18 @@ module fetch (
 	// Outputs
 	err, Instruction, PC_plus_two,
 	// Inputs
-	clk, rst, halt, nxt_PC
+	clk, rst, halt, nxt_PC, createdump
 );
 	// TODO: Your code here
 	input clk;				// system clock
 	input rst;				// master reset, active high
 	input halt;				// when asserted, halt PC
 	input nxt_PC;			// the potential value of next PC
+	input createdump;
 
+	output err;
 	output [15:0] Instruction;
 	output [15:0] PC_plus_two;
-	output err;
 	
 	wire [15:0]PC;
 	
@@ -37,9 +38,9 @@ module fetch (
 		.data_out(Instruction),
 		.data_in(),					// not used
 		.addr(PC),					// read the instruction stored at the current PC
-		.enable(),
+		.enable(1'b1),				// always reading Instruction_Memory
 		.wr(1'b0),					// never write to Instruction_Memory in the fetch stage			
-		.createdump(),
+		.createdump(createdump),
 		.clk(clk), 
 		.rst(rst)
 	);
