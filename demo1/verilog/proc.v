@@ -32,7 +32,6 @@ module proc (/*AUTOARG*/
 		.rst(),
 		.halt(),
 		.nxt_PC()
-		.createdump()
 	);
 	
 	decode decode_stage(
@@ -41,6 +40,22 @@ module proc (/*AUTOARG*/
 		.read2Data(),
 		.immExt(),
 		.funct(),
+		.halt(),
+		.createdump(),
+		.ALUOp(),
+		.ALUSrc(),
+		.ClrALUSrc(),
+		.JumpI(),
+		.JumpD(),
+		.Branch(),
+		.MemWrite(),
+		.MemRead(),
+		.CmpSet(),
+		.CmpOp(),
+		.MemtoReg(),
+		.RegWrite(),
+		.link(),
+		.specialOP(),
 		.clk(),
 		.rst(),
 		.Instruction(),
@@ -55,7 +70,8 @@ module proc (/*AUTOARG*/
 		.read2Data(),
 		.immExt(),
 		.funct(),
-		.CmpOp()
+		.CmpOp(),
+		.specialOP()
 	);
 	
 	memory memory_stage(
@@ -67,7 +83,7 @@ module proc (/*AUTOARG*/
 		.WriteData(),
 		.MemWrite(),
 		.MemRead(),
-		.link()
+		.createdump()
 	);
 	
 	wb write_back_stage(

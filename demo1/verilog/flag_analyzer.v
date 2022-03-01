@@ -11,23 +11,27 @@ module flag_analyzer (
 	// Inputs
 	CmpOp, Zero, Neg, Ofl
 );
-	// TODO: Your code here
 	input [2:0] CmpOp;		// 000: == , 001: != , 010: <= , 011: >= , 100: < , 101: carryout
 	input Zero;
 	input Neg;
 	input Ofl;
 
-	output err;
-	output CmpOut;
+	output reg err;
+	output reg CmpOut;
 	
-	always @(*) case(CmpOp)
-		3'b000:	CmpOut = Zero;
-		3'b001:	CmpOut = ~Zero;
-		3'b010: CmpOut = Neg | Zero;
-		3'b011:	CmpOut = ~Neg | Zero;
-		3'b100: CmpOut = Neg;
-		3'b101: CmpOut = Ofl;
-		default: CmpOut = 1'b0;
-	endcase
+	always @(*) begin
+		err = 1'b0;
+		CmpOut = 1'b0;
+		
+		case(CmpOp)
+			3'b000:	CmpOut = Zero;
+			3'b001:	CmpOut = ~Zero;
+			3'b010: CmpOut = Neg | Zero;
+			3'b011:	CmpOut = ~Neg | Zero;
+			3'b100: CmpOut = Neg;
+			3'b101: CmpOut = Ofl;
+			default: err = 1'b1;
+		endcase
+	end
 	
 endmodule

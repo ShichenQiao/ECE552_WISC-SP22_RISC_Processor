@@ -61,7 +61,7 @@ module control (
 	// Outputs
 	err, 
 	halt, createdump, RegDst, imm5, SignImm,
-	ALUOp, ALUSrc, ClrSrc1, ClrSrc2,
+	ALUOp, ALUSrc, ClrALUSrc,
 	JumpI, JumpD, Branch,
 	MemWrite, MemRead,
 	CmpSet, CmpOp, MemtoReg, RegWrite, link,
@@ -72,12 +72,12 @@ module control (
 	input [4:0] OpCode;
 	input [1:0] funct;					// for R format instructions
 	
-	output err;
-	output halt;
-	output createdump;
-	output [1:0] RegDst;				// 00: Instruction[10:8], 01: Instruction[7:5], 10: Instruction[4:2], 11: R7
-	output imm5;
-	output SignImm;
+	output reg err;
+	output reg halt;
+	output reg createdump;
+	output reg [1:0] RegDst;				// 00: Instruction[10:8], 01: Instruction[7:5], 10: Instruction[4:2], 11: R7
+	output reg imm5;
+	output reg SignImm;
 	
 	/*
 		ALUOp:
@@ -90,21 +90,21 @@ module control (
 		110 OR A OR B
 		111 XOR A XOR B
 	*/
-	output [2:0] ALUOp;
+	output reg [2:0] ALUOp;
 	
-	output ALUSrc;
-	output ClrSrc1, ClrSrc2;
-	output JumpI, JumpD;
-	output Branch;
-	output MemWrite, MemRead;
-	output CmpSet;
-	output [2:0] CmpOp;					// 000: == , 001: != , 010: <= , 011: >= , 100: < , 101: carryout
-	output MemtoReg;
-	output RegWrite;
-	output link;
+	output reg ALUSrc;
+	output reg ClrALUSrc;					// when asserted, clear the Src2 to the ALU
+	output reg JumpI, JumpD;
+	output reg Branch;
+	output reg MemWrite, MemRead;
+	output reg CmpSet;
+	output reg [2:0] CmpOp;					// 000: == , 001: != , 010: <= , 011: >= , 100: < , 101: carryout
+	output reg MemtoReg;
+	output reg RegWrite;
+	output reg link;
 	
 	// extending ALU functionalities
-	output [1:0] specialOP;				// 00: none, 01: BTR, 10 LBI, 11 SLBI
+	output reg [1:0] specialOP;				// 00: none, 01: BTR, 10 LBI, 11 SLBI
 	
 	assign halt = ~(|OpCode);			// halt instruction has opcode 00000
 	
@@ -117,8 +117,7 @@ module control (
 		SignImm = 1'b0;
 		ALUOp = 3'b000;			// rll by default
 		ALUSrc = 1'b0;
-		ClrSrc1 = 1'b0;
-		ClrSrc2 = 1'b0;
+		ClrALUSrc = 1'b0;
 		JumpI = 1'b0;
 		JumpD = 1'b0;
 		Branch = 1'b0;
@@ -227,10 +226,10 @@ module control (
 						
 			/* R format below: */
 			
-			5'b11001 begin		// BTR
-				RegDst = 2'b10;			// Rs by default
+			5'b11001: begin		// BTR
+				RegDst = 2'b10;
 				RegWrite = 1'b1;
-				specialOP = 2'b01;		// by default, no special operation, just take ALU out to XOut
+				specialOP = 2'b01;
 			end
 			5'b11011: begin		// ADD, SUB, XOR, ANDN
 				case(funct)
@@ -314,7 +313,7 @@ module control (
 				SignImm = 1'b1;
 				ALUOp = 3'b100;			// (PC + 2) + I(Sign Extend)
 				ALUSrc = 1'b1;
-				ClrSrc2 = 1'b1;			// clear ALU Src 2 for Rs + 0
+				ClrALUSrc = 1'b1;			// clear ALU Src 2 for Rs + 0
 				Branch = 1'b1;
 				CmpSet = 1'b1;
 			end
@@ -322,7 +321,7 @@ module control (
 				SignImm = 1'b1;
 				ALUOp = 3'b100;			// (PC + 2) + I(Sign Extend)
 				ALUSrc = 1'b1;
-				ClrSrc2 = 1'b1;			// clear ALU Src 2 for Rs + 0
+				ClrALUSrc = 1'b1;			// clear ALU Src 2 for Rs + 0
 				Branch = 1'b1;
 				CmpSet = 1'b1;
 				CmpOp = 3'b001;			// if (Rs + 0 != 0) then PC <- PC + 2 + I(sign ext.)
@@ -331,7 +330,7 @@ module control (
 				SignImm = 1'b1;
 				ALUOp = 3'b100;			// (PC + 2) + I(Sign Extend)
 				ALUSrc = 1'b1;
-				ClrSrc2 = 1'b1;			// clear ALU Src 2 for Rs + 0
+				ClrALUSrc = 1'b1;			// clear ALU Src 2 for Rs + 0
 				Branch = 1'b1;
 				CmpSet = 1'b1;
 				CmpOp = 3'b100;			// if (Rs < 0) then PC <- PC + 2 + I(sign ext.)
@@ -340,7 +339,7 @@ module control (
 				SignImm = 1'b1;
 				ALUOp = 3'b100;			// (PC + 2) + I(Sign Extend)
 				ALUSrc = 1'b1;
-				ClrSrc2 = 1'b1;			// clear ALU Src 2 for Rs + 0
+				ClrALUSrc = 1'b1;			// clear ALU Src 2 for Rs + 0
 				Branch = 1'b1;
 				CmpSet = 1'b1;
 				CmpOp = 3'b011;			// if (Rs >= 0) then PC <- PC + 2 + I(sign ext.)

@@ -8,49 +8,51 @@ module fetch (
 	// Outputs
 	err, Instruction, PC_plus_two,
 	// Inputs
-	clk, rst, halt, nxt_PC, createdump
+	clk, rst, halt, nxt_PC
 );
 	// TODO: Your code here
 	input clk;				// system clock
 	input rst;				// master reset, active high
 	input halt;				// when asserted, halt PC
-	input nxt_PC;			// the potential value of next PC
-	input createdump;
+	input [15:0] nxt_PC;	// the potential value of next PC
 
 	output err;
 	output [15:0] Instruction;
 	output [15:0] PC_plus_two;
 	
-	wire [15:0]PC;
+	wire [15:0] PC;
+	wire err_PC, err_PC_overflow;
 	
-	// 16-bit PC
-	program_counter Program_Counter(
-		err(),
-		PC(PC),
-		clk(clk),
-		rst(rst),
-		halt(halt),
-		nxt_PC(nxt_PC)
+	// 16-bit PC	
+	register Program_Counter(
+		.readData(PC),
+		.err(err_PC),
+		.clk(clk),
+		.rst(rst),
+		.writeData(nxt_PC),
+		.writeEn(~halt)
+	);
+	
+	cla_16b PC_adder(
+		.sum(PC_plus_two),
+		.c_out(err_PC_overflow),
+		.a(PC),
+		.b(16'h0002),				// half-word aligned
+		.c_in(1'b0)					// no carry in
 	);
 	
 	// byte-addressable, 16-bit wide, 64K-byte, instruction memory.
 	memory2c Instruction_Memory(
 		.data_out(Instruction),
-		.data_in(),					// not used
+		.data_in(16'h0000),			// not used
 		.addr(PC),					// read the instruction stored at the current PC
 		.enable(1'b1),				// always reading Instruction_Memory
 		.wr(1'b0),					// never write to Instruction_Memory in the fetch stage			
-		.createdump(createdump),
+		.createdump(1'b0),			// never dump the Instruction_Memory
 		.clk(clk), 
 		.rst(rst)
 	);
 	
-	cla_16b PC_adder(
-		.sum(PC_plus_two),
-		.c_out(),
-		.a(PC),
-		.b(16'h0002),				// half-word aligned
-		.c_in(1'b0)					// no carry in
-	);
-   
+	assign err = err_PC | err_PC_overflow;
+	
 endmodule

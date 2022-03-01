@@ -9,7 +9,7 @@ module memory (
 	// Outputs
 	err, MemOut,
 	// Inputs
-	clk, rst, XOut, WriteData, MemWrite, MemRead, link
+	clk, rst, XOut, WriteData, MemWrite, MemRead, createdump
 );
 	// TODO: Your code here
 	input clk;				// system clock
@@ -17,7 +17,7 @@ module memory (
 	input [15:0] XOut;
 	input [15:0] WriteData;
 	input MemWrite, MemRead;
-	input link;
+	input createdump;
 	
 	output err;
 	output [15:0] MemOut;
@@ -27,12 +27,18 @@ module memory (
 		.data_out(MemOut),
 		.data_in(WriteData),
 		.addr(XOut),
-		.enable(MemRead),
+		.enable(MemRead | MemWrite),
 		.wr(MemWrite),	
-		.createdump(),
+		.createdump(createdump),
 		.clk(clk), 
 		.rst(rst)
 	);
+	
+	// catch any input error
+	assign err = (MemWrite === 1'bz) | (MemWrite === 1'bx) |
+				 (MemRead === 1'bz) | (MemRead === 1'bx) |
+				 (createdump === 1'bz) | (createdump === 1'bx) |
+				 (^WriteData === 1'bz) | (^WriteData === 1'bx) |
+				 (^XOut === 1'bz) | (^XOut === 1'bx);
 
-   
 endmodule

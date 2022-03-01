@@ -32,19 +32,25 @@ module regFile (
 	reg [7:0] regWrite;
 	wire [7:0] regWriteEn;
 	wire [7:0] err_regs;
+	reg err_regWrite, err_read1Data, err_read2Data;
 	
 	// decode writeRegSel to one-hot vector regWrite
-	always @* case(writeRegSel)
-		3'b000: regWrite = 8'b0000_0001;
-		3'b001: regWrite = 8'b0000_0010;
-		3'b010: regWrite = 8'b0000_0100;
-		3'b011: regWrite = 8'b0000_1000;
-		3'b100: regWrite = 8'b0001_0000;
-		3'b101: regWrite = 8'b0010_0000;
-		3'b110: regWrite = 8'b0100_0000;
-		3'b111: regWrite = 8'b1000_0000;
-		default: regWrite = 8'bzzzz_zzzz;
-	endcase
+	always @* begin
+		err_regWrite = 1'b0;
+		regWrite = 8'b0000_0000;
+		
+		case(writeRegSel)
+			3'b000: regWrite = 8'b0000_0001;
+			3'b001: regWrite = 8'b0000_0010;
+			3'b010: regWrite = 8'b0000_0100;
+			3'b011: regWrite = 8'b0000_1000;
+			3'b100: regWrite = 8'b0001_0000;
+			3'b101: regWrite = 8'b0010_0000;
+			3'b110: regWrite = 8'b0100_0000;
+			3'b111: regWrite = 8'b1000_0000;
+			default: err_regWrite = 1'b1;
+		endcase
+	end
 	
 	// create Write Enable signals for the registers based on RF wrtieEN
 	assign regWriteEn = writeEn ? regWrite : 8'b0000_0000;
@@ -116,40 +122,44 @@ module regFile (
 	);
 	
 	// select proper read1Data based on read1RegSel
-	always @* case(read1RegSel)
-		3'b000: read1Data = readData[0];
-		3'b001: read1Data = readData[1];
-		3'b010: read1Data = readData[2];
-		3'b011: read1Data = readData[3];
-		3'b100: read1Data = readData[4];
-		3'b101: read1Data = readData[5];
-		3'b110: read1Data = readData[6];
-		3'b111: read1Data = readData[7];
-		default: read1Data = {REGWIDTH{1'bz}};
-	endcase
+	always @* begin
+		err_read1Data = 1'b0;
+		read1Data = {REGWIDTH{1'b0}};
+		
+		case(read1RegSel)
+			3'b000: read1Data = readData[0];
+			3'b001: read1Data = readData[1];
+			3'b010: read1Data = readData[2];
+			3'b011: read1Data = readData[3];
+			3'b100: read1Data = readData[4];
+			3'b101: read1Data = readData[5];
+			3'b110: read1Data = readData[6];
+			3'b111: read1Data = readData[7];
+			default: err_read1Data = 1'b1;
+		endcase
+	end
 	
 	// select proper read2Data based on read2RegSel
-	always @* case(read2RegSel)
-		3'b000: read2Data = readData[0];
-		3'b001: read2Data = readData[1];
-		3'b010: read2Data = readData[2];
-		3'b011: read2Data = readData[3];
-		3'b100: read2Data = readData[4];
-		3'b101: read2Data = readData[5];
-		3'b110: read2Data = readData[6];
-		3'b111: read2Data = readData[7];
-		default: read2Data = {REGWIDTH{1'bz}};
-	endcase
+	always @* begin
+		err_read2Data = 1'b0;
+		read2Data = {REGWIDTH{1'b0}};
+	
+		case(read2RegSel)
+			3'b000: read2Data = readData[0];
+			3'b001: read2Data = readData[1];
+			3'b010: read2Data = readData[2];
+			3'b011: read2Data = readData[3];
+			3'b100: read2Data = readData[4];
+			3'b101: read2Data = readData[5];
+			3'b110: read2Data = readData[6];
+			3'b111: read2Data = readData[7];
+			default: err_read2Data = 1'b1;
+		endcase
+	end
 	
 	// generate overall err flag of the whole RF. Note that err_regs take care of writeData
-	assign err = (writeEn === 1'bx) |
-				 (writeEn === 1'bz) |
-				 (^read1RegSel === 1'bx) |
-				 (^read1RegSel === 1'bz) |
-				 (^read2RegSel === 1'bx) |
-				 (^read2RegSel === 1'bz) |
-				 (^writeRegSel === 1'bx) |
-				 (^writeRegSel === 1'bz) |
+	assign err = err_regWrite | err_read1Data | err_read2Data |			// detect invalid sel inputs
+				 (writeEn === 1'bx) | (writeEn === 1'bz) |				// detect invalid writeEn
 				 (|err_regs);					// err is also asserted if any indivisual register has an err
 
 endmodule
