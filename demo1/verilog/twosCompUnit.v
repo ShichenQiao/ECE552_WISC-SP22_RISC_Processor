@@ -15,7 +15,8 @@ module twosCompUnit(A, B, Cin, Oper, sign, Out, Ofl);
     output Ofl; 				// Signal if overflow occured
 	
 	wire [15:0] AandB, AorB, AxorB;			// possible outputs of this module
-	wire [15:0] cla_sum, cla_cout;			// sum and carry out from the CLA
+	wire [15:0] cla_sum;					// sum and carry out from the CLA
+	wire cla_cout;
 	
 	// logic unit
 	assign AandB = A & B;

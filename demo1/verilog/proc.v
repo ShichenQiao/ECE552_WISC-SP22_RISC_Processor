@@ -114,8 +114,8 @@ module proc (/*AUTOARG*/
 		.CmpOp(CmpOp),
 		.specialOP(specialOP),
 		.CmpSet(CmpSet),
-		.jumpI(jumpI),
-		.jumpD(jumpD),
+		.JumpI(JumpI),
+		.JumpD(JumpD),
 		.D(Instruction[10:0]),
 		.PC_plus_two(PC_plus_two)
 	);

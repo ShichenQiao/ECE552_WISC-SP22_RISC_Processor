@@ -28,12 +28,14 @@ module jump (
 
 	cla_16b PC_adder(
 		.sum(jumpTarget),
-		.c_out(err_PC_potential_Ofl),
+		.c_out(),					// not used
 		.a(a),
 		.b(b),
 		.c_in(1'b0)					// no carry in
 	);
 	
-	assign err = ((JumpI | JumpD) | err_PC_potential_Ofl);
+	assign err_PC_potential_Ofl = (a[15] ^ b[15]) ? 1'b0 : (a[15] ^ jumpTarget[15]);
+	
+	assign err = ((JumpI | JumpD) & err_PC_potential_Ofl);
 	
 endmodule

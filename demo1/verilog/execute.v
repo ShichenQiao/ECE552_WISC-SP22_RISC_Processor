@@ -31,7 +31,7 @@ module execute (
 	output jumpTaken;
 	output [15:0] jumpTarget;
 	
-	wire [15:0] InA, InB;
+	wire [15:0] InB;
 	wire Zero, Neg, Ofl;
 	wire [15:0] ALUOut;
 	reg [15:0] ALUExtOut;
@@ -46,7 +46,7 @@ module execute (
 	   .InA(read1Data),
 	   .InB(InB),
 	   .Cin(Cin),
-	   .Oper(Oper),
+	   .Oper(ALUOp),
 	   .invA(invA),
 	   .invB(invB),
 	   .sign(1'b1),				// for this ALU, always treat as signed inputs

@@ -61,7 +61,7 @@ module decode (
 	output [1:0] specialOP;				// 00: none, 01: BTR, 10 LBI, 11 SLBI
 	
 	reg [2:0] Write_register;
-	wire [1:0] regDst;					// 00: Instruction[10:8], 01: Instruction[7:5], 10: Instruction[4:2], 11: R7
+	wire [1:0] RegDst;					// 00: Instruction[10:8], 01: Instruction[7:5], 10: Instruction[4:2], 11: R7
 	wire RegWrite;
 	wire SignImm;
 	wire imm5;
@@ -86,7 +86,7 @@ module decode (
 		err_regDst = 1'b0;
 		Write_register = 3'b000;
 		
-		case(regDst)
+		case(RegDst)
 			2'b00: Write_register = Instruction[10:8];			// Rs
 			2'b01: Write_register = Instruction[7:5];			// Rt
 			2'b10: Write_register = Instruction[4:2];			// Rd
@@ -95,7 +95,7 @@ module decode (
 		endcase
 	end
 	
-	assign immExt = SignImm ? (imm5 ? {{11{Instruction[4]}}, Instruction[4:0]} : {{8{Instruction[4]}}, Instruction[7:0]}) :
+	assign immExt = SignImm ? (imm5 ? {{11{Instruction[4]}}, Instruction[4:0]} : {{8{Instruction[7]}}, Instruction[7:0]}) :
 							  (imm5 ? {11'h000, Instruction[4:0]} : {8'h00, Instruction[7:0]});
 							  
 	// global control unit

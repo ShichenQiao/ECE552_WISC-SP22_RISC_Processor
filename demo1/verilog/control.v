@@ -107,8 +107,6 @@ module control (
 	// extending ALU functionalities
 	output reg [1:0] specialOP;				// 00: none, 01: BTR, 10 LBI, 11 SLBI
 	
-	assign halt = ~(|OpCode);			// halt instruction has opcode 00000
-	
 	always @(*) begin
 		err = 1'b0;
 		halt = 1'b0;
@@ -223,7 +221,7 @@ module control (
 				RegWrite = 1'b1;
 			end
 			5'b10011: begin		// STU
-				RegDst = 2'b11;
+				RegDst = 2'b00;
 				imm5 = 1'b1;
 				SignImm = 1'b1;
 				ALUOp = 3'b100;
@@ -294,12 +292,16 @@ module control (
 			5'b11100: begin		// SEQ
 				RegDst = 2'b10;
 				ALUOp = 3'b100;			// if (Rs - Rt == 0) then Rd <- 1 else Rd <- 0
+				Cin = 1'b1;
+				invB = 1'b1;
 				CmpSet = 1'b1;
 				RegWrite = 1'b1;
 			end
 			5'b11101: begin		// SLT
 				RegDst = 2'b10;
 				ALUOp = 3'b100;			// if (Rs - Rt < 0) then Rd <- 1 else Rd <- 0
+				Cin = 1'b1;
+				invB = 1'b1;
 				CmpSet = 1'b1;
 				CmpOp = 2'b01;
 				RegWrite = 1'b1;
@@ -307,6 +309,8 @@ module control (
 			5'b11110: begin		// SLE
 				RegDst = 2'b10;
 				ALUOp = 3'b100;			// if (Rs - Rt <= 0) then Rd <- 1 else Rd <- 0
+				Cin = 1'b1;
+				invB = 1'b1;
 				CmpSet = 1'b1;
 				CmpOp = 2'b10;
 				RegWrite = 1'b1;
@@ -339,12 +343,12 @@ module control (
 			end
 			5'b11000: begin		// LBI
 				SignImm = 1'b1;
-				RegWrite = 1'b0;
+				RegWrite = 1'b1;
 				specialOP = 2'b10;
 			end
 			5'b10010: begin		// SLBI
 				SignImm = 1'b1;
-				RegWrite = 1'b0;
+				RegWrite = 1'b1;
 				specialOP = 2'b11;
 			end
 			

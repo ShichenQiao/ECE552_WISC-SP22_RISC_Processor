@@ -38,11 +38,13 @@ module branch (
 	
 	cla_16b PC_adder(
 		.sum(branchTarget),
-		.c_out(err_PC_potential_Ofl),
+		.c_out(),					// not used
 		.a(PC_plus_two),
 		.b(immExt),
 		.c_in(1'b0)					// no carry in
 	);
+	
+	assign err_PC_potential_Ofl = (PC_plus_two[15] ^ immExt[15]) ? 1'b0 : (PC_plus_two[15] ^ branchTarget[15]);
 	
 	assign err = err_branchOp | (Branch & err_PC_potential_Ofl);
 	
