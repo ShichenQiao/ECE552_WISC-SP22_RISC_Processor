@@ -61,7 +61,7 @@ module control (
 	// Outputs
 	err, 
 	halt, createdump, RegDst, imm5, SignImm,
-	ALUOp, ALUSrc, ClrALUSrc,
+	ALUOp, ALUSrc, ClrALUSrc, Cin, invA, invB,
 	JumpI, JumpD, Branch,
 	MemWrite, MemRead,
 	CmpSet, CmpOp, MemtoReg, RegWrite, link,
@@ -94,11 +94,12 @@ module control (
 	
 	output reg ALUSrc;
 	output reg ClrALUSrc;					// when asserted, clear the Src2 to the ALU
+	output reg Cin, invA, invB;				// other ALU controls
 	output reg JumpI, JumpD;
 	output reg Branch;
 	output reg MemWrite, MemRead;
 	output reg CmpSet;
-	output reg [2:0] CmpOp;					// 000: == , 001: != , 010: <= , 011: >= , 100: < , 101: carryout
+	output reg [1:0] CmpOp;					// 00: == , 01: < , 10: <= , 11: carryout
 	output reg MemtoReg;
 	output reg RegWrite;
 	output reg link;
@@ -118,13 +119,16 @@ module control (
 		ALUOp = 3'b000;			// rll by default
 		ALUSrc = 1'b0;
 		ClrALUSrc = 1'b0;
+		Cin = 1'b0;
+		invA = 1'b0;
+		invB = 1'b0;
 		JumpI = 1'b0;
 		JumpD = 1'b0;
 		Branch = 1'b0;
 		MemWrite = 1'b0;
 		MemRead = 1'b0;
 		CmpSet = 1'b0;
-		CmpOp = 3'b000;			// == by default
+		CmpOp = 2'b00;			// == by default
 		MemtoReg = 1'b0;
 		RegWrite = 1'b0;
 		link = 1'b0;
@@ -155,6 +159,8 @@ module control (
 				SignImm = 1'b1;
 				ALUOp = 3'b100;
 				ALUSrc = 1'b1;
+				Cin = 1'b1;
+				invA = 1'b1;
 				RegWrite = 1'b1;
 			end	
 			5'b01010: begin		// XORI
@@ -169,6 +175,7 @@ module control (
 				imm5 = 1'b1;
 				ALUOp = 3'b101;
 				ALUSrc = 1'b1;
+				invB = 1'b1;
 				RegWrite = 1'b1;
 			end
 			5'b10100: begin		// ROLI
@@ -184,7 +191,7 @@ module control (
 				ALUSrc = 1'b1;
 				RegWrite = 1'b1;
 			end
-			5'b10110: begin		// RORI
+			5'b10110: begin		// RORI **************************
 				RegDst = 2'b01;
 				imm5 = 1'b1;
 				ALUSrc = 1'b1;
@@ -242,6 +249,8 @@ module control (
 						RegDst = 2'b10;
 						ALUOp = 3'b100;
 						RegWrite = 1'b1;
+						Cin = 1'b1;
+						invA = 1'b1;
 					end
 					2'b10: begin		// XOR
 						RegDst = 2'b10;
@@ -252,6 +261,7 @@ module control (
 						RegDst = 2'b10;
 						ALUOp = 3'b101;
 						RegWrite = 1'b1;
+						invB = 1'b1;
 					end
 					default: err = 1'b1;			// R format funct code error
 				endcase
@@ -267,7 +277,7 @@ module control (
 						ALUOp = 3'b001;
 						RegWrite = 1'b1;
 					end
-					2'b10: begin		// ROR
+					2'b10: begin		// ROR ***********************************
 						RegDst = 2'b10;
 						RegWrite = 1'b1;
 					end
@@ -289,21 +299,21 @@ module control (
 				RegDst = 2'b10;
 				ALUOp = 3'b100;			// if (Rs - Rt < 0) then Rd <- 1 else Rd <- 0
 				CmpSet = 1'b1;
-				CmpOp = 3'b100;
+				CmpOp = 2'b01;
 				RegWrite = 1'b1;
 			end
 			5'b11110: begin		// SLE
 				RegDst = 2'b10;
 				ALUOp = 3'b100;			// if (Rs - Rt <= 0) then Rd <- 1 else Rd <- 0
 				CmpSet = 1'b1;
-				CmpOp = 3'b010;
+				CmpOp = 2'b10;
 				RegWrite = 1'b1;
 			end
 			5'b11111: begin		// SCO
 				RegDst = 2'b10;
 				ALUOp = 3'b100;			// if (Rs + Rt) generates carry out, then Rd <- 1 else Rd <- 0
 				CmpSet = 1'b1;
-				CmpOp = 3'b101;
+				CmpOp = 2'b11;
 				RegWrite = 1'b1;
 			end
 			
@@ -324,7 +334,6 @@ module control (
 				ClrALUSrc = 1'b1;			// clear ALU Src 2 for Rs + 0
 				Branch = 1'b1;
 				CmpSet = 1'b1;
-				CmpOp = 3'b001;			// if (Rs + 0 != 0) then PC <- PC + 2 + I(sign ext.)
 			end
 			5'b01110: begin		// BLTZ
 				SignImm = 1'b1;
@@ -333,7 +342,6 @@ module control (
 				ClrALUSrc = 1'b1;			// clear ALU Src 2 for Rs + 0
 				Branch = 1'b1;
 				CmpSet = 1'b1;
-				CmpOp = 3'b100;			// if (Rs < 0) then PC <- PC + 2 + I(sign ext.)
 			end
 			5'b01111: begin		// BGEZ
 				SignImm = 1'b1;
@@ -342,7 +350,6 @@ module control (
 				ClrALUSrc = 1'b1;			// clear ALU Src 2 for Rs + 0
 				Branch = 1'b1;
 				CmpSet = 1'b1;
-				CmpOp = 3'b011;			// if (Rs >= 0) then PC <- PC + 2 + I(sign ext.)
 			end
 			5'b11000: begin		// LBI
 				SignImm = 1'b1;

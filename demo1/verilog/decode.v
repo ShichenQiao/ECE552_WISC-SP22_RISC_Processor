@@ -6,24 +6,26 @@
 */
 module decode (
 	// Outputs
-	err, read1Data, read2Data, immExt, funct,
+	err, read1Data, read2Data, immExt,
 	// Global_Control Outputs
 	halt, createdump, ALUOp, ALUSrc, ClrALUSrc,
-	JumpI, JumpD, Branch, MemWrite, MemRead,
+	Cin, invA, invB,
+	JumpI, JumpD, MemWrite, MemRead,
 	CmpSet, CmpOp, MemtoReg, link, specialOP,
+	branchTaken, branchTarget,
 	// Inputs
-	clk, rst, Instruction, WBdata
+	clk, rst, Instruction, WBdata, PC_plus_two
 );
 	// TODO: Your code here
 	input clk;				// system clock
 	input rst;				// master reset, active high
 	input [15:0] Instruction;
 	input [15:0] WBdata;
+	input [15:0] PC_plus_two;
 	
 	output reg err;
 	output [15:0] read1Data, read2Data;
 	output [15:0] immExt;
-	output [1:0] funct;
 	
 	/* Outputs from control below: */
 	
@@ -45,11 +47,13 @@ module decode (
 	
 	output ALUSrc;
 	output ClrALUSrc;					// when asserted, clear the Src2 to the ALU
+	output Cin, invA, invB;				// other ALU controls
 	output JumpI, JumpD;
-	output Branch;
+	output branchTaken;
+	output [15:0] branchTarget;
 	output MemWrite, MemRead;
 	output CmpSet;
-	output [2:0] CmpOp;					// 000: == , 001: != , 010: <= , 011: >= , 100: < , 101: carryout
+	output [1:0] CmpOp;					// 00: == , 01: < , 10: <= , 11: carryout
 	output MemtoReg;
 	output link;
 	
@@ -61,9 +65,10 @@ module decode (
 	wire RegWrite;
 	wire SignImm;
 	wire imm5;
-	reg err_RF, err_regDst, err_Global_Control;
+	reg err_RF, err_regDst, err_Global_Control, err_Branch_Detector;
+	wire Branch;
 	
-	regFile_bypass i_RF_bypassing(
+	regFile i_RF(
 		.read1Data(read1Data),
 		.read2Data(read2Data),
 		.err(err_RF),
@@ -92,8 +97,6 @@ module decode (
 	assign immExt = SignImm ? (imm5 ? {{11{Instruction[4]}}, Instruction[4:0]} : {{8{Instruction[4]}}, Instruction[7:0]}) :
 							  (imm5 ? {11'h000, Instruction[4:0]} : {8'h00, Instruction[7:0]});
 							  
-	assign funct = Instruction[1:0];
-	
 	// global control unit
 	control Global_Control(
 		.err(err_Global_Control), 
@@ -105,6 +108,9 @@ module decode (
 		.ALUOp(ALUOp),
 		.ALUSrc(ALUSrc),
 		.ClrALUSrc(ClrALUSrc),
+		.Cin(Cin),
+		.invA(invA),
+		.invB(invB),
 		.JumpI(JumpI),
 		.JumpD(JumpD),
 		.Branch(Branch),
@@ -117,10 +123,23 @@ module decode (
 		.link(link),
 		.specialOP(specialOP),
 		.OpCode(Instruction[15:11]),
-		.funct(funct)
+		.funct(Instruction[1:0])
 	);
 	
-	assign err = err_RF | err_regDst | err_Global_Control |
+	branch i_Branch_Detector(
+		.err(err_Branch_Detector),
+		.branchTarget(branchTarget),
+		.branchCondition(branchCondition),
+		.branchOp(Instruction[12:11]),
+		.Rs(read1Data),
+		.Imm(Instruction[7:0]),
+		.PC_plus_two(PC_plus_two),
+		.Branch(Branch)
+	);
+	
+	assign branchTaken = Branch & branchCondition;
+	
+	assign err = err_RF | err_regDst | err_Global_Control | err_Branch_Detector |
 				 (^WBdata === 1'bz) | (^WBdata === 1'bx);
 	
 endmodule

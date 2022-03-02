@@ -6,38 +6,41 @@
 */
 module execute (
 	// Outputs
-	err, XOut, CmpOut,
+	err, XOut,
 	// Inputs
-	read1Data, read2Data, immExt, funct, ALUSrc, ClrALUSrc, CmpOp, specialOP
+	read1Data, read2Data, immExt,
+	ALUOp, ALUSrc, ClrALUSrc, Cin, invA, invB, CmpOp, specialOP, CmpSet
 );
 	// TODO: Your code here
 	input [15:0] read1Data, read2Data;
 	input [15:0] immExt;
-	input [1:0] funct;
+	input [2:0] ALUOp;
 	input ALUSrc;
 	input ClrALUSrc;
-	input [2:0] CmpOp;				// 000: == , 001: != , 010: <= , 011: >= , 100: < , 101: carryout
+	input Cin, invA, invB;			// other ALU controls
+	input [1:0] CmpOp;				// 00: == , 01: < , 10: <= , 11: carryout
 	input [1:0] specialOP;			// 00: none, 01: BTR, 10 LBI, 11 SLBI
+	input CmpSet;
 	
 	output reg err;
 	output reg [15:0] XOut;
-	output CmpOut;
 	
 	wire [15:0] InA, InB;
 	wire Zero, Neg, Ofl;
 	wire [15:0] ALUOut;
+	reg [15:0] ALUExtOut;
 	wire [15:0] read1Data_rev;
 	
 	assign InB = ClrALUSrc ? 16'h0000 : (ALUSrc ? immExt : read2Data);
 
-	alu i_alu(
+	alu i_ALU(
 	   .InA(read1Data),
 	   .InB(InB),
-	   .Cin(),
-	   .Oper(),
-	   .invA(),
-	   .invB(),
-	   .sign(),
+	   .Cin(Cin),
+	   .Oper(Oper),
+	   .invA(invA),
+	   .invB(invB),
+	   .sign(1'b1),				// for this ALU, always treat as signed inputs
 	   .Out(ALUOut),
 	   .Zero(Zero),
 	   .Ofl(Ofl)
@@ -45,7 +48,7 @@ module execute (
 	
 	assign Neg = ALUOut[15];
 
-	flag_analyzer i_flag_analyzer(
+	flag_analyzer i_Flag_Analyzer(
 		.err(),
 		.CmpOut(CmpOut),
 		.CmpOp(CmpOp),
@@ -62,15 +65,18 @@ module execute (
 	// extending ALU functionalities
 	always @(*) begin
 		err = 1'b0;
-		XOut = 16'h0000;
+		ALUExtOut = 16'h0000;
 		
 		case(specialOP)
-			2'b00: XOut = ALUOut;								// normal ALU operation
-			2'b01: XOut = read1Data_rev;						// BTR
-			2'b10: XOut = immExt;								// LBI
-			2'b11: XOut = {read1Data[7:0], immExt[7:0]};		// SLBI
+			2'b00: ALUExtOut = ALUOut;								// normal ALU operation
+			2'b01: ALUExtOut = read1Data_rev;						// BTR
+			2'b10: ALUExtOut = immExt;								// LBI
+			2'b11: ALUExtOut = {read1Data[7:0], immExt[7:0]};		// SLBI
 			default: err = 1'b1;
 		endcase
 	end
+	
+	// choose final output from the execute between the ALU and the flag analyzer
+	assign XOut = CmpSet ? CmpOut : ALUExtOut;
 	
 endmodule

@@ -8,20 +8,23 @@ module fetch (
 	// Outputs
 	err, Instruction, PC_plus_two,
 	// Inputs
-	clk, rst, halt, nxt_PC
+	clk, rst, halt, branchTaken, branchTarget
 );
 	// TODO: Your code here
 	input clk;				// system clock
 	input rst;				// master reset, active high
 	input halt;				// when asserted, halt PC
-	input [15:0] nxt_PC;	// the potential value of next PC
+	input branchTaken;
+	input [15:0] branchTarget;
 
 	output err;
 	output [15:0] Instruction;
 	output [15:0] PC_plus_two;
 	
-	wire [15:0] PC;
+	wire [15:0] PC, nxt_PC;
 	wire err_PC, err_PC_overflow;
+	
+	assign nxt_PC = branchTaken ? branchTarget : PC_plus_two;
 	
 	// 16-bit PC	
 	register Program_Counter(
@@ -33,7 +36,7 @@ module fetch (
 		.writeEn(~halt)
 	);
 	
-	cla_16b PC_adder(
+	cla_16b PC_Adder(
 		.sum(PC_plus_two),
 		.c_out(err_PC_overflow),
 		.a(PC),
