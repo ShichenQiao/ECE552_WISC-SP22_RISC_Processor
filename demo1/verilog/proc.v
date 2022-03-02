@@ -29,6 +29,8 @@ module proc (/*AUTOARG*/
 	wire halt;
 	wire branchTaken;
 	wire [15:0] branchTarget;
+	wire jumpTaken;
+	wire [15:0] jumpTarget;
 	
 	wire [15:0] read1Data, read2Data;
 	wire [15:0] immExt;
@@ -59,7 +61,9 @@ module proc (/*AUTOARG*/
 		.rst(rst),
 		.halt(halt),
 		.branchTaken(branchTaken),
-		.branchTarget(branchTarget)
+		.branchTarget(branchTarget),
+		.jumpTaken(jumpTaken),
+		.jumpTarget(jumpTarget)
 	);
 	
 	decode decode_stage(
@@ -96,6 +100,8 @@ module proc (/*AUTOARG*/
 	execute execute_stage(
 		.err(errX),
 		.XOut(XOut),
+		.jumpTaken(jumpTaken),
+		.jumpTarget(jumpTarget),
 		.read1Data(read1Data),
 		.read2Data(read2Data),
 		.immExt(immExt),
@@ -107,7 +113,11 @@ module proc (/*AUTOARG*/
 		.invB(invB),
 		.CmpOp(CmpOp),
 		.specialOP(specialOP),
-		.CmpSet(CmpSet)
+		.CmpSet(CmpSet),
+		.jumpI(jumpI),
+		.jumpD(jumpD),
+		.D(Instruction[10:0]),
+		.PC_plus_two(PC_plus_two)
 	);
 	
 	memory memory_stage(

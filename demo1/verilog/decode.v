@@ -23,7 +23,7 @@ module decode (
 	input [15:0] WBdata;
 	input [15:0] PC_plus_two;
 	
-	output reg err;
+	output err;
 	output [15:0] read1Data, read2Data;
 	output [15:0] immExt;
 	
@@ -65,7 +65,8 @@ module decode (
 	wire RegWrite;
 	wire SignImm;
 	wire imm5;
-	reg err_RF, err_regDst, err_Global_Control, err_Branch_Detector;
+	wire err_RF, err_Global_Control, err_Branch_Detector;
+	reg err_regDst;
 	wire Branch;
 	
 	regFile i_RF(
@@ -132,7 +133,7 @@ module decode (
 		.branchCondition(branchCondition),
 		.branchOp(Instruction[12:11]),
 		.Rs(read1Data),
-		.Imm(Instruction[7:0]),
+		.immExt(immExt),
 		.PC_plus_two(PC_plus_two),
 		.Branch(Branch)
 	);

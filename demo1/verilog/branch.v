@@ -8,19 +8,20 @@ module branch (
 	// Outputs
 	err, branchTarget, branchCondition,
 	// Inputs
-	branchOp, Rs, Imm, PC_plus_two, Branch
+	branchOp, Rs, immExt, PC_plus_two, Branch
 );
 	input [1:0] branchOp;			// which is Instruction[12:11], 00: BEQZ, 01: BNEZ, 10: BLTZ, 11: BGEZ
 	input [15:0] Rs;
-	input [7:0]	Imm;				// which is Instruction[7:0]
+	input [15:0] immExt;
 	input [15:0] PC_plus_two;
 	input Branch;
 	
-	output reg err;
+	output err;
 	output [15:0] branchTarget;
 	output reg branchCondition;		// asserted when branch condition is met
 	
-	reg err_branchOp, err_PC_potential_Ofl;
+	reg err_branchOp;
+	wire err_PC_potential_Ofl;
 	
 	always @(*) begin
 		err_branchOp = 1'b0;
@@ -39,7 +40,7 @@ module branch (
 		.sum(branchTarget),
 		.c_out(err_PC_potential_Ofl),
 		.a(PC_plus_two),
-		.b({{8{Imm[7]}}, Imm}),		// I(sign ext.)
+		.b(immExt),
 		.c_in(1'b0)					// no carry in
 	);
 	

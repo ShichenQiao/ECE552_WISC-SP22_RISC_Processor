@@ -8,7 +8,7 @@ module fetch (
 	// Outputs
 	err, Instruction, PC_plus_two,
 	// Inputs
-	clk, rst, halt, branchTaken, branchTarget
+	clk, rst, halt, jumpTaken, jumpTarget
 );
 	// TODO: Your code here
 	input clk;				// system clock
@@ -16,6 +16,8 @@ module fetch (
 	input halt;				// when asserted, halt PC
 	input branchTaken;
 	input [15:0] branchTarget;
+	input jumpTaken;
+	input [15:0] jumpTarget;
 
 	output err;
 	output [15:0] Instruction;
@@ -24,7 +26,7 @@ module fetch (
 	wire [15:0] PC, nxt_PC;
 	wire err_PC, err_PC_overflow;
 	
-	assign nxt_PC = branchTaken ? branchTarget : PC_plus_two;
+	assign nxt_PC = branchTaken ? branchTarget : (jumpTaken ? jumpTarget : PC_plus_two);
 	
 	// 16-bit PC	
 	register Program_Counter(
