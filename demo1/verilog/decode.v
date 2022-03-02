@@ -9,7 +9,7 @@ module decode (
 	err, read1Data, read2Data, immExt,
 	// Global_Control Outputs
 	halt, createdump, ALUOp, ALUSrc, ClrALUSrc,
-	Cin, invA, invB,
+	Cin, invA, invB, sign,
 	JumpI, JumpD, MemWrite, MemRead,
 	CmpSet, CmpOp, MemtoReg, link, specialOP,
 	branchTaken, branchTarget,
@@ -47,7 +47,7 @@ module decode (
 	
 	output ALUSrc;
 	output ClrALUSrc;					// when asserted, clear the Src2 to the ALU
-	output Cin, invA, invB;				// other ALU controls
+	output Cin, invA, invB, sign;		// other ALU controls
 	output JumpI, JumpD;
 	output branchTaken;
 	output [15:0] branchTarget;
@@ -112,6 +112,7 @@ module decode (
 		.Cin(Cin),
 		.invA(invA),
 		.invB(invB),
+		.sign(sign),
 		.JumpI(JumpI),
 		.JumpD(JumpD),
 		.Branch(Branch),

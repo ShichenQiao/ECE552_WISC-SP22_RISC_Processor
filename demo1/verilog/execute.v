@@ -9,7 +9,8 @@ module execute (
 	err, XOut, jumpTaken, jumpTarget,
 	// Inputs
 	read1Data, read2Data, immExt,
-	ALUOp, ALUSrc, ClrALUSrc, Cin, invA, invB, CmpOp, specialOP, CmpSet,
+	ALUOp, ALUSrc, ClrALUSrc, Cin, invA, invB, sign,
+	CmpOp, specialOP, CmpSet,
 	JumpI, JumpD, D, PC_plus_two
 );
 	// TODO: Your code here
@@ -18,7 +19,7 @@ module execute (
 	input [2:0] ALUOp;
 	input ALUSrc;
 	input ClrALUSrc;
-	input Cin, invA, invB;			// other ALU controls
+	input Cin, invA, invB, sign;	// other ALU controls
 	input [1:0] CmpOp;				// 00: == , 01: < , 10: <= , 11: carryout
 	input [1:0] specialOP;			// 00: none, 01: BTR, 10 LBI, 11 SLBI
 	input CmpSet;
@@ -49,7 +50,7 @@ module execute (
 	   .Oper(ALUOp),
 	   .invA(invA),
 	   .invB(invB),
-	   .sign(1'b1),				// for this ALU, always treat as signed inputs
+	   .sign(sign),
 	   .Out(ALUOut),
 	   .Zero(Zero),
 	   .Ofl(Ofl)
@@ -64,8 +65,8 @@ module execute (
 		
 		case(CmpOp)
 			2'b00: CmpOut = Zero;
-			2'b01: CmpOut = Neg;
-			2'b10: CmpOut = Neg | Zero;
+			2'b01: CmpOut = Neg ^ Ofl;				// considering signed overflow
+			2'b10: CmpOut = (Neg ^ Ofl) | Zero;
 			2'b11: CmpOut = Ofl;
 			default: err_Flag_Analyzer = 1'b1;
 		endcase

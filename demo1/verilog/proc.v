@@ -38,7 +38,7 @@ module proc (/*AUTOARG*/
 	wire [2:0] ALUOp;
 	wire ALUSrc;
 	wire ClrALUSrc;
-	wire Cin, invA, invB;
+	wire Cin, invA, invB, sign;
 	wire JumpI, JumpD;
 	wire MemWrite, MemRead;
 	wire CmpSet;
@@ -79,6 +79,7 @@ module proc (/*AUTOARG*/
 		.Cin(Cin),
 		.invA(invA),
 		.invB(invB),
+		.sign(sign),
 		.JumpI(JumpI),
 		.JumpD(JumpD),
 		.branchTaken(branchTaken),
@@ -111,6 +112,7 @@ module proc (/*AUTOARG*/
 		.Cin(Cin),
 		.invA(invA),
 		.invB(invB),
+		.sign(sign),
 		.CmpOp(CmpOp),
 		.specialOP(specialOP),
 		.CmpSet(CmpSet),

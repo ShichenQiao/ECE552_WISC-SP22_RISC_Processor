@@ -61,7 +61,7 @@ module control (
 	// Outputs
 	err, 
 	halt, createdump, RegDst, imm5, SignImm,
-	ALUOp, ALUSrc, ClrALUSrc, Cin, invA, invB,
+	ALUOp, ALUSrc, ClrALUSrc, Cin, invA, invB, sign,
 	JumpI, JumpD, Branch,
 	MemWrite, MemRead,
 	CmpSet, CmpOp, MemtoReg, RegWrite, link,
@@ -94,7 +94,7 @@ module control (
 	
 	output reg ALUSrc;
 	output reg ClrALUSrc;					// when asserted, clear the Src2 to the ALU
-	output reg Cin, invA, invB;				// other ALU controls
+	output reg Cin, invA, invB, sign;		// other ALU controls
 	output reg JumpI, JumpD;
 	output reg Branch;
 	output reg MemWrite, MemRead;
@@ -120,6 +120,7 @@ module control (
 		Cin = 1'b0;
 		invA = 1'b0;
 		invB = 1'b0;
+		sign = 1'b1;			// signed ALU operation by default
 		JumpI = 1'b0;
 		JumpD = 1'b0;
 		Branch = 1'b0;
@@ -318,6 +319,7 @@ module control (
 			5'b11111: begin		// SCO
 				RegDst = 2'b10;
 				ALUOp = 3'b100;			// if (Rs + Rt) generates carry out, then Rd <- 1 else Rd <- 0
+				sign = 1'b0;			// make ALU do unsigned (Rs + Rt) so that Ofl from ALU will indicate c_out
 				CmpSet = 1'b1;
 				CmpOp = 2'b11;
 				RegWrite = 1'b1;
