@@ -8,7 +8,7 @@ module fetch (
 	// Outputs
 	err, Instruction, PC_plus_two,
 	// Inputs
-	clk, rst, halt, jumpTaken, jumpTarget
+	clk, rst, halt, branchTaken, branchTarget, jumpTaken, jumpTarget
 );
 	// TODO: Your code here
 	input clk;				// system clock
