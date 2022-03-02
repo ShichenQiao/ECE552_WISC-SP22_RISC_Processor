@@ -29,9 +29,19 @@ module shifter (In, ShAmt, Oper, Out);
 		.out(left_out)
 	);
 	
+	/*
 	right_ari_log_shifter iRight(
 		.In(In), 
 		.logical(Oper[0]), 
+		.ShAmt(ShAmt), 
+		.out(right_out)
+	);
+	*/
+	
+	// replaced 010 sra Shift right arithmetic by rotate right for the project
+	right_shift_rotator iRight(
+		.In(In), 
+		.shift(Oper[0]), 
 		.ShAmt(ShAmt), 
 		.out(right_out)
 	);

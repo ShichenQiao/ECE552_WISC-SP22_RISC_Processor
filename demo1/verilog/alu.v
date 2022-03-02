@@ -1,13 +1,18 @@
 /*
-    CS/ECE 552 Spring '22
-    Homework #2, Problem 2
+	CS/ECE 552 Spring '20
 
-    A multi-bit ALU module (defaults to 16-bit). It is designed to choose
-    the correct operation to perform on 2 multi-bit numbers from rotate
-    left, shift left, shift right arithmetic, shift right logical, add,
-    or, xor, & and.  Upon doing this, it should output the multi-bit result
-    of the operation, as well as drive the output signals Zero and Overflow
-    (OFL).
+	Filename        : alu.v
+	Description     : This is the modified ALU of the processor.
+	
+	ALUOp:
+	000 ROL Rotate left
+	001 SLL Shift left logical
+	010 ROR Rotate right
+	011 SRL Shift right logical
+	100 ADD A+B
+	101 AND A AND B
+	110 OR A OR B
+	111 XOR A XOR B
 */
 module alu (InA, InB, Cin, Oper, invA, invB, sign, Out, Zero, Ofl);
 

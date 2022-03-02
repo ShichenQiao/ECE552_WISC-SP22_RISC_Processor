@@ -81,10 +81,10 @@ module control (
 	
 	/*
 		ALUOp:
-		000 rll Rotate left
-		001 sll Shift left logical
-		010 sra Shift right arithmetic
-		011 srl Shift right logical
+		000 ROL Rotate left
+		001 SLL Shift left logical
+		010 ROR Rotate right
+		011 SRL Shift right logical
 		100 ADD A+B
 		101 AND A AND B
 		110 OR A OR B
@@ -191,9 +191,10 @@ module control (
 				ALUSrc = 1'b1;
 				RegWrite = 1'b1;
 			end
-			5'b10110: begin		// RORI **************************
+			5'b10110: begin		// RORI
 				RegDst = 2'b01;
 				imm5 = 1'b1;
+				ALUOp = 3'b010;
 				ALUSrc = 1'b1;
 				RegWrite = 1'b1;
 			end
@@ -277,8 +278,9 @@ module control (
 						ALUOp = 3'b001;
 						RegWrite = 1'b1;
 					end
-					2'b10: begin		// ROR ***********************************
+					2'b10: begin		// ROR
 						RegDst = 2'b10;
+						ALUOp = 3'b010;
 						RegWrite = 1'b1;
 					end
 					2'b11: begin		// SRL
