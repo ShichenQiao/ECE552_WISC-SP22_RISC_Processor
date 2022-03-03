@@ -23,14 +23,13 @@ module fetch (
 	output [15:0] PC_plus_two;
 	
 	wire [15:0] PC, nxt_PC;
-	wire err_PC, err_PC_overflow;
 	
 	assign nxt_PC = branchJumpDTaken ? branchJumpDTarget : (JumpI ? jumpITarget : PC_plus_two);
 	
 	// 16-bit PC	
 	register Program_Counter(
 		.readData(PC),
-		.err(err_PC),
+		.err(err),
 		.clk(clk),
 		.rst(rst),
 		.writeData(nxt_PC),
@@ -39,7 +38,7 @@ module fetch (
 	
 	cla_16b PC_Adder(
 		.sum(PC_plus_two),
-		.c_out(err_PC_overflow),
+		.c_out(),					// not used
 		.a(PC),
 		.b(16'h0002),				// half-word aligned
 		.c_in(1'b0)					// no carry in
@@ -56,7 +55,5 @@ module fetch (
 		.clk(clk), 
 		.rst(rst)
 	);
-	
-	assign err = err_PC | err_PC_overflow;
 	
 endmodule

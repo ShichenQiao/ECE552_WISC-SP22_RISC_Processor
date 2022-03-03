@@ -25,7 +25,6 @@ module branchJumpD (
 	
 	reg err_branchOp;
 	wire [15:0] b;
-	wire err_PC_potential_Ofl;
 	reg branchCondition;
 	
 	always @(*) begin
@@ -53,10 +52,6 @@ module branchJumpD (
 	
 	assign branchJumpDCondition = branchCondition | JumpD;
 	
-	assign err_PC_potential_Ofl = (PC_plus_two[15] ^ b[15]) ? 1'b0 : (PC_plus_two[15] ^ branchJumpDTarget[15]);
-	
-	assign err = err_branchOp | 
-				 (Branch & err_PC_potential_Ofl) |
-				 (Branch & JumpD);
+	assign err = err_branchOp | (Branch & JumpD);
 	
 endmodule
