@@ -361,6 +361,8 @@ module control (
 			end
 			5'b00101: begin		// JR
 				SignImm = 1'b1;
+				ALUOp = 3'b100;			// PC <- Rs + I(sign ext.)
+				ALUSrc = 1'b1;
 				JumpI = 1'b1;
 			end
 			5'b00110: begin		// JAL
@@ -372,6 +374,8 @@ module control (
 			5'b00111: begin		// JALR
 				RegDst = 2'b11;			// R7
 				SignImm = 1'b1;
+				ALUOp = 3'b100;			// PC <- Rs + I(sign ext.)
+				ALUSrc = 1'b1;
 				JumpI = 1'b1;
 				RegWrite = 1'b1;
 				link = 1'b1;

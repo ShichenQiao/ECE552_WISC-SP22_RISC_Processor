@@ -36,6 +36,7 @@ module execute (
 	wire err_JumpI_Detector;
 	reg err_Flag_Analyzer, err_ALUExt;
 	reg CmpOut;
+	wire err_PC_potential_Ofl;
 	
 	assign InB = ClrALUSrc ? 16'h0000 : (ALUSrc ? immExt : read2Data);
 
@@ -90,14 +91,11 @@ module execute (
 	// choose final output from the execute between the ALU and the flag analyzer
 	assign XOut = CmpSet ? CmpOut : ALUExtOut;
 	
-	jumpI i_JumpI_Detector(
-		.err(err_JumpI_Detector),
-		.jumpITarget(jumpITarget),
-		.JumpI(JumpI),
-		.immExt(immExt),
-		.Rs(read1Data)
-	);
+	assign jumpITarget = ALUOut;			// only valid when JumpI is asserted
 	
-	assign err = err_Flag_Analyzer | err_ALUExt | err_JumpI_Detector;
+	assign err_PC_potential_Ofl = (read1Data[15] ^ immExt[15]) ? 1'b0 : (read1Data[15] ^ ALUOut[15]);
+	
+	assign err = err_Flag_Analyzer | err_ALUExt | err_JumpI_Detector |
+				 (JumpI & err_PC_potential_Ofl);
 	
 endmodule
