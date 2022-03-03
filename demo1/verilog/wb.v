@@ -1,5 +1,5 @@
 /*
-	CS/ECE 552 Spring '20
+	CS/ECE 552 Spring '22
 
 	Filename        : wb.v
 	Description     : This is the module for the overall Write Back stage of the processor.
@@ -10,7 +10,6 @@ module wb (
 	// Inputs
 	link, PC_plus_two, MemtoReg, MemOut, XOut
 );
-	// TODO: Your code here
 	input link;
 	input [15:0] PC_plus_two;
 	input MemtoReg;

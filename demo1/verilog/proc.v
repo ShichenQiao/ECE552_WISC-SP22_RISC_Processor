@@ -27,10 +27,10 @@ module proc (/*AUTOARG*/
 	wire [15:0] Instruction;
 	wire [15:0] PC_plus_two;
 	wire halt;
-	wire branchTaken;
-	wire [15:0] branchTarget;
-	wire jumpTaken;
-	wire [15:0] jumpTarget;
+	wire branchJumpDTaken;
+	wire [15:0] branchJumpDTarget;
+	wire JumpI;
+	wire [15:0] jumpITarget;
 	
 	wire [15:0] read1Data, read2Data;
 	wire [15:0] immExt;
@@ -39,7 +39,6 @@ module proc (/*AUTOARG*/
 	wire ALUSrc;
 	wire ClrALUSrc;
 	wire Cin, invA, invB, sign;
-	wire JumpI, JumpD;
 	wire MemWrite, MemRead;
 	wire CmpSet;
 	wire [1:0] CmpOp;
@@ -60,10 +59,10 @@ module proc (/*AUTOARG*/
 		.clk(clk),
 		.rst(rst),
 		.halt(halt),
-		.branchTaken(branchTaken),
-		.branchTarget(branchTarget),
-		.jumpTaken(jumpTaken),
-		.jumpTarget(jumpTarget)
+		.branchJumpDTaken(branchJumpDTaken),
+		.branchJumpDTarget(branchJumpDTarget),
+		.JumpI(JumpI),
+		.jumpITarget(jumpITarget)
 	);
 	
 	decode decode_stage(
@@ -81,9 +80,8 @@ module proc (/*AUTOARG*/
 		.invB(invB),
 		.sign(sign),
 		.JumpI(JumpI),
-		.JumpD(JumpD),
-		.branchTaken(branchTaken),
-		.branchTarget(branchTarget),
+		.branchJumpDTaken(branchJumpDTaken),
+		.branchJumpDTarget(branchJumpDTarget),
 		.MemWrite(MemWrite),
 		.MemRead(MemRead),
 		.CmpSet(CmpSet),
@@ -101,8 +99,7 @@ module proc (/*AUTOARG*/
 	execute execute_stage(
 		.err(errX),
 		.XOut(XOut),
-		.jumpTaken(jumpTaken),
-		.jumpTarget(jumpTarget),
+		.jumpITarget(jumpITarget),
 		.read1Data(read1Data),
 		.read2Data(read2Data),
 		.immExt(immExt),
@@ -116,10 +113,7 @@ module proc (/*AUTOARG*/
 		.CmpOp(CmpOp),
 		.specialOP(specialOP),
 		.CmpSet(CmpSet),
-		.JumpI(JumpI),
-		.JumpD(JumpD),
-		.D(Instruction[10:0]),
-		.PC_plus_two(PC_plus_two)
+		.JumpI(JumpI)
 	);
 	
 	memory memory_stage(

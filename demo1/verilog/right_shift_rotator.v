@@ -1,5 +1,5 @@
 /*
-	CS/ECE 552 Spring '20
+	CS/ECE 552 Spring '22
 
 	Filename        : right_shift_rotator.v
 	Description     : A right shifter/rotator sub-module.

@@ -1,19 +1,18 @@
 /*
-	CS/ECE 552 Spring '20
+	CS/ECE 552 Spring '22
 
 	Filename        : execute.v
 	Description     : This is the overall module for the execute stage of the processor.
 */
 module execute (
 	// Outputs
-	err, XOut, jumpTaken, jumpTarget,
+	err, XOut, jumpITarget,
 	// Inputs
 	read1Data, read2Data, immExt,
 	ALUOp, ALUSrc, ClrALUSrc, Cin, invA, invB, sign,
 	CmpOp, specialOP, CmpSet,
-	JumpI, JumpD, D, PC_plus_two
+	JumpI
 );
-	// TODO: Your code here
 	input [15:0] read1Data, read2Data;
 	input [15:0] immExt;
 	input [2:0] ALUOp;
@@ -23,21 +22,18 @@ module execute (
 	input [1:0] CmpOp;				// 00: == , 01: < , 10: <= , 11: carryout
 	input [1:0] specialOP;			// 00: none, 01: BTR, 10 LBI, 11 SLBI
 	input CmpSet;
-	input JumpI, JumpD;
-	input [10:0] D;					// which is Instruction[10:0]
-	input [15:0] PC_plus_two;
+	input JumpI;
 	
 	output err;
 	output [15:0] XOut;
-	output jumpTaken;
-	output [15:0] jumpTarget;
+	output [15:0] jumpITarget;
 	
 	wire [15:0] InB;
 	wire Zero, Neg, Ofl;
 	wire [15:0] ALUOut;
 	reg [15:0] ALUExtOut;
 	wire [15:0] read1Data_rev;
-	wire err_Jump_Detector;
+	wire err_JumpI_Detector;
 	reg err_Flag_Analyzer, err_ALUExt;
 	reg CmpOut;
 	
@@ -94,19 +90,14 @@ module execute (
 	// choose final output from the execute between the ALU and the flag analyzer
 	assign XOut = CmpSet ? CmpOut : ALUExtOut;
 	
-	jump i_Jump_Detector(
-		.err(err_Jump_Detector),
-		.jumpTarget(jumpTarget),
+	jumpI i_JumpI_Detector(
+		.err(err_JumpI_Detector),
+		.jumpITarget(jumpITarget),
 		.JumpI(JumpI),
-		.JumpD(JumpD),
-		.D(D),
 		.immExt(immExt),
-		.Rs(read1Data),
-		.PC_plus_two(PC_plus_two)
+		.Rs(read1Data)
 	);
 	
-	assign jumpTaken = JumpD | JumpI;
-	
-	assign err = err_Flag_Analyzer | err_ALUExt | err_Jump_Detector;
+	assign err = err_Flag_Analyzer | err_ALUExt | err_JumpI_Detector;
 	
 endmodule

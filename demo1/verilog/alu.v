@@ -1,5 +1,5 @@
 /*
-	CS/ECE 552 Spring '20
+	CS/ECE 552 Spring '22
 
 	Filename        : alu.v
 	Description     : This is the modified ALU of the processor.

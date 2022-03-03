@@ -1,5 +1,5 @@
 /*
-	CS/ECE 552 Spring '20
+	CS/ECE 552 Spring '22
 
 	Filename        : decode.v
 	Description     : This is the module for the overall decode stage of the processor.
@@ -10,13 +10,12 @@ module decode (
 	// Global_Control Outputs
 	halt, createdump, ALUOp, ALUSrc, ClrALUSrc,
 	Cin, invA, invB, sign,
-	JumpI, JumpD, MemWrite, MemRead,
+	JumpI, MemWrite, MemRead,
 	CmpSet, CmpOp, MemtoReg, link, specialOP,
-	branchTaken, branchTarget,
+	branchJumpDTaken, branchJumpDTarget,
 	// Inputs
 	clk, rst, Instruction, WBdata, PC_plus_two
 );
-	// TODO: Your code here
 	input clk;				// system clock
 	input rst;				// master reset, active high
 	input [15:0] Instruction;
@@ -48,9 +47,9 @@ module decode (
 	output ALUSrc;
 	output ClrALUSrc;					// when asserted, clear the Src2 to the ALU
 	output Cin, invA, invB, sign;		// other ALU controls
-	output JumpI, JumpD;
-	output branchTaken;
-	output [15:0] branchTarget;
+	output JumpI;
+	output branchJumpDTaken;
+	output [15:0] branchJumpDTarget;
 	output MemWrite, MemRead;
 	output CmpSet;
 	output [1:0] CmpOp;					// 00: == , 01: < , 10: <= , 11: carryout
@@ -65,9 +64,11 @@ module decode (
 	wire RegWrite;
 	wire SignImm;
 	wire imm5;
-	wire err_RF, err_Global_Control, err_Branch_Detector;
+	wire err_RF, err_Global_Control, err_Branch_JumpD_Detector;
 	reg err_regDst;
 	wire Branch;
+	wire JumpD;
+	wire branchJumpDCondition;
 	
 	regFile i_RF(
 		.read1Data(read1Data),
@@ -128,20 +129,22 @@ module decode (
 		.funct(Instruction[1:0])
 	);
 	
-	branch i_Branch_Detector(
-		.err(err_Branch_Detector),
-		.branchTarget(branchTarget),
-		.branchCondition(branchCondition),
+	branchJumpD i_Branch_JumpD_Detector(
+		.err(err_Branch_JumpD_Detector),
+		.branchJumpDTarget(branchJumpDTarget),
+		.branchJumpDCondition(branchJumpDCondition),
 		.branchOp(Instruction[12:11]),
 		.Rs(read1Data),
 		.immExt(immExt),
 		.PC_plus_two(PC_plus_two),
-		.Branch(Branch)
+		.Branch(Branch),
+		.JumpD(JumpD),
+		.D(Instruction[10:0])
 	);
 	
-	assign branchTaken = Branch & branchCondition;
+	assign branchJumpDTaken = (Branch | JumpD) & branchJumpDCondition;
 	
-	assign err = err_RF | err_regDst | err_Global_Control | err_Branch_Detector |
+	assign err = err_RF | err_regDst | err_Global_Control | err_Branch_JumpD_Detector |
 				 (^WBdata === 1'bz) | (^WBdata === 1'bx);
 	
 endmodule

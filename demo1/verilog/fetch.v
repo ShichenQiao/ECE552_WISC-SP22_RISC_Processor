@@ -1,5 +1,5 @@
 /*
-	CS/ECE 552 Spring '20
+	CS/ECE 552 Spring '22
 
 	Filename        : fetch.v
 	Description     : This is the module for the overall fetch stage of the processor.
@@ -8,16 +8,15 @@ module fetch (
 	// Outputs
 	err, Instruction, PC_plus_two,
 	// Inputs
-	clk, rst, halt, branchTaken, branchTarget, jumpTaken, jumpTarget
+	clk, rst, halt, branchJumpDTaken, branchJumpDTarget, JumpI, jumpITarget
 );
-	// TODO: Your code here
 	input clk;				// system clock
 	input rst;				// master reset, active high
 	input halt;				// when asserted, halt PC
-	input branchTaken;
-	input [15:0] branchTarget;
-	input jumpTaken;
-	input [15:0] jumpTarget;
+	input branchJumpDTaken;
+	input [15:0] branchJumpDTarget;
+	input JumpI;
+	input [15:0] jumpITarget;
 
 	output err;
 	output [15:0] Instruction;
@@ -26,7 +25,7 @@ module fetch (
 	wire [15:0] PC, nxt_PC;
 	wire err_PC, err_PC_overflow;
 	
-	assign nxt_PC = branchTaken ? branchTarget : (jumpTaken ? jumpTarget : PC_plus_two);
+	assign nxt_PC = branchJumpDTaken ? branchJumpDTarget : (JumpI ? jumpITarget : PC_plus_two);
 	
 	// 16-bit PC	
 	register Program_Counter(

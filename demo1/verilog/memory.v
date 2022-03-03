@@ -1,9 +1,8 @@
 /*
-	CS/ECE 552 Spring '20
+	CS/ECE 552 Spring '22
 
 	Filename        : memory.v
-	Description     : This module contains all components in the Memory stage of the 
-					 processor.
+	Description     : This module contains all components in the Memory stage of the processor.
 */
 module memory (
 	// Outputs
@@ -11,7 +10,6 @@ module memory (
 	// Inputs
 	clk, rst, XOut, WriteData, MemWrite, MemRead, createdump
 );
-	// TODO: Your code here
 	input clk;				// system clock
 	input rst;				// master reset, active high
 	input [15:0] XOut;
