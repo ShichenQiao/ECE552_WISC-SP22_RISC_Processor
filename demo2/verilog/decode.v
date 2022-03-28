@@ -6,20 +6,22 @@
 */
 module decode (
 	// Outputs
-	err, read1Data, read2Data, immExt,
+	err, read1Data, read2Data, immExt, Write_register,
 	// Global_Control Outputs
 	halt, createdump, ALUOp, ALUSrc, ClrALUSrc,
 	Cin, invA, invB, sign,
 	JumpI, MemWrite, MemRead,
 	CmpSet, CmpOp, MemtoReg, link, specialOP,
-	branchJumpDTaken, branchJumpDTarget,
+	branchJumpDTaken, branchJumpDTarget, RegWrite,
 	// Inputs
-	clk, rst, Instruction, WBdata, PC_plus_two
+	clk, rst, Instruction, WBdata, WBreg, WBregwrite, PC_plus_two
 );
 	input clk;				// system clock
 	input rst;				// master reset, active high
 	input [15:0] Instruction;
 	input [15:0] WBdata;
+	input [2:0] WBreg;
+	input WBregwrite;
 	input [15:0] PC_plus_two;
 	
 	output err;
@@ -59,9 +61,11 @@ module decode (
 	// extending ALU functionalities
 	output [1:0] specialOP;				// 00: none, 01: BTR, 10 LBI, 11 SLBI
 	
-	reg [2:0] Write_register;
+	// Note: changed to an output in Phase 2 for pipelining
+	output reg [2:0] Write_register;
+	output RegWrite;
+	
 	wire [1:0] RegDst;					// 00: Instruction[10:8], 01: Instruction[7:5], 10: Instruction[4:2], 11: R7
-	wire RegWrite;
 	wire SignImm;
 	wire imm5;
 	wire err_RF, err_Global_Control, err_Branch_JumpD_Detector;
@@ -70,7 +74,8 @@ module decode (
 	wire JumpD;
 	wire branchJumpDCondition;
 	
-	regFile i_RF(
+	// using RF bypassing since Phase 2
+	regFile_bypass i_RF_bypass(
 		.read1Data(read1Data),
 		.read2Data(read2Data),
 		.err(err_RF),
@@ -78,9 +83,9 @@ module decode (
 		.rst(rst),
 		.read1RegSel(Instruction[10:8]),
 		.read2RegSel(Instruction[7:5]),
-		.writeRegSel(Write_register),
+		.writeRegSel(WBreg),
 		.writeData(WBdata),
-		.writeEn(RegWrite)
+		.writeEn(WBregwrite)
 	);
 	
 	always @(*) begin

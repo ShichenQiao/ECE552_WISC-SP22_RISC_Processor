@@ -8,7 +8,7 @@ module fetch (
 	// Outputs
 	err, Instruction, PC_plus_two,
 	// Inputs
-	clk, rst, halt, branchJumpDTaken, branchJumpDTarget, JumpI, jumpITarget
+	clk, rst, halt, branchJumpDTaken, branchJumpDTarget, JumpI, jumpITarget, stall
 );
 	input clk;				// system clock
 	input rst;				// master reset, active high
@@ -17,6 +17,7 @@ module fetch (
 	input [15:0] branchJumpDTarget;
 	input JumpI;
 	input [15:0] jumpITarget;
+	input stall;
 
 	output err;
 	output [15:0] Instruction;
@@ -33,7 +34,7 @@ module fetch (
 		.clk(clk),
 		.rst(rst),
 		.writeData(nxt_PC),
-		.writeEn(~halt)
+		.writeEn((~halt) & (~stall))
 	);
 	
 	cla_16b PC_Adder(

@@ -29,7 +29,8 @@ module proc (/*AUTOARG*/
 	
 	wire [15:0] read1Data_ID, read2Data_ID, read1Data_EX, read2Data_EX, read2Data_MEM;
 	wire [15:0] immExt_ID, immExt_EX;
-	wire halt_ID;
+	wire [2:0] Write_register_ID, Write_register_EX, Write_register_MEM, Write_register_WB;
+	wire halt_ID, halt_EX, halt_MEM, halt_WB;
 	wire createdump_ID, createdump_EX, createdump_MEM;
 	wire [2:0] ALUOp_ID, ALUOp_EX;
 	wire ALUSrc_ID, ALUSrc_EX;
@@ -44,12 +45,16 @@ module proc (/*AUTOARG*/
 	wire MemtoReg_ID, MemtoReg_EX, MemtoReg_MEM, MemtoReg_WB;
 	wire link_ID, link_EX, link_MEM, link_WB;
 	wire [1:0] specialOP_ID, specialOP_EX;
-	wire [15:0] WBdata;
+	wire RegWrite_ID, RegWrite_EX, RegWrite_MEM, RegWrite_WB;
 	
 	wire [15:0] XOut_EX, XOut_MEM, XOut_WB;
 	wire [15:0] jumpITarget_EX;
 
 	wire [15:0] MemOut_MEM, MemOut_WB;
+	
+	wire [15:0] WBdata;
+	
+	wire stall;		// stall signal from hdu
 
 	fetch fetch_stage(
 		.err(errF),
@@ -57,11 +62,12 @@ module proc (/*AUTOARG*/
 		.PC_plus_two(PC_plus_two_IF),
 		.clk(clk),
 		.rst(rst),
-		.halt(halt_ID),
+		.halt(halt_WB),
 		.branchJumpDTaken(branchJumpDTaken_ID),
 		.branchJumpDTarget(branchJumpDTarget_ID),
 		.JumpI(JumpI_EX),
-		.jumpITarget(jumpITarget_EX)
+		.jumpITarget(jumpITarget_EX),
+		.stall(stall)
 	);
 	
 	IF_ID if_id(
@@ -70,7 +76,8 @@ module proc (/*AUTOARG*/
 		.clk(clk),
 		.rst(rst),
 		.Instruction_in(Instruction_IF),
-		.PC_plus_two_in(PC_plus_two_IF)
+		.PC_plus_two_in(PC_plus_two_IF),
+		.stall(stall)
 	);
 	
 	decode decode_stage(
@@ -78,6 +85,7 @@ module proc (/*AUTOARG*/
 		.read1Data(read1Data_ID),
 		.read2Data(read2Data_ID),
 		.immExt(immExt_ID),
+		.Write_register(Write_register_ID),
 		.halt(halt_ID),
 		.createdump(createdump_ID),
 		.ALUOp(ALUOp_ID),
@@ -97,17 +105,33 @@ module proc (/*AUTOARG*/
 		.MemtoReg(MemtoReg_ID),
 		.link(link_ID),
 		.specialOP(specialOP_ID),
+		.RegWrite(RegWrite_ID),
 		.clk(clk),
 		.rst(rst),
 		.Instruction(Instruction_ID),
 		.WBdata(WBdata),
+		.WBreg(Write_register_WB),
+		.WBregwrite(RegWrite_WB),
 		.PC_plus_two(PC_plus_two_ID)
+	);
+	
+	hazard_detection hdu(
+		.stall(stall),
+		.OpCode_ID(Instruction_ID[15:11]),
+		.Rs_ID(Instruction_ID[10:8]),
+		.Rt_ID(Instruction_ID[7:5]),
+		.Write_register_EX(Write_register_EX),
+		.RegWrite_EX(RegWrite_EX),
+		.Write_register_MEM(Write_register_MEM),
+		.RegWrite_MEM(RegWrite_MEM)
 	);
 	
 	ID_EX id_ex(
 		.read1Data_out(read1Data_EX),
 		.read2Data_out(read2Data_EX),
 		.immExt_out(immExt_EX),
+		.Write_register_out(Write_register_EX),
+		.halt_out(halt_EX),
 		.createdump_out(createdump_EX),
 		.ALUOp_out(ALUOp_EX),
 		.ALUSrc_out(ALUSrc_EX),
@@ -125,11 +149,14 @@ module proc (/*AUTOARG*/
 		.MemtoReg_out(MemtoReg_EX),
 		.link_out(link_EX),
 		.specialOP_out(specialOP_EX),
+		.RegWrite_out(RegWrite_EX),
 		.clk(clk),
 		.rst(rst),
 		.read1Data_in(read1Data_ID),
 		.read2Data_in(read2Data_ID),
 		.immExt_in(immExt_ID),
+		.Write_register_in(Write_register_ID),
+		.halt_in(halt_ID),
 		.createdump_in(createdump_ID),
 		.ALUOp_in(ALUOp_ID),
 		.ALUSrc_in(ALUSrc_ID),
@@ -146,7 +173,9 @@ module proc (/*AUTOARG*/
 		.CmpOp_in(CmpOp_ID),
 		.MemtoReg_in(MemtoReg_ID),
 		.link_in(link_ID),
-		.specialOP_in(specialOP_ID)
+		.specialOP_in(specialOP_ID),
+		.RegWrite_in(RegWrite_ID),
+		.stall(stall)
 	);
 	
 	execute execute_stage(
@@ -174,20 +203,26 @@ module proc (/*AUTOARG*/
 		.read2Data_out(read2Data_MEM),
 		.MemWrite_out(MemWrite_MEM),
 		.MemRead_out(MemRead_MEM),
+		.halt_out(halt_MEM),
 		.createdump_out(createdump_MEM),
 		.link_out(link_MEM),
 		.PC_plus_two_out(PC_plus_two_MEM),
 		.MemtoReg_out(MemtoReg_MEM),
+		.Write_register_out(Write_register_MEM),
+		.RegWrite_out(RegWrite_MEM),
 		.clk(clk),
 		.rst(rst),
 		.XOut_in(XOut_EX),
 		.read2Data_in(read2Data_EX),
 		.MemWrite_in(MemWrite_EX),
 		.MemRead_in(MemRead_EX),
+		.halt_in(halt_EX),
 		.createdump_in(createdump_EX),
 		.link_in(link_EX),
 		.PC_plus_two_in(PC_plus_two_EX),
-		.MemtoReg_in(MemtoReg_EX)
+		.MemtoReg_in(MemtoReg_EX),
+		.Write_register_in(Write_register_EX),
+		.RegWrite_in(RegWrite_EX)
 	);
 	
 	memory memory_stage(
@@ -208,13 +243,19 @@ module proc (/*AUTOARG*/
 		.link_out(link_WB),
 		.PC_plus_two_out(PC_plus_two_WB),
 		.MemtoReg_out(MemtoReg_WB),
+		.Write_register_out(Write_register_WB),
+		.RegWrite_out(RegWrite_WB),
+		.halt_out(halt_WB),
 		.clk(clk),
 		.rst(rst),
 		.MemOut_in(MemOut_MEM),
 		.XOut_in(XOut_MEM),
 		.link_in(link_MEM),
 		.PC_plus_two_in(PC_plus_two_MEM),
-		.MemtoReg_in(MemtoReg_MEM)
+		.MemtoReg_in(MemtoReg_MEM),
+		.Write_register_in(Write_register_MEM),
+		.RegWrite_in(RegWrite_MEM),
+		.halt_in(halt_MEM)
 	);
 	
 	wb write_back_stage(

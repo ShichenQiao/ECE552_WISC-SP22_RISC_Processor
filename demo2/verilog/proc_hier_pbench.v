@@ -130,13 +130,13 @@ module proc_hier_pbench();
    assign PC = DUT.p0.fetch_stage.PC;
    assign Inst = DUT.p0.fetch_stage.Instruction;
    
-   assign RegWrite = DUT.p0.decode_stage.i_RF.writeEn;
+   assign RegWrite = DUT.p0.decode_stage.i_RF_bypass.writeEn;
    // Is register file being written to, one bit signal (1 means yes, 0 means no)
 
-   assign WriteRegister = DUT.p0.decode_stage.i_RF.writeRegSel;
+   assign WriteRegister = DUT.p0.decode_stage.i_RF_bypass.writeRegSel;
    // The name of the register being written to. (3 bit signal)
    
-   assign WriteData = DUT.p0.decode_stage.i_RF.writeData;
+   assign WriteData = DUT.p0.decode_stage.i_RF_bypass.writeData;
    // Data being written to the register. (16 bits)
    
    assign MemRead = DUT.p0.memory_stage.MemRead;

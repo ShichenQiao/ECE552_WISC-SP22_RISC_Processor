@@ -6,22 +6,23 @@
 */
 module ID_EX (
 	// Outputs
-	read1Data_out, read2Data_out, immExt_out, createdump_out,
+	read1Data_out, read2Data_out, immExt_out, Write_register_out, halt_out, createdump_out,
 	ALUOp_out, ALUSrc_out, ClrALUSrc_out, Cin_out, invA_out, invB_out, sign_out,
-	JumpI_out, PC_plus_two_out,
-	MemWrite_out, MemRead_out, CmpSet_out, CmpOp_out, MemtoReg_out, link_out, specialOP_out,
+	JumpI_out, PC_plus_two_out, MemWrite_out, MemRead_out, CmpSet_out, CmpOp_out,
+	MemtoReg_out, link_out, specialOP_out, RegWrite_out,
 	// Inputs
-	clk, rst, read1Data_in, read2Data_in, immExt_in, createdump_in,
+	clk, rst, read1Data_in, read2Data_in, immExt_in, Write_register_in, halt_in, createdump_in,
 	ALUOp_in, ALUSrc_in, ClrALUSrc_in, Cin_in, invA_in, invB_in, sign_in,
-	JumpI_in, PC_plus_two_in,
-	MemWrite_in, MemRead_in, CmpSet_in, CmpOp_in, MemtoReg_in, link_in, specialOP_in
+	JumpI_in, PC_plus_two_in, MemWrite_in, MemRead_in, CmpSet_in, CmpOp_in, 
+	MemtoReg_in, link_in, specialOP_in, RegWrite_in, stall
 	);
 
 	input clk;
 	input rst;
 	input [15:0] read1Data_in, read2Data_in;
 	input [15:0] immExt_in;
-	input createdump_in;
+	input [2:0] Write_register_in;
+	input halt_in, createdump_in;
 	input [2:0] ALUOp_in;
 	input ALUSrc_in;
 	input ClrALUSrc_in;
@@ -34,10 +35,13 @@ module ID_EX (
 	input MemtoReg_in;
 	input link_in;
 	input [1:0] specialOP_in;
+	input RegWrite_in;
+	input stall;
 
 	output [15:0] read1Data_out, read2Data_out;
 	output [15:0] immExt_out;
-	output createdump_out;
+	output [2:0] Write_register_out;
+	output halt_out, createdump_out;
 	output [2:0] ALUOp_out;
 	output ALUSrc_out;
 	output ClrALUSrc_out;
@@ -50,6 +54,7 @@ module ID_EX (
 	output MemtoReg_out;
 	output link_out;
 	output [1:0] specialOP_out;
+	output RegWrite_out;
 	
 	dff read1Data[15:0](
 		.q(read1Data_out),
@@ -72,9 +77,23 @@ module ID_EX (
 		.rst(rst)
 	);
 	
+	dff writeregister[2:0](
+		.q(Write_register_out),
+		.d(Write_register_in),
+		.clk(clk),
+		.rst(rst)
+	);
+	
+	dff halt(
+		.q(halt_out),
+		.d(halt_in),
+		.clk(clk),
+		.rst(rst)
+	);
+	
 	dff createdump(
 		.q(createdump_out),
-		.d(createdump_in),
+		.d(createdump_in & ~stall),
 		.clk(clk),
 		.rst(rst)
 	);
@@ -130,7 +149,7 @@ module ID_EX (
 	
 	dff jumpi(
 		.q(JumpI_out),
-		.d(JumpI_in),
+		.d(JumpI_in & ~stall),
 		.clk(clk),
 		.rst(rst)
 	);
@@ -144,21 +163,21 @@ module ID_EX (
 
 	dff memwrite(
 		.q(MemWrite_out),
-		.d(MemWrite_in),
+		.d(MemWrite_in & ~stall),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff memread(
 		.q(MemRead_out),
-		.d(MemRead_in),
+		.d(MemRead_in & ~stall),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff cmpset(
 		.q(CmpSet_out),
-		.d(CmpSet_in),
+		.d(CmpSet_in & ~stall),
 		.clk(clk),
 		.rst(rst)
 	);
@@ -172,14 +191,14 @@ module ID_EX (
 	
 	dff memtoreg(
 		.q(MemtoReg_out),
-		.d(MemtoReg_in),
+		.d(MemtoReg_in & ~stall),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff link(
 		.q(link_out),
-		.d(link_in),
+		.d(link_in & ~stall),
 		.clk(clk),
 		.rst(rst)
 	);
@@ -187,6 +206,13 @@ module ID_EX (
 	dff specialop[1:0](
 		.q(specialOP_out),
 		.d(specialOP_in),
+		.clk(clk),
+		.rst(rst)
+	);
+	
+	dff regwrite(
+		.q(RegWrite_out),
+		.d(RegWrite_in & ~stall),
 		.clk(clk),
 		.rst(rst)
 	);
