@@ -44,13 +44,6 @@ module EX_MEM (
 		.rst(rst)
 	);
 	
-	dff jumpitarget[15:0](
-		.q(jumpITarget_out),
-		.d(jumpITarget_in),
-		.clk(clk),
-		.rst(rst)
-	);
-	
 	dff read2Data[15:0](
 		.q(read2Data_out),
 		.d(read2Data_in),

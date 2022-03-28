@@ -30,7 +30,8 @@ module hazard_detection (
 	assign MEM_RAW_Rs = RegWrite_MEM & (Rs_ID == Write_register_MEM);
 	assign MEM_RAW_Rt = RegWrite_MEM & (Rt_ID == Write_register_MEM);
 	
-	assign Rt_active = (OpCode_ID[4:1] == 4'b1101) | (OpCode_ID[4:2] == 3'b111);
+	assign Rt_active = (OpCode_ID[4:1] == 4'b1101) | (OpCode_ID[4:2] == 3'b111) |
+					   (OpCode_ID == 5'b10000) | (OpCode_ID == 5'b10011) ;
 	
 	assign Rs_stall = EX_RAW_Rs | MEM_RAW_Rs;
 	assign Rt_stall = Rt_active ? (EX_RAW_Rt | MEM_RAW_Rt) : 1'b0;
