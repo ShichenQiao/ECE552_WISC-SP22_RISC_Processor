@@ -8,7 +8,7 @@ module IF_ID (
 	// Outputs
 	Instruction_out, PC_plus_two_out,
 	// Inputs
-	clk, rst, Instruction_in, PC_plus_two_in, stall
+	clk, rst, Instruction_in, PC_plus_two_in, stall, flush
 	);
 
 	input clk;
@@ -16,6 +16,7 @@ module IF_ID (
 	input [15:0] Instruction_in;
 	input [15:0] PC_plus_two_in;
 	input stall;
+	input flush;
 
 	output [15:0] Instruction_out;
 	output [15:0] PC_plus_two_out;
@@ -30,7 +31,7 @@ module IF_ID (
 	);
 	
 	// pass NOP (16'h0FFF) to pipeline on stall or reset
-	assign Instruction_d = rst ? 16'h0FFF :
+	assign Instruction_d = (rst | flush) ? 16'h0FFF :
 						   stall ? Instruction_out :
 						   Instruction_in;
 	

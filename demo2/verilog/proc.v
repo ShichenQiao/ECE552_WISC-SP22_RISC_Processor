@@ -77,7 +77,8 @@ module proc (/*AUTOARG*/
 		.rst(rst),
 		.Instruction_in(Instruction_IF),
 		.PC_plus_two_in(PC_plus_two_IF),
-		.stall(stall)
+		.stall(stall),
+		.flush(branchJumpDTaken_ID | JumpI_EX)
 	);
 	
 	decode decode_stage(
