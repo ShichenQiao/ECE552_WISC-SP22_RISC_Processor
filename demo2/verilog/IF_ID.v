@@ -19,12 +19,16 @@ module IF_ID (
 	output [15:0] Instruction_out;
 	output [15:0] PC_plus_two_out;
 	
+	wire [15:0] inst_fix;
+	
 	dff instruction[15:0](
 		.q(Instruction_out),
-		.d(Instruction_in),
+		.d(inst_fix),
 		.clk(clk),
-		.rst(rst)
+		.rst(1'b0)
 	);
+	
+	assign inst_fix = rst ? 16'h0FFF : Instruction_in;
 	
 	dff pc_plus_two[15:0](
 		.q(PC_plus_two_out),

@@ -6,12 +6,12 @@
 */
 module ID_EX (
 	// Outputs
-	read1Data_out, read2Data_out, immExt_out, halt_out, createdump_out,
+	read1Data_out, read2Data_out, immExt_out, createdump_out,
 	ALUOp_out, ALUSrc_out, ClrALUSrc_out, Cin_out, invA_out, invB_out, sign_out,
 	JumpI_out, PC_plus_two_out,
 	MemWrite_out, MemRead_out, CmpSet_out, CmpOp_out, MemtoReg_out, link_out, specialOP_out,
 	// Inputs
-	clk, rst, read1Data_in, read2Data_in, immExt_in, halt_in, createdump_in,
+	clk, rst, read1Data_in, read2Data_in, immExt_in, createdump_in,
 	ALUOp_in, ALUSrc_in, ClrALUSrc_in, Cin_in, invA_in, invB_in, sign_in,
 	JumpI_in, PC_plus_two_in,
 	MemWrite_in, MemRead_in, CmpSet_in, CmpOp_in, MemtoReg_in, link_in, specialOP_in
@@ -21,7 +21,7 @@ module ID_EX (
 	input rst;
 	input [15:0] read1Data_in, read2Data_in;
 	input [15:0] immExt_in;
-	input halt_in, createdump_in;
+	input createdump_in;
 	input [2:0] ALUOp_in;
 	input ALUSrc_in;
 	input ClrALUSrc_in;
@@ -37,7 +37,7 @@ module ID_EX (
 
 	output [15:0] read1Data_out, read2Data_out;
 	output [15:0] immExt_out;
-	output halt_out, createdump_out;
+	output createdump_out;
 	output [2:0] ALUOp_out;
 	output ALUSrc_out;
 	output ClrALUSrc_out;
@@ -53,7 +53,7 @@ module ID_EX (
 	
 	dff read1Data[15:0](
 		.q(read1Data_out),
-		.d(Instruction_in),
+		.d(read1Data_in),
 		.clk(clk),
 		.rst(rst)
 	);
@@ -68,13 +68,6 @@ module ID_EX (
 	dff immExt[15:0](
 		.q(immExt_out),
 		.d(immExt_in),
-		.clk(clk),
-		.rst(rst)
-	);
-	
-	dff halt(
-		.q(halt_out),
-		.d(halt_in),
 		.clk(clk),
 		.rst(rst)
 	);

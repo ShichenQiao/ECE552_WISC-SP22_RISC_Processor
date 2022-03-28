@@ -29,7 +29,7 @@ module proc (/*AUTOARG*/
 	
 	wire [15:0] read1Data_ID, read2Data_ID, read1Data_EX, read2Data_EX, read2Data_MEM;
 	wire [15:0] immExt_ID, immExt_EX;
-	wire halt_ID, halt_EX;
+	wire halt_ID;
 	wire createdump_ID, createdump_EX, createdump_MEM;
 	wire [2:0] ALUOp_ID, ALUOp_EX;
 	wire ALUSrc_ID, ALUSrc_EX;
@@ -108,7 +108,6 @@ module proc (/*AUTOARG*/
 		.read1Data_out(read1Data_EX),
 		.read2Data_out(read2Data_EX),
 		.immExt_out(immExt_EX),
-		.halt_out(halt_EX),
 		.createdump_out(createdump_EX),
 		.ALUOp_out(ALUOp_EX),
 		.ALUSrc_out(ALUSrc_EX),
@@ -131,7 +130,6 @@ module proc (/*AUTOARG*/
 		.read1Data_in(read1Data_ID),
 		.read2Data_in(read2Data_ID),
 		.immExt_in(immExt_ID),
-		.halt_in(halt_ID),
 		.createdump_in(createdump_ID),
 		.ALUOp_in(ALUOp_ID),
 		.ALUSrc_in(ALUSrc_ID),
