@@ -78,7 +78,7 @@ module proc (/*AUTOARG*/
 		.Instruction_in(Instruction_IF),
 		.PC_plus_two_in(PC_plus_two_IF),
 		.stall(stall),
-		.flush(branchJumpDTaken_ID | JumpI_EX)
+		.flush(branchJumpDTaken_ID | (JumpI_EX & ~stall))
 	);
 	
 	decode decode_stage(
@@ -176,7 +176,7 @@ module proc (/*AUTOARG*/
 		.link_in(link_ID),
 		.specialOP_in(specialOP_ID),
 		.RegWrite_in(RegWrite_ID),
-		.stall(stall)
+		.nop(stall)
 	);
 	
 	execute execute_stage(
