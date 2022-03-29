@@ -124,7 +124,11 @@ module proc (/*AUTOARG*/
 		.Write_register_EX(Write_register_EX),
 		.RegWrite_EX(RegWrite_EX),
 		.Write_register_MEM(Write_register_MEM),
-		.RegWrite_MEM(RegWrite_MEM)
+		.RegWrite_MEM(RegWrite_MEM),
+		.link_EX(link_EX),
+		.link_MEM(link_MEM),
+		.JumpI_EX(JumpI_EX),
+		.JumpI_MEM(JumpI_MEM)
 	);
 	
 	ID_EX id_ex(
