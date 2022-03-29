@@ -86,14 +86,14 @@ module ID_EX (
 	
 	dff halt(
 		.q(halt_out),
-		.d(halt_in & ~JumpI_in),
+		.d(halt_in & ~JumpI_out),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff createdump(
 		.q(createdump_out),
-		.d(createdump_in & ~stall & ~JumpI_in),
+		.d(createdump_in & ~stall & ~JumpI_out),
 		.clk(clk),
 		.rst(rst)
 	);
@@ -177,7 +177,7 @@ module ID_EX (
 	
 	dff cmpset(
 		.q(CmpSet_out),
-		.d(CmpSet_in & ~stall & ~JumpI_in),
+		.d(CmpSet_in),
 		.clk(clk),
 		.rst(rst)
 	);
@@ -198,7 +198,7 @@ module ID_EX (
 	
 	dff link(
 		.q(link_out),
-		.d(link_in & ~stall & ~JumpI_in),
+		.d(link_in & ~stall),
 		.clk(clk),
 		.rst(rst)
 	);
@@ -212,7 +212,7 @@ module ID_EX (
 	
 	dff regwrite(
 		.q(RegWrite_out),
-		.d(RegWrite_in & ~stall & ~JumpI_in),
+		.d(RegWrite_in & ~stall),
 		.clk(clk),
 		.rst(rst)
 	);

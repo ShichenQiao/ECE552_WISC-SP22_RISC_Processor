@@ -36,6 +36,6 @@ module hazard_detection (
 	assign Rs_stall = EX_RAW_Rs | MEM_RAW_Rs;
 	assign Rt_stall = Rt_active ? (EX_RAW_Rt | MEM_RAW_Rt) : 1'b0;
 	
-	assign stall = Rs_stall | Rt_stall;
+	assign stall = (OpCode_ID[4:2] == 4'b001) ? 1'b0 : (Rs_stall | Rt_stall);
 	
 endmodule
