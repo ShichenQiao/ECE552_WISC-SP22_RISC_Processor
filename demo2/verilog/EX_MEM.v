@@ -8,11 +8,11 @@ module EX_MEM (
 	// Outputs
 	XOut_out,
 	read2Data_out, MemWrite_out, MemRead_out, halt_out, createdump_out,
-	link_out, JumpI_in, PC_plus_two_out, MemtoReg_out, Write_register_out, RegWrite_out,
+	link_out, PC_plus_two_out, MemtoReg_out, Write_register_out, RegWrite_out,
 	// Inputs
 	clk, rst, XOut_in,
 	read2Data_in, MemWrite_in, MemRead_in, halt_in, createdump_in,
-	link_in, JumpI_out, PC_plus_two_in, MemtoReg_in, Write_register_in, RegWrite_in
+	link_in, PC_plus_two_in, MemtoReg_in, Write_register_in, RegWrite_in
 	);
 
 	input clk;
@@ -22,7 +22,6 @@ module EX_MEM (
 	input MemWrite_in, MemRead_in;
 	input halt_in, createdump_in;	
 	input link_in;
-	input JumpI_in;
 	input [15:0] PC_plus_two_in;
 	input MemtoReg_in;
 	input [2:0] Write_register_in;
@@ -33,7 +32,6 @@ module EX_MEM (
 	output MemWrite_out, MemRead_out;
 	output halt_out, createdump_out;
 	output link_out;
-	output JumpI_out;
 	output [15:0] PC_plus_two_out;
 	output MemtoReg_out;
 	output [2:0] Write_register_out;
@@ -84,13 +82,6 @@ module EX_MEM (
 	dff link(
 		.q(link_out),
 		.d(link_in),
-		.clk(clk),
-		.rst(rst)
-	);
-	
-	dff jumpi(
-		.q(JumpI_out),
-		.d(JumpI_in),
 		.clk(clk),
 		.rst(rst)
 	);

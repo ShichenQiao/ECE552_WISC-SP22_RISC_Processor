@@ -36,7 +36,7 @@ module proc (/*AUTOARG*/
 	wire ALUSrc_ID, ALUSrc_EX;
 	wire ClrALUSrc_ID, ClrALUSrc_EX;
 	wire Cin_ID, invA_ID, invB_ID, sign_ID, Cin_EX, invA_EX, invB_EX, sign_EX;
-	wire JumpI_ID, JumpI_EX, JumpI_MEM;
+	wire JumpI_ID, JumpI_EX;
 	wire branchJumpDTaken_ID;
 	wire [15:0] branchJumpDTarget_ID;
 	wire MemWrite_ID, MemRead_ID, MemWrite_EX, MemRead_EX, MemWrite_MEM, MemRead_MEM;
@@ -209,7 +209,6 @@ module proc (/*AUTOARG*/
 		.halt_out(halt_MEM),
 		.createdump_out(createdump_MEM),
 		.link_out(link_MEM),
-		.JumpI_out(JumpI_MEM),
 		.PC_plus_two_out(PC_plus_two_MEM),
 		.MemtoReg_out(MemtoReg_MEM),
 		.Write_register_out(Write_register_MEM),
@@ -223,7 +222,6 @@ module proc (/*AUTOARG*/
 		.halt_in(halt_EX),
 		.createdump_in(createdump_EX),
 		.link_in(link_EX),
-		.JumpI_in(JumpI_EX),
 		.PC_plus_two_in(PC_plus_two_EX),
 		.MemtoReg_in(MemtoReg_EX),
 		.Write_register_in(Write_register_EX),

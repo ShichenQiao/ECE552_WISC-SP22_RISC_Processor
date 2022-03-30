@@ -31,7 +31,7 @@ module IF_ID (
 	);
 	
 	// pass NOP (16'h0FFF) to pipeline on stall or reset
-	assign Instruction_d = (rst | flush) ? 16'h0FFF :
+	assign Instruction_d = (rst | flush) ? 16'h0800 :
 						   stall ? Instruction_out :
 						   Instruction_in;
 	
