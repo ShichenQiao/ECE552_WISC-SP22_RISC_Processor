@@ -14,7 +14,7 @@ module ID_EX (
 	clk, rst, read1Data_in, read2Data_in, immExt_in, Write_register_in, halt_in, createdump_in,
 	ALUOp_in, ALUSrc_in, ClrALUSrc_in, Cin_in, invA_in, invB_in, sign_in,
 	JumpI_in, PC_plus_two_in, MemWrite_in, MemRead_in, CmpSet_in, CmpOp_in, 
-	MemtoReg_in, link_in, specialOP_in, RegWrite_in, nop
+	MemtoReg_in, link_in, specialOP_in, RegWrite_in, nop, stall
 	);
 
 	input clk;
@@ -37,6 +37,7 @@ module ID_EX (
 	input [1:0] specialOP_in;
 	input RegWrite_in;
 	input nop;
+	input stall;
 
 	output [15:0] read1Data_out, read2Data_out;
 	output [15:0] immExt_out;
@@ -149,7 +150,7 @@ module ID_EX (
 	
 	dff jumpi(
 		.q(JumpI_out),
-		.d(JumpI_in),
+		.d(JumpI_in & ~stall),
 		.clk(clk),
 		.rst(rst)
 	);
