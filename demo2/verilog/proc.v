@@ -124,7 +124,8 @@ module proc (/*AUTOARG*/
 		.Write_register_EX(Write_register_EX),
 		.RegWrite_EX(RegWrite_EX),
 		.Write_register_MEM(Write_register_MEM),
-		.RegWrite_MEM(RegWrite_MEM)
+		.RegWrite_MEM(RegWrite_MEM),
+		.branchJumpDTaken_ID(branchJumpDTaken_ID)
 	);
 	
 	ID_EX id_ex(
