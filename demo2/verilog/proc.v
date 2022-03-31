@@ -67,7 +67,7 @@ module proc (/*AUTOARG*/
 		.branchJumpDTarget(branchJumpDTarget_ID),
 		.JumpI(JumpI_EX),
 		.jumpITarget(jumpITarget_EX),
-		.stall(stall)
+		.stall(stall & ~JumpI_EX)
 	);
 	
 	IF_ID if_id(
