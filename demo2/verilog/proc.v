@@ -62,7 +62,7 @@ module proc (/*AUTOARG*/
 		.PC_plus_two(PC_plus_two_IF),
 		.clk(clk),
 		.rst(rst),
-		.halt(halt_WB),
+		.halt(halt_ID & ~branchJumpDTarget_ID & ~JumpI_EX),
 		.branchJumpDTaken(branchJumpDTaken_ID),
 		.branchJumpDTarget(branchJumpDTarget_ID),
 		.JumpI(JumpI_EX),

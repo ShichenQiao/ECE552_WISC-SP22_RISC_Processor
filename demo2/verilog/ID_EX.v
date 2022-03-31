@@ -87,7 +87,8 @@ module ID_EX (
 	
 	dff halt(
 		.q(halt_out),
-		.d(halt_in & ~JumpI_out),
+		//.d(halt_in & ~JumpI_out),
+		.d(halt_in & ~nop),
 		.clk(clk),
 		.rst(rst)
 	);
