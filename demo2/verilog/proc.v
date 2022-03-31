@@ -235,7 +235,7 @@ module proc (/*AUTOARG*/
 		.rst(rst),
 		.XOut(XOut_MEM),
 		.WriteData(read2Data_MEM),
-		.MemWrite(MemWrite_MEM),
+		.MemWrite(MemWrite_MEM & ~halt_WB),
 		.MemRead(MemRead_MEM),
 		.createdump(createdump_MEM)
 	);
