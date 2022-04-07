@@ -22,7 +22,7 @@ module mem_system(/*AUTOARG*/
    output wire        Done;
    output wire        Stall;
    output wire        CacheHit;
-   output reg        err;
+   output wire        err;
 
    /* data_mem = 1, inst_mem = 0 *
     * needed for cache parameter */
@@ -39,6 +39,7 @@ module mem_system(/*AUTOARG*/
 	wire wr, rd;
 	wire [2:0] offset;
 	wire [15:0] c_data_in;
+	wire err_c0, err_mem, err_fsm;
 	
    cache #(0 + memtype) c0(// Outputs
                           .tag_out              (tag_out),
@@ -46,7 +47,7 @@ module mem_system(/*AUTOARG*/
                           .hit                  (hit),
                           .dirty                (dirty),
                           .valid                (valid),
-                          .err                  (),
+                          .err                  (err_c0),
                           // Inputs
                           .enable               (enable),
                           .clk                  (clk),
@@ -63,8 +64,8 @@ module mem_system(/*AUTOARG*/
    four_bank_mem mem(// Outputs
                      .data_out          (m_data_out),
                      .stall             (stall),
-                     .busy              (),
-                     .err               (),
+                     .busy              (),				// not used
+                     .err               (err_mem),
                      // Inputs
                      .clk               (clk),
                      .rst               (rst),
@@ -79,7 +80,7 @@ module mem_system(/*AUTOARG*/
 		.Done(Done),
 		.Stall(Stall),
 		.CacheHit(CacheHit),
-		.err(),
+		.err(err_fsm),
 		.enable(enable),
 		.offset(offset),
 		.comp(comp),
@@ -104,6 +105,7 @@ module mem_system(/*AUTOARG*/
 	
 	assign c_data_in = comp ? DataIn : m_data_out;
 	assign DataOut = c_data_out;
+	assign err = err_c0 | err_mem | err_fsm;
 
 endmodule // mem_system
 `default_nettype wire
