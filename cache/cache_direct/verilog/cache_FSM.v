@@ -149,13 +149,13 @@ module cache_FSM(
 			end
 			
 			ALLO4: begin
-				nxt_state = stall ? ALLO4 : ALLO5;
+				nxt_state = ALLO5;
 				write = 1'b1;
 				offset = 3'b100;
 			end
 			
 			ALLO5: begin
-				nxt_state = stall ? ALLO5 : COMP;
+				nxt_state = COMP;
 				write = 1'b1;
 				valid_in = 1'b1;
 				offset = 3'b110;
