@@ -1,0 +1,12 @@
+# Test different index mapping to different cache line.
+# The read/write options on one cache line should not influence the other line.
+# The later 6 access should all be hit, and the final two read should reflect the write results.
+0 1 12340 0			# cold miss
+0 1 12348 0			# cold miss
+0 1 12340 0			# read hit
+0 1 12350 0			# read hit
+1 0 12340 123		# write hit
+1 0 12350 321		# write hit
+0 1 12340 0			# read hit
+0 1 12350 0			# read hit
+

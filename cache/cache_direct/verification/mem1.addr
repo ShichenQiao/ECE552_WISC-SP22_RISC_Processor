@@ -1,0 +1,6 @@
+# Test two consecutive write misses to the same index.
+# The second write access and the read access should happen after dirty eviction.
+# The final read out value at Addr = 14 should be 18.
+1 0 14 18			# Write (cold) miss, tag = 0, index = 1, offset = 6
+1 0 2056 17			# Write miss, dirty eviction, tag = 1, index = 1, offset = 0
+0 1 14 1			# Read miss, dirty eviction, tag = 0, index = 1, offset = 6

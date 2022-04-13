@@ -1,0 +1,12 @@
+# Test wrting to Addrs with the same tag and index, but different offsets.
+# All accesses except the first Write should be hits.
+# The values read out should be 1, 2, 3, 4 (in this order).
+1 0 65528 1
+1 0 65530 2
+1 0 65532 3
+1 0 65534 4
+0 1 65528 0
+0 1 65530 0
+0 1 65532 0
+0 1 65534 0
+
