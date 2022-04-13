@@ -1,0 +1,6 @@
+# Test basic 2-way eviction functionality.
+0 1 0 0    			# should go to way 0
+0 1 2048 0   		# should go to way 1
+0 1 4096 0   		# should evict way 1
+0 1 0 0    			# should be hit
+0 1 2048 0   		# should be miss

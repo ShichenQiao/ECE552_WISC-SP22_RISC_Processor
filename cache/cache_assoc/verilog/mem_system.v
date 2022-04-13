@@ -132,7 +132,7 @@ module mem_system(/*AUTOARG*/
 	
 	assign hit = c0_hit | c1_hit;
 	
-	assign activeway = hit ? c1_hit : victim;
+	assign activeway = ((c0_valid & c0_hit) | (c1_valid & c1_hit)) ? (c1_valid & c1_hit) : victim;
 	
 	assign dirty = activeway ? c1_dirty : c0_dirty;
 	assign valid = activeway ? c1_valid : c0_valid;
@@ -149,7 +149,6 @@ module mem_system(/*AUTOARG*/
 		.clk(clk),
 		.rst(rst)
 	);
-	//assign victimway_in = (Rd | Wr) ? ~victimway_out : victimway_out;
 	assign victimway_in = Done ? ~victimway_out : victimway_out;
 	
 	/*

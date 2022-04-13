@@ -1,0 +1,7 @@
+# Test dirty eviction functionality on both ways
+1 0 0 1234			# should go to way 0
+1 0 2048 4321		# should go to way 1
+0 1 4096 0			# dirty eviction way 1
+0 1 8192 0			# dirty eviction way 0
+0 1 0 0				# value should be 1234
+0 1 2048 0			# value should be 4321

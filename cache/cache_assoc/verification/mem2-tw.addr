@@ -1,0 +1,8 @@
+# Test basic victimway functionality.
+# On each read or write of the cache, victimway should be flipped.
+0 1 0 0    			# should go to way 0
+0 1 2048 0   		# should go to way 1
+0 1 18 0   			# access a different set to flip victimway again
+0 1 4096 0   		# should evict way 0
+0 1 2048 0   		# should be hit
+0 1 0 0    			# should be miss

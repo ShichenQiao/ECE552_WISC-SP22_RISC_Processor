@@ -1,0 +1,9 @@
+# Test dirty evictions while victimway changes
+1 0 0 1234			# should go to way 0
+1 0 2048 4321		# should go to way 1
+0 1 4096 0			# dirty eviction way 1
+0 1 0 0				# read hit way 0
+1 0 0 3456			# write hit way 0
+0 1 8192 0			# dirty eviction way 0
+0 1 4096 0			# read hit way 1
+0 1 0 0				# read miss way 0
