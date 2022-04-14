@@ -113,7 +113,7 @@ module proc (/*AUTOARG*/
 		.Instruction(Instruction_ID),
 		.WBdata(WBdata),
 		.WBreg(Write_register_WB),
-		.WBregwrite(RegWrite_WB),
+		.WBregwrite(RegWrite_WB & ~err_WB),
 		.PC_plus_two(PC_plus_two_ID)
 	);
 	

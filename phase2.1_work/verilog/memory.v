@@ -23,12 +23,12 @@ module memory (
 	wire err_mem;
 	
 	// byte-addressable, 16-bit wide, 64K-byte, data memory.
-	memory2c_align Instruction_Memory_align(
+	memory2c_align Data_Memory_align(
 		.data_out(MemOut),
 		.data_in(WriteData),
 		.addr(XOut),
 		.enable(MemRead | MemWrite),
-		.wr(MemWrite),	
+		.wr(MemWrite & ~XOut[0]),
 		.createdump(createdump),
 		.clk(clk), 
 		.rst(rst),
