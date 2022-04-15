@@ -37,7 +37,7 @@ module fetch (
 		.clk(clk),
 		.rst(rst),
 		.writeData(nxt_PC),
-		.writeEn((~halt) & (~stall) & (~IC_Stall))
+		.writeEn((~halt) & (~stall) & ~(IC_Stall & ~branchJumpDTaken & ~JumpI))
 	);
 	
 	cla_16b PC_Adder(
