@@ -48,6 +48,7 @@ module memory (
 				 (createdump === 1'bz) | (createdump === 1'bx) |
 				 (^WriteData === 1'bz) | (^WriteData === 1'bx) |
 				 (^XOut === 1'bz) | (^XOut === 1'bx) |
+				 (XOut[0] & (MemRead | MemWrite)) |
 				 err_mem;
 
 endmodule
