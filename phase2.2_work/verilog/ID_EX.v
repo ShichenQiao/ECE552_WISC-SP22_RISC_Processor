@@ -14,7 +14,7 @@ module ID_EX (
 	clk, rst, read1Data_in, read2Data_in, immExt_in, Write_register_in, halt_in, createdump_in,
 	ALUOp_in, ALUSrc_in, ClrALUSrc_in, Cin_in, invA_in, invB_in, sign_in,
 	JumpI_in, PC_plus_two_in, MemWrite_in, MemRead_in, CmpSet_in, CmpOp_in, 
-	MemtoReg_in, link_in, specialOP_in, RegWrite_in, nop, stall, err_in
+	MemtoReg_in, link_in, specialOP_in, RegWrite_in, nop, stall, err_in, DC_Stall
 	);
 
 	input clk;
@@ -39,6 +39,7 @@ module ID_EX (
 	input nop;
 	input stall;
 	input err_in;
+	input DC_Stall;
 
 	output [15:0] read1Data_out, read2Data_out;
 	output [15:0] immExt_out;
@@ -61,169 +62,168 @@ module ID_EX (
 	
 	dff read1Data[15:0](
 		.q(read1Data_out),
-		.d(read1Data_in),
+		.d(DC_Stall ? read1Data_out : read1Data_in),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff read2Data[15:0](
 		.q(read2Data_out),
-		.d(read2Data_in),
+		.d(DC_Stall ? read2Data_out : read2Data_in),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff immExt[15:0](
 		.q(immExt_out),
-		.d(immExt_in),
+		.d(DC_Stall ? immExt_out : immExt_in),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff writeregister[2:0](
 		.q(Write_register_out),
-		.d(Write_register_in),
+		.d(DC_Stall ? Write_register_out : Write_register_in),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff halt(
 		.q(halt_out),
-		//.d(halt_in & ~JumpI_out),
-		.d(halt_in & ~nop),
+		.d(DC_Stall ? halt_out : (halt_in & ~nop)),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff createdump(
 		.q(createdump_out),
-		.d(createdump_in & ~nop),
+		.d(DC_Stall ? createdump_out : (createdump_in & ~nop)),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff aluop[2:0](
 		.q(ALUOp_out),
-		.d(ALUOp_in),
+		.d(DC_Stall ? ALUOp_out : ALUOp_in),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff alusrc(
 		.q(ALUSrc_out),
-		.d(ALUSrc_in),
+		.d(DC_Stall ? ALUSrc_out : ALUSrc_in),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff clralusrc(
 		.q(ClrALUSrc_out),
-		.d(ClrALUSrc_in),
+		.d(DC_Stall ? ClrALUSrc_out : ClrALUSrc_in),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff cin(
 		.q(Cin_out),
-		.d(Cin_in),
+		.d(DC_Stall ? Cin_out : Cin_in),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff inva(
 		.q(invA_out),
-		.d(invA_in),
+		.d(DC_Stall ? invA_out : invA_in),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff invb(
 		.q(invB_out),
-		.d(invB_in),
+		.d(DC_Stall ? invB_out : invB_in),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff sign(
 		.q(sign_out),
-		.d(sign_in),
+		.d(DC_Stall ? sign_out : sign_in),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff jumpi(
 		.q(JumpI_out),
-		.d(JumpI_in & ~stall),
+		.d(DC_Stall ? JumpI_out : (JumpI_in & ~stall)),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff pc_plus_two[15:0](
 		.q(PC_plus_two_out),
-		.d(PC_plus_two_in),
+		.d(DC_Stall ? PC_plus_two_out : PC_plus_two_in),
 		.clk(clk),
 		.rst(rst)
 	);
 
 	dff memwrite(
 		.q(MemWrite_out),
-		.d(MemWrite_in & ~nop),
+		.d(DC_Stall ? MemWrite_out : (MemWrite_in & ~nop)),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff memread(
 		.q(MemRead_out),
-		.d(MemRead_in & ~nop),
+		.d(DC_Stall ? MemRead_out : (MemRead_in & ~nop)),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff cmpset(
 		.q(CmpSet_out),
-		.d(CmpSet_in),
+		.d(DC_Stall ? CmpSet_out : CmpSet_in),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff cmpop[1:0](
 		.q(CmpOp_out),
-		.d(CmpOp_in),
+		.d(DC_Stall ? CmpOp_out : CmpOp_in),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff memtoreg(
 		.q(MemtoReg_out),
-		.d(MemtoReg_in),
+		.d(DC_Stall ? MemtoReg_out : MemtoReg_in),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff link(
 		.q(link_out),
-		.d(link_in),
+		.d(DC_Stall ? link_out : link_in),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff specialop[1:0](
 		.q(specialOP_out),
-		.d(specialOP_in),
+		.d(DC_Stall ? specialOP_out : specialOP_in),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff regwrite(
 		.q(RegWrite_out),
-		.d(RegWrite_in & ~nop),
+		.d(DC_Stall ? RegWrite_out : (RegWrite_in & ~nop)),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff err(
 		.q(err_out),
-		.d(err_in),
+		.d(DC_Stall ? err_out : err_in),
 		.clk(clk),
 		.rst(rst)
 	);

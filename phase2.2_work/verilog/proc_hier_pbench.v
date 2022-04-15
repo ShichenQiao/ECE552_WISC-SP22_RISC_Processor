@@ -139,10 +139,10 @@ module proc_hier_pbench();
    assign WriteData = DUT.p0.decode_stage.i_RF_bypass.writeData;
    // Data being written to the register. (16 bits)
    
-   assign MemRead = DUT.p0.memory_stage.MemRead & ~DUT.p0.memory_stage.err_mem;
+   assign MemRead = DUT.p0.memory_stage.Data_Memory.Rd & DUT.p0.memory_stage.Data_Memory.Done;
    // Is memory being read, one bit signal (1 means yes, 0 means no)
    
-   assign MemWrite = DUT.p0.memory_stage.Data_Memory_align.wr;
+   assign MemWrite = DUT.p0.memory_stage.Data_Memory.Wr & DUT.p0.memory_stage.Data_Memory.Done;
    // Is memory being written to (1 bit signal)
    
    assign MemAddress = DUT.p0.memory_stage.XOut;

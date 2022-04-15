@@ -48,21 +48,7 @@ module fetch (
 		.c_in(1'b0)					// no carry in
 	);
 	
-	/*
 	// byte-addressable, 16-bit wide, 64K-byte, instruction memory.
-	memory2c_align Instruction_Memory_align(
-		.data_out(Instruction),
-		.data_in(16'h0000),			// not used
-		.addr(PC),					// read the instruction stored at the current PC
-		.enable(1'b1),				// always reading Instruction_Memory
-		.wr(1'b0),					// never write to Instruction_Memory in the fetch stage			
-		.createdump(1'b0),			// never dump the Instruction_Memory
-		.clk(clk),
-		.rst(rst),
-		.err(err_mem)
-	);
-	*/
-	
 	stallmem Instruction_Memory(
 		.DataOut(Instruction),
 		.Done(Done),

@@ -12,7 +12,7 @@ module EX_MEM (
 	// Inputs
 	clk, rst, XOut_in,
 	read2Data_in, MemWrite_in, MemRead_in, halt_in, createdump_in,
-	link_in, PC_plus_two_in, MemtoReg_in, Write_register_in, RegWrite_in, err_in
+	link_in, PC_plus_two_in, MemtoReg_in, Write_register_in, RegWrite_in, err_in, DC_Stall
 	);
 
 	input clk;
@@ -27,6 +27,7 @@ module EX_MEM (
 	input [2:0] Write_register_in;
 	input RegWrite_in;
 	input err_in;
+	input DC_Stall;
 
 	output [15:0] XOut_out;
 	output [15:0] read2Data_out;
@@ -41,84 +42,84 @@ module EX_MEM (
 	
 	dff xout[15:0](
 		.q(XOut_out),
-		.d(XOut_in),
+		.d(DC_Stall ? XOut_out : XOut_in),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff read2Data[15:0](
 		.q(read2Data_out),
-		.d(read2Data_in),
+		.d(DC_Stall ? read2Data_out : read2Data_in),
 		.clk(clk),
 		.rst(rst)
 	);
 
 	dff memwrite(
 		.q(MemWrite_out),
-		.d(MemWrite_in),
+		.d(DC_Stall ? MemWrite_out : MemWrite_in),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff memread(
 		.q(MemRead_out),
-		.d(MemRead_in),
+		.d(DC_Stall ? MemRead_out : MemRead_in),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff halt(
 		.q(halt_out),
-		.d(halt_in),
+		.d(DC_Stall ? halt_out : halt_in),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff createdump(
 		.q(createdump_out),
-		.d(createdump_in),
+		.d(DC_Stall ? createdump_out : createdump_in),
 		.clk(clk),
 		.rst(rst)
 	);
 
 	dff link(
 		.q(link_out),
-		.d(link_in),
+		.d(DC_Stall ? link_out : link_in),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff pc_plus_two[15:0](
 		.q(PC_plus_two_out),
-		.d(PC_plus_two_in),
+		.d(DC_Stall ? PC_plus_two_out : PC_plus_two_in),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff memtoreg(
 		.q(MemtoReg_out),
-		.d(MemtoReg_in),
+		.d(DC_Stall ? MemtoReg_out : MemtoReg_in),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff writeregister[2:0](
 		.q(Write_register_out),
-		.d(Write_register_in),
+		.d(DC_Stall ? Write_register_out : Write_register_in),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff regwrite(
 		.q(RegWrite_out),
-		.d(RegWrite_in),
+		.d(DC_Stall ? RegWrite_out : RegWrite_in),
 		.clk(clk),
 		.rst(rst)
 	);
 	
 	dff err(
 		.q(err_out),
-		.d(err_in),
+		.d(DC_Stall ? err_out : err_in),
 		.clk(clk),
 		.rst(rst)
 	);

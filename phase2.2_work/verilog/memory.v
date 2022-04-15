@@ -6,7 +6,7 @@
 */
 module memory (
 	// Outputs
-	err, MemOut,
+	err, MemOut, DC_Stall,
 	// Inputs
 	clk, rst, XOut, WriteData, MemWrite, MemRead, createdump
 );
@@ -19,21 +19,28 @@ module memory (
 	
 	output err;
 	output [15:0] MemOut;
+	output DC_Stall;
 	
 	wire err_mem;
+	wire Done, Stall, CacheHit;
 	
-	// byte-addressable, 16-bit wide, 64K-byte, data memory.
-	memory2c_align Data_Memory_align(
-		.data_out(MemOut),
-		.data_in(WriteData),
-		.addr(XOut),
-		.enable(MemRead | MemWrite),
-		.wr(MemWrite & ~XOut[0]),
+	// byte-addressable, 16-bit wide, 64K-byte, data memory.	
+	stallmem Data_Memory(
+		.DataOut(MemOut),
+		.Done(Done),
+		.Stall(Stall),
+		.CacheHit(CacheHit),
+		.err(err_mem),
+		.Addr(XOut),
+		.DataIn(WriteData),
+		.Rd(MemRead & ~XOut[0]),
+		.Wr(MemWrite & ~XOut[0]),	
 		.createdump(createdump),
-		.clk(clk), 
-		.rst(rst),
-		.err(err_mem)
+		.clk(clk),
+		.rst(rst)
 	);
+	
+	assign DC_Stall = Done ? 1'b0 : Stall;
 	
 	// catch any input error
 	assign err = (MemWrite === 1'bz) | (MemWrite === 1'bx) |
