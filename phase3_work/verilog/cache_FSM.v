@@ -52,8 +52,8 @@ module cache_FSM(
 	localparam ALLO3 = 4'b1000;
 	localparam ALLO4 = 4'b1001;
 	localparam ALLO5 = 4'b1010;
-	localparam COMP = 4'b1011;
-	localparam DONE = 4'b1100;
+	localparam RDDONE = 4'b1011;
+	localparam WRDONE = 4'b1100;
 	
 	// state reg
 	wire [3:0] state;
@@ -89,7 +89,6 @@ module cache_FSM(
 				write = Wr;
 				Done = (Rd | Wr) & (hit & valid);
 				CacheHit = hit & valid;
-				// Stall = 1'b0;
 				Stall = (Rd | Wr) & ~(hit & valid);
 			end
 			
@@ -156,27 +155,30 @@ module cache_FSM(
 			end
 			
 			ALLO5: begin
-				nxt_state = COMP;
+				nxt_state = Wr ? WRDONE : RDDONE;
 				write = 1'b1;
 				valid_in = 1'b1;
 				offset = 3'b110;
 			end
-
-			COMP: begin
-				nxt_state = DONE;
-				comp = 1'b1;
-				write = Wr;
-				offset = offset_in;
-			end
 			
-			DONE: begin
+			RDDONE: begin
 				nxt_state = IDLE;
 				Done = 1'b1;
+				comp = 1'b1;
+				offset = offset_in;
+			end
+
+			WRDONE: begin
+				nxt_state = IDLE;
+				Done = 1'b1;
+				comp = 1'b1;
+				write = 1'b1;
 				offset = offset_in;
 			end
 			
 			default: begin
 				err = 1'b1;
+				enable = 1'b1;
 			end
 		endcase
 	end
