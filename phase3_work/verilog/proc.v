@@ -73,7 +73,8 @@ module proc (/*AUTOARG*/
 		.clk(clk),
 		.rst(rst),
 		.halt(halt_ID & ~branchJumpDTaken_ID & ~JumpI_EX),
-		.branchJumpDTaken(branchJumpDTaken_ID),
+		//.branchJumpDTaken(branchJumpDTaken_ID),
+		.branchJumpDTaken(branchJumpDTaken_ID & (branchJumpDTarget_ID != PC_plus_two_ID)),
 		.branchJumpDTarget(branchJumpDTarget_ID),
 		.JumpI(JumpI_EX),
 		.jumpITarget(jumpITarget_EX),
@@ -88,13 +89,10 @@ module proc (/*AUTOARG*/
 		.rst(rst),
 		.Instruction_in(Instruction_IF),
 		.PC_plus_two_in(PC_plus_two_IF),
-		//.stall(stall | DC_Stall),
-		//.stall(stall | DC_Stall | (branchJumpDTaken_ID & IC_Stall)),
 		.stall(stall | DC_Stall | ((branchJumpDTaken_ID | JumpI_EX) & IC_Stall)),
-		//.flush((branchJumpDTaken_ID & ~stall) | (JumpI_EX & ~(stall & JumpI_ID)) | (IC_Stall & ~stall & ~DC_Stall)),
-		//.flush((branchJumpDTaken_ID & ~stall) | (JumpI_EX & ~(stall & JumpI_ID)) | (IC_Stall & ~branchJumpDTaken_ID & ~stall & ~DC_Stall)),
 		//.flush((branchJumpDTaken_ID & ~stall & ~IC_Stall & ~DC_Stall) | (JumpI_EX & ~(stall & JumpI_ID)) | (IC_Stall & ~branchJumpDTaken_ID & ~stall & ~DC_Stall)),
-		.flush(((branchJumpDTaken_ID ^ IC_Stall) & ~stall & ~DC_Stall) | (JumpI_EX & ~(stall & JumpI_ID))),
+		//.flush(((branchJumpDTaken_ID ^ IC_Stall) & ~stall & ~DC_Stall) | (JumpI_EX & ~(stall & JumpI_ID))),
+		.flush((((branchJumpDTaken_ID & (branchJumpDTarget_ID != PC_plus_two_ID)) ^ IC_Stall) & ~stall & ~DC_Stall) | (JumpI_EX & ~(stall & JumpI_ID))),
 		.err_in(errF)
 	);
 	
@@ -253,24 +251,6 @@ module proc (/*AUTOARG*/
 		.CmpSet(CmpSet_EX),
 		.JumpI(JumpI_EX)
 	);
-	
-	/*
-	FWD_to_EX forward_to_EX(
-		.line1_EXEX(line1_EXEX),
-		.line2_EXEX(line2_EXEX),
-		.line1_MEMEX(line1_MEMEX),
-		.line2_MEMEX(line2_MEMEX),
-		.Write_register_MEM(Write_register_MEM),
-		.RegWrite_MEM(RegWrite_MEM),
-		.MemRead_MEM(MemRead_MEM),
-		.link_MEM(link_MEM),
-		.read1RegSel_EX(read1RegSel_EX),
-		.read2RegSel_EX(read2RegSel_EX),
-		.OpCode_EX(OpCode_EX),
-		.MemtoReg_WB(MemtoReg_WB),
-		.Write_register_WB(Write_register_WB)
-	);
-	*/
 	
 	EX_MEM ex_mem(
 		.XOut_out(XOut_MEM),
