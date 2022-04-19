@@ -60,7 +60,8 @@ module proc (/*AUTOARG*/
 	wire DC_Stall;
 	
 	// forwarding signals
-	wire line1_EXEX, line2_EXEX, line1_MEMEX, line2_MEMEX;
+	wire line1_EXEX_ID, line2_EXEX_ID, line1_MEMEX_ID, line2_MEMEX_ID;
+	wire line1_EXEX_EX, line2_EXEX_EX, line1_MEMEX_EX, line2_MEMEX_EX;
 	wire [2:0] read1RegSel_EX, read2RegSel_EX;
 	wire [4:0] OpCode_EX;
 
@@ -141,7 +142,26 @@ module proc (/*AUTOARG*/
 		.RegWrite_EX(RegWrite_EX),
 		.Write_register_MEM(Write_register_MEM),
 		.RegWrite_MEM(RegWrite_MEM),
-		.branchJumpDTaken_ID(branchJumpDTaken_ID)
+		.branchJumpDTaken_ID(branchJumpDTaken_ID),
+		.FWD(line1_EXEX_ID | line2_EXEX_ID | line1_MEMEX_ID | line2_MEMEX_ID)
+	);
+	
+	FWD_to_EX forward_to_EX(
+		.line1_EXEX(line1_EXEX_ID),
+		.line2_EXEX(line2_EXEX_ID),
+		.line1_MEMEX(line1_MEMEX_ID),
+		.line2_MEMEX(line2_MEMEX_ID),
+		.Write_register_EX(Write_register_EX),
+		.RegWrite_EX(RegWrite_EX),
+		.MemRead_EX(MemRead_EX),
+		.link_EX(link_EX),
+		.read1RegSel_ID(Instruction_ID[10:8]),
+		.read2RegSel_ID(Instruction_ID[7:5]),
+		.OpCode_ID(Instruction_ID[15:11]),
+		.MemtoReg_MEM(MemtoReg_MEM),
+		.Write_register_MEM(Write_register_MEM),
+		.RegWrite_MEM(RegWrite_MEM),
+		.link_MEM(link_MEM)
 	);
 	
 	ID_EX id_ex(
@@ -172,6 +192,10 @@ module proc (/*AUTOARG*/
 		.read1RegSel_out(read1RegSel_EX),
 		.read2RegSel_out(read2RegSel_EX),
 		.OpCode_out(OpCode_EX),
+		.line1_EXEX_out(line1_EXEX_EX),
+		.line2_EXEX_out(line2_EXEX_EX),
+		.line1_MEMEX_out(line1_MEMEX_EX),
+		.line2_MEMEX_out(line2_MEMEX_EX),
 		.clk(clk),
 		.rst(rst),
 		.read1Data_in(read1Data_ID),
@@ -203,15 +227,19 @@ module proc (/*AUTOARG*/
 		.DC_Stall(DC_Stall | (JumpI_EX & IC_Stall)),
 		.read1RegSel_in(Instruction_ID[10:8]),
 		.read2RegSel_in(Instruction_ID[7:5]),
-		.OpCode_in(Instruction_ID[15:11])
+		.OpCode_in(Instruction_ID[15:11]),
+		.line1_EXEX_in(line1_EXEX_ID),
+		.line2_EXEX_in(line2_EXEX_ID),
+		.line1_MEMEX_in(line1_MEMEX_ID),
+		.line2_MEMEX_in(line2_MEMEX_ID)
 	);
 	
 	execute execute_stage(
 		.err(errX),
 		.XOut(XOut_EX),
 		.jumpITarget(jumpITarget_EX),
-		.read1Data(line1_EXEX ? (link_MEM ? PC_plus_two_MEM : XOut_MEM) : (line1_MEMEX ? MemOut_WB : read1Data_EX)),
-		.read2Data(line2_EXEX ? (link_MEM ? PC_plus_two_MEM : XOut_MEM) : (line2_MEMEX ? MemOut_WB : read2Data_EX)),
+		.read1Data(line1_EXEX_EX ? (link_MEM ? PC_plus_two_MEM : XOut_MEM) : (line1_MEMEX_EX ? (MemtoReg_MEM ? MemOut_WB : (link_WB ? PC_plus_two_WB : XOut_WB)) : read1Data_EX)),
+		.read2Data(line2_EXEX_EX ? (link_MEM ? PC_plus_two_MEM : XOut_MEM) : (line2_MEMEX_EX ? (MemtoReg_MEM ? MemOut_WB : (link_WB ? PC_plus_two_WB : XOut_WB)) : read2Data_EX)),
 		.immExt(immExt_EX),
 		.ALUOp(ALUOp_EX),
 		.ALUSrc(ALUSrc_EX),
@@ -226,6 +254,7 @@ module proc (/*AUTOARG*/
 		.JumpI(JumpI_EX)
 	);
 	
+	/*
 	FWD_to_EX forward_to_EX(
 		.line1_EXEX(line1_EXEX),
 		.line2_EXEX(line2_EXEX),
@@ -241,6 +270,7 @@ module proc (/*AUTOARG*/
 		.MemtoReg_WB(MemtoReg_WB),
 		.Write_register_WB(Write_register_WB)
 	);
+	*/
 	
 	EX_MEM ex_mem(
 		.XOut_out(XOut_MEM),
@@ -258,7 +288,8 @@ module proc (/*AUTOARG*/
 		.clk(clk),
 		.rst(rst),
 		.XOut_in(XOut_EX),
-		.read2Data_in(read2Data_EX),
+		//.read2Data_in(read2Data_EX),
+		.read2Data_in(line2_EXEX_EX ? (link_MEM ? PC_plus_two_MEM : XOut_MEM) : (line2_MEMEX_EX ? (MemtoReg_MEM ? MemOut_WB : (link_WB ? PC_plus_two_WB : XOut_WB)) : read2Data_EX)),
 		.MemWrite_in(MemWrite_EX),
 		.MemRead_in(MemRead_EX),
 		.halt_in(halt_EX),

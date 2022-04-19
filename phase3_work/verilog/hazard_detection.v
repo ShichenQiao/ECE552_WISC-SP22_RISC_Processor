@@ -11,7 +11,7 @@ module hazard_detection (
 	OpCode_ID, Rs_ID, Rt_ID,
 	Write_register_EX, RegWrite_EX,
 	Write_register_MEM, RegWrite_MEM,
-	branchJumpDTaken_ID
+	branchJumpDTaken_ID, FWD
 	);
 
 	input [4:0] OpCode_ID;
@@ -20,6 +20,7 @@ module hazard_detection (
 	input RegWrite_EX;
 	input RegWrite_MEM;
 	input branchJumpDTaken_ID;
+	input FWD;
 	
 	output stall;
 	
@@ -38,6 +39,7 @@ module hazard_detection (
 	assign Rs_stall = (OpCode_ID == 5'b11000) ? 1'b0 : (EX_RAW_Rs | MEM_RAW_Rs);
 	assign Rt_stall = Rt_active ? (EX_RAW_Rt | MEM_RAW_Rt) : 1'b0;
 	
-	assign stall = (Rs_stall | Rt_stall) ? ((OpCode_ID != 5'b00001)) : 1'b0;
+	//assign stall = (Rs_stall | Rt_stall) ? ((OpCode_ID != 5'b00001)) : 1'b0;
+	assign stall = (Rs_stall | Rt_stall) & (OpCode_ID != 5'b00001) & ~FWD;
 	
 endmodule

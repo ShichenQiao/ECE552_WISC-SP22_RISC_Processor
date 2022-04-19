@@ -11,12 +11,14 @@ module ID_EX (
 	JumpI_out, PC_plus_two_out, MemWrite_out, MemRead_out, CmpSet_out, CmpOp_out,
 	MemtoReg_out, link_out, specialOP_out, RegWrite_out, err_out,
 	read1RegSel_out, read2RegSel_out, OpCode_out,
+	line1_EXEX_out, line2_EXEX_out, line1_MEMEX_out, line2_MEMEX_out,
 	// Inputs
 	clk, rst, read1Data_in, read2Data_in, immExt_in, Write_register_in, halt_in, createdump_in,
 	ALUOp_in, ALUSrc_in, ClrALUSrc_in, Cin_in, invA_in, invB_in, sign_in,
 	JumpI_in, PC_plus_two_in, MemWrite_in, MemRead_in, CmpSet_in, CmpOp_in, 
 	MemtoReg_in, link_in, specialOP_in, RegWrite_in, nop, stall, err_in, DC_Stall,
-	read1RegSel_in, read2RegSel_in, OpCode_in
+	read1RegSel_in, read2RegSel_in, OpCode_in,
+	line1_EXEX_in, line2_EXEX_in, line1_MEMEX_in, line2_MEMEX_in
 	);
 
 	input clk;
@@ -45,6 +47,7 @@ module ID_EX (
 	input [2:0] read1RegSel_in;
 	input [2:0] read2RegSel_in;
 	input [4:0] OpCode_in;
+	input line1_EXEX_in, line2_EXEX_in, line1_MEMEX_in, line2_MEMEX_in;
 
 	output [15:0] read1Data_out, read2Data_out;
 	output [15:0] immExt_out;
@@ -67,6 +70,7 @@ module ID_EX (
 	output [2:0] read1RegSel_out;
 	output [2:0] read2RegSel_out;
 	output [4:0] OpCode_out;
+	output line1_EXEX_out, line2_EXEX_out, line1_MEMEX_out, line2_MEMEX_out;
 	
 	dff read1Data[15:0](
 		.q(read1Data_out),
@@ -253,6 +257,34 @@ module ID_EX (
 	dff OpCode[4:0](
 		.q(OpCode_out),
 		.d(DC_Stall ? OpCode_out : OpCode_in),
+		.clk(clk),
+		.rst(rst)
+	);
+	
+	dff line1_EXEX(
+		.q(line1_EXEX_out),
+		.d(DC_Stall ? line1_EXEX_out : line1_EXEX_in),
+		.clk(clk),
+		.rst(rst)
+	);
+	
+	dff line2_EXEX(
+		.q(line2_EXEX_out),
+		.d(DC_Stall ? line2_EXEX_out : line2_EXEX_in),
+		.clk(clk),
+		.rst(rst)
+	);
+	
+	dff line1_MEMEX(
+		.q(line1_MEMEX_out),
+		.d(DC_Stall ? line1_MEMEX_out : line1_MEMEX_in),
+		.clk(clk),
+		.rst(rst)
+	);
+	
+	dff line2_MEMEX(
+		.q(line2_MEMEX_out),
+		.d(DC_Stall ? line2_MEMEX_out : line2_MEMEX_in),
 		.clk(clk),
 		.rst(rst)
 	);
