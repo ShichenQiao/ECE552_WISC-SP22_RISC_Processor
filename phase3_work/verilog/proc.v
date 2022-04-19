@@ -55,8 +55,14 @@ module proc (/*AUTOARG*/
 	
 	wire stall;		// stall signal from hdu
 
+	// cache stall sigals
 	wire IC_Stall;
 	wire DC_Stall;
+	
+	// forwarding signals
+	wire line1_EXEX, line2_EXEX, line1_MEMEX, line2_MEMEX;
+	wire [2:0] read1RegSel_EX, read2RegSel_EX;
+	wire [4:0] OpCode_EX;
 
 	fetch fetch_stage(
 		.err(errF),
@@ -122,7 +128,6 @@ module proc (/*AUTOARG*/
 		.Instruction(Instruction_ID),
 		.WBdata(WBdata),
 		.WBreg(Write_register_WB),
-		//.WBregwrite(RegWrite_WB & ~err_WB & ~DC_Stall & ~(JumpI_EX & IC_Stall)),
 		.WBregwrite(RegWrite_WB & ~err_WB & ~DC_Stall),
 		.PC_plus_two(PC_plus_two_ID)
 	);
@@ -164,6 +169,9 @@ module proc (/*AUTOARG*/
 		.specialOP_out(specialOP_EX),
 		.RegWrite_out(RegWrite_EX),
 		.err_out(err_EX),
+		.read1RegSel_out(read1RegSel_EX),
+		.read2RegSel_out(read2RegSel_EX),
+		.OpCode_out(OpCode_EX),
 		.clk(clk),
 		.rst(rst),
 		.read1Data_in(read1Data_ID),
@@ -190,20 +198,20 @@ module proc (/*AUTOARG*/
 		.specialOP_in(specialOP_ID),
 		.RegWrite_in(RegWrite_ID),
 		.stall(stall),
-		//.nop(stall | JumpI_EX),
-		//.nop(stall | JumpI_EX | (branchJumpDTaken_ID & IC_Stall)),
 		.nop(stall | (JumpI_EX & ~IC_Stall) | (branchJumpDTaken_ID & IC_Stall)),
 		.err_in(err_ID | errD),
-		//.DC_Stall(DC_Stall)
-		.DC_Stall(DC_Stall | (JumpI_EX & IC_Stall))
+		.DC_Stall(DC_Stall | (JumpI_EX & IC_Stall)),
+		.read1RegSel_in(Instruction_ID[10:8]),
+		.read2RegSel_in(Instruction_ID[7:5]),
+		.OpCode_in(Instruction_ID[15:11])
 	);
 	
 	execute execute_stage(
 		.err(errX),
 		.XOut(XOut_EX),
 		.jumpITarget(jumpITarget_EX),
-		.read1Data(read1Data_EX),
-		.read2Data(read2Data_EX),
+		.read1Data(line1_EXEX ? (link_MEM ? PC_plus_two_MEM : XOut_MEM) : (line1_MEMEX ? MemOut_WB : read1Data_EX)),
+		.read2Data(line2_EXEX ? (link_MEM ? PC_plus_two_MEM : XOut_MEM) : (line2_MEMEX ? MemOut_WB : read2Data_EX)),
 		.immExt(immExt_EX),
 		.ALUOp(ALUOp_EX),
 		.ALUSrc(ALUSrc_EX),
@@ -216,6 +224,22 @@ module proc (/*AUTOARG*/
 		.specialOP(specialOP_EX),
 		.CmpSet(CmpSet_EX),
 		.JumpI(JumpI_EX)
+	);
+	
+	FWD_to_EX forward_to_EX(
+		.line1_EXEX(line1_EXEX),
+		.line2_EXEX(line2_EXEX),
+		.line1_MEMEX(line1_MEMEX),
+		.line2_MEMEX(line2_MEMEX),
+		.Write_register_MEM(Write_register_MEM),
+		.RegWrite_MEM(RegWrite_MEM),
+		.MemRead_MEM(MemRead_MEM),
+		.link_MEM(link_MEM),
+		.read1RegSel_EX(read1RegSel_EX),
+		.read2RegSel_EX(read2RegSel_EX),
+		.OpCode_EX(OpCode_EX),
+		.MemtoReg_WB(MemtoReg_WB),
+		.Write_register_WB(Write_register_WB)
 	);
 	
 	EX_MEM ex_mem(
@@ -243,7 +267,6 @@ module proc (/*AUTOARG*/
 		.PC_plus_two_in(PC_plus_two_EX),
 		.MemtoReg_in(MemtoReg_EX),
 		.Write_register_in(Write_register_EX),
-		//.RegWrite_in(RegWrite_EX),
 		.RegWrite_in(RegWrite_EX & ~(JumpI_EX & IC_Stall)),
 		.err_in(err_EX | errX),
 		.DC_Stall(DC_Stall)

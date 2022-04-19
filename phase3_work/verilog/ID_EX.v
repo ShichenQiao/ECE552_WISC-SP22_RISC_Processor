@@ -10,11 +10,13 @@ module ID_EX (
 	ALUOp_out, ALUSrc_out, ClrALUSrc_out, Cin_out, invA_out, invB_out, sign_out,
 	JumpI_out, PC_plus_two_out, MemWrite_out, MemRead_out, CmpSet_out, CmpOp_out,
 	MemtoReg_out, link_out, specialOP_out, RegWrite_out, err_out,
+	read1RegSel_out, read2RegSel_out, OpCode_out,
 	// Inputs
 	clk, rst, read1Data_in, read2Data_in, immExt_in, Write_register_in, halt_in, createdump_in,
 	ALUOp_in, ALUSrc_in, ClrALUSrc_in, Cin_in, invA_in, invB_in, sign_in,
 	JumpI_in, PC_plus_two_in, MemWrite_in, MemRead_in, CmpSet_in, CmpOp_in, 
-	MemtoReg_in, link_in, specialOP_in, RegWrite_in, nop, stall, err_in, DC_Stall
+	MemtoReg_in, link_in, specialOP_in, RegWrite_in, nop, stall, err_in, DC_Stall,
+	read1RegSel_in, read2RegSel_in, OpCode_in
 	);
 
 	input clk;
@@ -40,6 +42,9 @@ module ID_EX (
 	input stall;
 	input err_in;
 	input DC_Stall;
+	input [2:0] read1RegSel_in;
+	input [2:0] read2RegSel_in;
+	input [4:0] OpCode_in;
 
 	output [15:0] read1Data_out, read2Data_out;
 	output [15:0] immExt_out;
@@ -59,6 +64,9 @@ module ID_EX (
 	output [1:0] specialOP_out;
 	output RegWrite_out;
 	output err_out;
+	output [2:0] read1RegSel_out;
+	output [2:0] read2RegSel_out;
+	output [4:0] OpCode_out;
 	
 	dff read1Data[15:0](
 		.q(read1Data_out),
@@ -227,5 +235,26 @@ module ID_EX (
 		.clk(clk),
 		.rst(rst)
 	);
-   
+	
+	dff read1RegSel[2:0](
+		.q(read1RegSel_out),
+		.d(DC_Stall ? read1RegSel_out : read1RegSel_in),
+		.clk(clk),
+		.rst(rst)
+	);
+	
+	dff read2RegSel[2:0](
+		.q(read2RegSel_out),
+		.d(DC_Stall ? read2RegSel_out : read2RegSel_in),
+		.clk(clk),
+		.rst(rst)
+	);
+	
+	dff OpCode[4:0](
+		.q(OpCode_out),
+		.d(DC_Stall ? OpCode_out : OpCode_in),
+		.clk(clk),
+		.rst(rst)
+	);
+	
 endmodule
