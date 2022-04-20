@@ -72,13 +72,13 @@ module proc (/*AUTOARG*/
 		.IC_Stall(IC_Stall),
 		.clk(clk),
 		.rst(rst),
-		.halt(halt_ID & ~branchJumpDTaken_ID & ~JumpI_EX),
+		.halt(halt_ID & ~branchJumpDTaken_ID & ~(JumpI_EX & (jumpITarget_EX != PC_plus_two_EX))),
 		//.branchJumpDTaken(branchJumpDTaken_ID),
 		.branchJumpDTaken(branchJumpDTaken_ID & (branchJumpDTarget_ID != PC_plus_two_ID)),
 		.branchJumpDTarget(branchJumpDTarget_ID),
-		.JumpI(JumpI_EX),
+		.JumpI((JumpI_EX & (jumpITarget_EX != PC_plus_two_EX))),
 		.jumpITarget(jumpITarget_EX),
-		.stall((stall & ~JumpI_EX) | DC_Stall)
+		.stall((stall & ~(JumpI_EX & (jumpITarget_EX != PC_plus_two_EX))) | DC_Stall)
 	);
 	
 	IF_ID if_id(
@@ -89,10 +89,10 @@ module proc (/*AUTOARG*/
 		.rst(rst),
 		.Instruction_in(Instruction_IF),
 		.PC_plus_two_in(PC_plus_two_IF),
-		.stall(stall | DC_Stall | ((branchJumpDTaken_ID | JumpI_EX) & IC_Stall)),
+		.stall(stall | DC_Stall | ((branchJumpDTaken_ID | (JumpI_EX & (jumpITarget_EX != PC_plus_two_EX))) & IC_Stall)),
 		//.flush((branchJumpDTaken_ID & ~stall & ~IC_Stall & ~DC_Stall) | (JumpI_EX & ~(stall & JumpI_ID)) | (IC_Stall & ~branchJumpDTaken_ID & ~stall & ~DC_Stall)),
 		//.flush(((branchJumpDTaken_ID ^ IC_Stall) & ~stall & ~DC_Stall) | (JumpI_EX & ~(stall & JumpI_ID))),
-		.flush((((branchJumpDTaken_ID & (branchJumpDTarget_ID != PC_plus_two_ID)) ^ IC_Stall) & ~stall & ~DC_Stall) | (JumpI_EX & ~(stall & JumpI_ID))),
+		.flush((((branchJumpDTaken_ID & (branchJumpDTarget_ID != PC_plus_two_ID)) ^ IC_Stall) & ~stall & ~DC_Stall) | ((JumpI_EX & (jumpITarget_EX != PC_plus_two_EX)) & ~(stall & JumpI_ID))),
 		.err_in(errF)
 	);
 	
@@ -220,9 +220,9 @@ module proc (/*AUTOARG*/
 		.specialOP_in(specialOP_ID),
 		.RegWrite_in(RegWrite_ID),
 		.stall(stall),
-		.nop(stall | (JumpI_EX & ~IC_Stall) | (branchJumpDTaken_ID & IC_Stall)),
+		.nop(stall | ((JumpI_EX & (jumpITarget_EX != PC_plus_two_EX)) & ~IC_Stall) | (branchJumpDTaken_ID & IC_Stall)),
 		.err_in(err_ID | errD),
-		.DC_Stall(DC_Stall | (JumpI_EX & IC_Stall)),
+		.DC_Stall(DC_Stall | ((JumpI_EX & (jumpITarget_EX != PC_plus_two_EX)) & IC_Stall)),
 		.read1RegSel_in(Instruction_ID[10:8]),
 		.read2RegSel_in(Instruction_ID[7:5]),
 		.OpCode_in(Instruction_ID[15:11]),
@@ -249,7 +249,7 @@ module proc (/*AUTOARG*/
 		.CmpOp(CmpOp_EX),
 		.specialOP(specialOP_EX),
 		.CmpSet(CmpSet_EX),
-		.JumpI(JumpI_EX)
+		.JumpI((JumpI_EX & (jumpITarget_EX != PC_plus_two_EX)))
 	);
 	
 	EX_MEM ex_mem(
@@ -278,7 +278,7 @@ module proc (/*AUTOARG*/
 		.PC_plus_two_in(PC_plus_two_EX),
 		.MemtoReg_in(MemtoReg_EX),
 		.Write_register_in(Write_register_EX),
-		.RegWrite_in(RegWrite_EX & ~(JumpI_EX & IC_Stall)),
+		.RegWrite_in(RegWrite_EX & ~((JumpI_EX & (jumpITarget_EX != PC_plus_two_EX)) & IC_Stall)),
 		.err_in(err_EX | errX),
 		.DC_Stall(DC_Stall)
 	);
