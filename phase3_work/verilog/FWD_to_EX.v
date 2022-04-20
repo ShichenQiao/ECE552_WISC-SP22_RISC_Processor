@@ -52,16 +52,6 @@ module FWD_to_EX (
 	assign line2_EXEX = RegWrite_EX & line2_fwdable & ((read2RegSel_ID == Write_register_EX) | ((read2RegSel_ID == 3'b111) & link_EX)) & ~MemRead_EX;
 	
 	// MEM-EX
-	//assign line1_MEMEX = MemtoReg_MEM & line1_fwdable & (read1RegSel_ID == Write_register_MEM) & ~line1_EXEX;
-	//assign line2_MEMEX = MemtoReg_MEM & line2_fwdable & (read2RegSel_ID == Write_register_MEM) & ~line2_EXEX;
-	
-	/*
-	assign line1_MEMEX = MemtoReg_MEM ? (line1_fwdable & (read1RegSel_ID == Write_register_MEM) & ~(line1_EXEX & (Write_register_EX == Write_register_MEM))) :
-										(RegWrite_MEM & line1_fwdable & ((read1RegSel_ID == Write_register_MEM) | ((read1RegSel_ID == 3'b111) & link_MEM)) & ~(line1_EXEX & (Write_register_EX == Write_register_MEM)));
-	assign line2_MEMEX = MemtoReg_MEM ? (line2_fwdable & (read2RegSel_ID == Write_register_MEM) & ~(line2_EXEX & (Write_register_EX == Write_register_MEM))) :
-										(RegWrite_MEM & line2_fwdable & ((read2RegSel_ID == Write_register_MEM) | ((read2RegSel_ID == 3'b111) & link_MEM)) & ~(line2_EXEX & (Write_register_EX == Write_register_MEM)));
-	*/
-	
 	assign line1_MEMEX = RegWrite_MEM & line1_fwdable & ((read1RegSel_ID == Write_register_MEM) | ((read1RegSel_ID == 3'b111) & link_MEM)) & ~((line1_EXEX | line2_EXEX) & (Write_register_EX == Write_register_MEM));
 	assign line2_MEMEX = RegWrite_MEM & line2_fwdable & ((read2RegSel_ID == Write_register_MEM) | ((read2RegSel_ID == 3'b111) & link_MEM)) & ~((line1_EXEX | line2_EXEX) & (Write_register_EX == Write_register_MEM));
 	
