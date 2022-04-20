@@ -10,7 +10,7 @@ module FWD_to_EX (
 	// Inputs
 	Write_register_EX, RegWrite_EX, MemRead_EX,
 	link_EX, read1RegSel_ID, read2RegSel_ID, OpCode_ID,
-	MemtoReg_MEM, Write_register_MEM, RegWrite_MEM, link_MEM,
+	MemtoReg_MEM, Write_register_MEM, RegWrite_MEM, link_MEM
 	);
 	
 	// EX-EX
