@@ -146,7 +146,7 @@ module proc (/*AUTOARG*/
 		.Write_register_MEM(Write_register_MEM),
 		.RegWrite_MEM(RegWrite_MEM),
 		.branchJumpDTaken_ID(branchJumpDTaken_ID),
-		.FWD(line1_EXEX | line2_EXEX)
+		.FWD(line1_EXEX | line2_EXEX | line1_MEMEX | line2_MEMEX)
 	);
 	
 	ID_EX id_ex(
