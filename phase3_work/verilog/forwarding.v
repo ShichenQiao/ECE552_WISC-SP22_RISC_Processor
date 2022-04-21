@@ -30,7 +30,7 @@ module forwarding (
 							 OpCode_EX == 5'b00001 |		// NOP
 							 OpCode_EX[4:2] == 3'b011 |		// branches
 							 OpCode_EX == 5'b11000 |		// LBI
-							 OpCode_EX == 5'b10010 |		// SLBI
+							 //OpCode_EX == 5'b10010 |		// SLBI
 							 OpCode_EX == 5'b00100 |		// J
 							 OpCode_EX == 5'b00110 |		// JAL
 							 OpCode_EX == 5'b00010 |		// siic
