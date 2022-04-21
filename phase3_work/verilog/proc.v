@@ -132,7 +132,7 @@ module proc (/*AUTOARG*/
 		.WBdata(WBdata),
 		.WBreg(Write_register_WB),
 		//.WBregwrite(RegWrite_WB & ~err_WB & ~DC_Stall & ~(JumpI_EX & IC_Stall)),
-		.WBregwrite(RegWrite_WB & ~err_WB & ~DC_Stall),
+		.WBregwrite(RegWrite_WB & ~err_WB & ~DC_Stall & ~(IC_Stall & JumpI_EX & (line1_EXEX | line1_MEMEX))),
 		.PC_plus_two(PC_plus_two_ID)
 	);
 	
@@ -146,7 +146,8 @@ module proc (/*AUTOARG*/
 		.Write_register_MEM(Write_register_MEM),
 		.RegWrite_MEM(RegWrite_MEM),
 		.branchJumpDTaken_ID(branchJumpDTaken_ID),
-		.FWD(line1_EXEX | line2_EXEX | line1_MEMEX | line2_MEMEX)
+		.FWD(line1_EXEX | line2_EXEX | line1_MEMEX | line2_MEMEX),
+		.MemRead_EX(MemRead_EX)
 	);
 	
 	ID_EX id_ex(
@@ -259,7 +260,8 @@ module proc (/*AUTOARG*/
 		//.RegWrite_in(RegWrite_EX),
 		.RegWrite_in(RegWrite_EX & ~(JumpI_EX & IC_Stall)),
 		.err_in(err_EX | errX),
-		.DC_Stall(DC_Stall)
+		//.DC_Stall(DC_Stall)
+		.DC_Stall(DC_Stall | (IC_Stall & JumpI_EX & (line1_EXEX | line1_MEMEX)))
 	);
 	
 	memory memory_stage(
@@ -296,7 +298,7 @@ module proc (/*AUTOARG*/
 		.RegWrite_in(RegWrite_MEM),
 		.halt_in(halt_MEM),
 		.err_in(err_MEM | errM),
-		.DC_Stall(DC_Stall)
+		.DC_Stall(DC_Stall | (IC_Stall & JumpI_EX & (line1_EXEX | line1_MEMEX)))
 	);
 	
 	wb write_back_stage(
