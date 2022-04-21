@@ -3,3 +3,5 @@
 Project Specification: https://pages.cs.wisc.edu/~sinclair/courses/cs552/spring2022/project.html
 
 Average CPI without forwarding: 8.749095607 (based on phase 2 tests)
+
+Current Average CPI = 8.5506
