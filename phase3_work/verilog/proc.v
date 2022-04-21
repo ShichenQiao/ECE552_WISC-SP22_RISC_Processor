@@ -55,15 +55,17 @@ module proc (/*AUTOARG*/
 	
 	wire stall;		// stall signal from hdu
 
-	// cache stall sigals
+	// Cache stalls
 	wire IC_Stall;
 	wire DC_Stall;
 	
-	// forwarding signals
-	wire line1_EXEX_ID, line2_EXEX_ID, line1_MEMEX_ID, line2_MEMEX_ID;
-	wire line1_EXEX_EX, line2_EXEX_EX, line1_MEMEX_EX, line2_MEMEX_EX;
-	wire [2:0] read1RegSel_EX, read2RegSel_EX;
+	// forwardings
+	wire line1_EXEX;
+	wire line2_EXEX;
+	wire line1_MEMEX;
+	wire line2_MEMEX;
 	wire [4:0] OpCode_EX;
+	wire [2:0] read1RegSel_EX, read2RegSel_EX;
 
 	fetch fetch_stage(
 		.err(errF),
@@ -72,13 +74,12 @@ module proc (/*AUTOARG*/
 		.IC_Stall(IC_Stall),
 		.clk(clk),
 		.rst(rst),
-		.halt(halt_ID & ~branchJumpDTaken_ID & ~(JumpI_EX & (jumpITarget_EX != PC_plus_two_EX))),
-		//.branchJumpDTaken(branchJumpDTaken_ID),
-		.branchJumpDTaken(branchJumpDTaken_ID & (branchJumpDTarget_ID != PC_plus_two_ID)),
+		.halt(halt_ID & ~branchJumpDTaken_ID & ~JumpI_EX),
+		.branchJumpDTaken(branchJumpDTaken_ID),
 		.branchJumpDTarget(branchJumpDTarget_ID),
-		.JumpI((JumpI_EX & (jumpITarget_EX != PC_plus_two_EX))),
+		.JumpI(JumpI_EX),
 		.jumpITarget(jumpITarget_EX),
-		.stall((stall & ~(JumpI_EX & (jumpITarget_EX != PC_plus_two_EX))) | DC_Stall | (JumpI_EX & link_EX & IC_Stall))
+		.stall((stall & ~JumpI_EX) | DC_Stall)
 	);
 	
 	IF_ID if_id(
@@ -89,10 +90,13 @@ module proc (/*AUTOARG*/
 		.rst(rst),
 		.Instruction_in(Instruction_IF),
 		.PC_plus_two_in(PC_plus_two_IF),
-		.stall(stall | DC_Stall | (JumpI_EX & link_EX & IC_Stall) | ((branchJumpDTaken_ID | (JumpI_EX & (jumpITarget_EX != PC_plus_two_EX))) & IC_Stall)),
+		//.stall(stall | DC_Stall),
+		//.stall(stall | DC_Stall | (branchJumpDTaken_ID & IC_Stall)),
+		.stall(stall | DC_Stall | ((branchJumpDTaken_ID | JumpI_EX) & IC_Stall)),
+		//.flush((branchJumpDTaken_ID & ~stall) | (JumpI_EX & ~(stall & JumpI_ID)) | (IC_Stall & ~stall & ~DC_Stall)),
+		//.flush((branchJumpDTaken_ID & ~stall) | (JumpI_EX & ~(stall & JumpI_ID)) | (IC_Stall & ~branchJumpDTaken_ID & ~stall & ~DC_Stall)),
 		//.flush((branchJumpDTaken_ID & ~stall & ~IC_Stall & ~DC_Stall) | (JumpI_EX & ~(stall & JumpI_ID)) | (IC_Stall & ~branchJumpDTaken_ID & ~stall & ~DC_Stall)),
-		//.flush(((branchJumpDTaken_ID ^ IC_Stall) & ~stall & ~DC_Stall) | (JumpI_EX & ~(stall & JumpI_ID))),
-		.flush((((branchJumpDTaken_ID & (branchJumpDTarget_ID != PC_plus_two_ID)) ^ IC_Stall) & ~stall & ~DC_Stall & ~(JumpI_EX & link_EX & IC_Stall)) | ((JumpI_EX & (jumpITarget_EX != PC_plus_two_EX)) & ~(stall & JumpI_ID) & ~DC_Stall)),
+		.flush(((branchJumpDTaken_ID ^ IC_Stall) & ~stall & ~DC_Stall) | (JumpI_EX & ~(stall & JumpI_ID))),
 		.err_in(errF)
 	);
 	
@@ -127,7 +131,8 @@ module proc (/*AUTOARG*/
 		.Instruction(Instruction_ID),
 		.WBdata(WBdata),
 		.WBreg(Write_register_WB),
-		.WBregwrite(RegWrite_WB & ~err_WB & ~DC_Stall & ~(JumpI_EX & link_EX & IC_Stall)),
+		//.WBregwrite(RegWrite_WB & ~err_WB & ~DC_Stall & ~(JumpI_EX & IC_Stall)),
+		.WBregwrite(RegWrite_WB & ~err_WB & ~DC_Stall),
 		.PC_plus_two(PC_plus_two_ID)
 	);
 	
@@ -141,25 +146,7 @@ module proc (/*AUTOARG*/
 		.Write_register_MEM(Write_register_MEM),
 		.RegWrite_MEM(RegWrite_MEM),
 		.branchJumpDTaken_ID(branchJumpDTaken_ID),
-		.FWD(line1_EXEX_ID | line2_EXEX_ID | line1_MEMEX_ID | line2_MEMEX_ID)
-	);
-	
-	FWD_to_EX forward_to_EX(
-		.line1_EXEX(line1_EXEX_ID),
-		.line2_EXEX(line2_EXEX_ID),
-		.line1_MEMEX(line1_MEMEX_ID),
-		.line2_MEMEX(line2_MEMEX_ID),
-		.Write_register_EX(Write_register_EX),
-		.RegWrite_EX(RegWrite_EX),
-		.MemRead_EX(MemRead_EX),
-		.link_EX(link_EX),
-		.read1RegSel_ID(Instruction_ID[10:8]),
-		.read2RegSel_ID(Instruction_ID[7:5]),
-		.OpCode_ID(Instruction_ID[15:11]),
-		.MemtoReg_MEM(MemtoReg_MEM),
-		.Write_register_MEM(Write_register_MEM),
-		.RegWrite_MEM(RegWrite_MEM),
-		.link_MEM(link_MEM)
+		.FWD(line1_EXEX | line2_EXEX)
 	);
 	
 	ID_EX id_ex(
@@ -187,13 +174,9 @@ module proc (/*AUTOARG*/
 		.specialOP_out(specialOP_EX),
 		.RegWrite_out(RegWrite_EX),
 		.err_out(err_EX),
+		.OpCode_out(OpCode_EX),
 		.read1RegSel_out(read1RegSel_EX),
 		.read2RegSel_out(read2RegSel_EX),
-		.OpCode_out(OpCode_EX),
-		.line1_EXEX_out(line1_EXEX_EX),
-		.line2_EXEX_out(line2_EXEX_EX),
-		.line1_MEMEX_out(line1_MEMEX_EX),
-		.line2_MEMEX_out(line2_MEMEX_EX),
 		.clk(clk),
 		.rst(rst),
 		.read1Data_in(read1Data_ID),
@@ -220,26 +203,20 @@ module proc (/*AUTOARG*/
 		.specialOP_in(specialOP_ID),
 		.RegWrite_in(RegWrite_ID),
 		.stall(stall),
-		.nop(stall | ((JumpI_EX & (jumpITarget_EX != PC_plus_two_EX)) & ~IC_Stall) | (branchJumpDTaken_ID & IC_Stall)),
+		.nop(stall | (JumpI_EX & ~IC_Stall) | (branchJumpDTaken_ID & IC_Stall)),
 		.err_in(err_ID | errD),
-		.Stall(DC_Stall | (JumpI_EX & link_EX & IC_Stall) | ((JumpI_EX & (jumpITarget_EX != PC_plus_two_EX)) & IC_Stall)),
-		.read1RegSel_in(Instruction_ID[10:8]),
-		.read2RegSel_in(Instruction_ID[7:5]),
+		.DC_Stall(DC_Stall | (JumpI_EX & IC_Stall)),
 		.OpCode_in(Instruction_ID[15:11]),
-		.line1_EXEX_in(line1_EXEX_ID),
-		.line2_EXEX_in(line2_EXEX_ID),
-		.line1_MEMEX_in(line1_MEMEX_ID),
-		.line2_MEMEX_in(line2_MEMEX_ID)
+		.read1RegSel_in(Instruction_ID[10:8]),
+		.read2RegSel_in(Instruction_ID[7:5])
 	);
 	
 	execute execute_stage(
 		.err(errX),
 		.XOut(XOut_EX),
 		.jumpITarget(jumpITarget_EX),
-		//.read1Data(line1_EXEX_EX ? (link_MEM ? PC_plus_two_MEM : XOut_MEM) : (line1_MEMEX_EX ? (MemtoReg_MEM ? MemOut_WB : (link_WB ? PC_plus_two_WB : XOut_WB)) : read1Data_EX)),
-		.read1Data(line1_EXEX_EX ? (link_MEM ? PC_plus_two_MEM : XOut_MEM) : (line1_MEMEX_EX ? (MemtoReg_MEM ? (IC_Stall ? XOut_WB : MemOut_WB) : (link_WB ? PC_plus_two_WB : XOut_WB)) : read1Data_EX)),
-		//.read2Data(line2_EXEX_EX ? (link_MEM ? PC_plus_two_MEM : XOut_MEM) : (line2_MEMEX_EX ? (MemtoReg_MEM ? MemOut_WB : (link_WB ? PC_plus_two_WB : XOut_WB)) : read2Data_EX)),
-		.read2Data(line2_EXEX_EX ? (link_MEM ? PC_plus_two_MEM : XOut_MEM) : (line2_MEMEX_EX ? (MemtoReg_MEM ? (IC_Stall ? XOut_WB : MemOut_WB) : (link_WB ? PC_plus_two_WB : XOut_WB)) : read2Data_EX)),
+		.read1Data(line1_EXEX ? XOut_MEM : (line1_MEMEX ? WBdata : read1Data_EX)),
+		.read2Data(line2_EXEX ? XOut_MEM : (line2_MEMEX ? WBdata : read2Data_EX)),
 		.immExt(immExt_EX),
 		.ALUOp(ALUOp_EX),
 		.ALUSrc(ALUSrc_EX),
@@ -251,7 +228,7 @@ module proc (/*AUTOARG*/
 		.CmpOp(CmpOp_EX),
 		.specialOP(specialOP_EX),
 		.CmpSet(CmpSet_EX),
-		.JumpI((JumpI_EX & (jumpITarget_EX != PC_plus_two_EX)))
+		.JumpI(JumpI_EX)
 	);
 	
 	EX_MEM ex_mem(
@@ -270,8 +247,7 @@ module proc (/*AUTOARG*/
 		.clk(clk),
 		.rst(rst),
 		.XOut_in(XOut_EX),
-		//.read2Data_in(read2Data_EX),
-		.read2Data_in(line2_EXEX_EX ? (link_MEM ? PC_plus_two_MEM : XOut_MEM) : (line2_MEMEX_EX ? (MemtoReg_MEM ? (IC_Stall ? XOut_WB : MemOut_WB) : (link_WB ? PC_plus_two_WB : XOut_WB)) : read2Data_EX)),
+		.read2Data_in(line2_EXEX ? XOut_MEM : (line2_MEMEX ? WBdata : read2Data_EX)),
 		.MemWrite_in(MemWrite_EX),
 		.MemRead_in(MemRead_EX),
 		.halt_in(halt_EX),
@@ -280,9 +256,10 @@ module proc (/*AUTOARG*/
 		.PC_plus_two_in(PC_plus_two_EX),
 		.MemtoReg_in(MemtoReg_EX),
 		.Write_register_in(Write_register_EX),
-		.RegWrite_in(RegWrite_EX & ~((JumpI_EX & (jumpITarget_EX != PC_plus_two_EX)) & IC_Stall)),
+		//.RegWrite_in(RegWrite_EX),
+		.RegWrite_in(RegWrite_EX & ~(JumpI_EX & IC_Stall)),
 		.err_in(err_EX | errX),
-		.DC_Stall(DC_Stall | (JumpI_EX & link_EX & IC_Stall))
+		.DC_Stall(DC_Stall)
 	);
 	
 	memory memory_stage(
@@ -319,7 +296,7 @@ module proc (/*AUTOARG*/
 		.RegWrite_in(RegWrite_MEM),
 		.halt_in(halt_MEM),
 		.err_in(err_MEM | errM),
-		.DC_Stall(DC_Stall | (JumpI_EX & link_EX & IC_Stall))
+		.DC_Stall(DC_Stall)
 	);
 	
 	wb write_back_stage(
@@ -330,6 +307,21 @@ module proc (/*AUTOARG*/
 		.MemtoReg(MemtoReg_WB),
 		.MemOut(MemOut_WB),
 		.XOut(XOut_WB)
+	);
+	
+	forwarding fwd(
+		.line1_EXEX(line1_EXEX),
+		.line2_EXEX(line2_EXEX),
+		.line1_MEMEX(line1_MEMEX),
+		.line2_MEMEX(line2_MEMEX),
+		.OpCode_EX(OpCode_EX),
+		.read1RegSel_EX(read1RegSel_EX),
+		.read2RegSel_EX(read2RegSel_EX),
+		.RegWrite_MEM(RegWrite_MEM),
+		.Write_register_MEM(Write_register_MEM),
+		.MemRead_MEM(MemRead_MEM),
+		.RegWrite_WB(RegWrite_WB),
+		.Write_register_WB(Write_register_WB)
 	);
 	
 endmodule // proc
