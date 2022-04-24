@@ -66,6 +66,10 @@ module proc (/*AUTOARG*/
 	wire line2_MEMEX;
 	wire [4:0] OpCode_EX;
 	wire [2:0] read1RegSel_EX, read2RegSel_EX;
+	
+	// extra credit
+	wire siic, rti;
+	wire [15:0] EPC_out;
 
 	fetch fetch_stage(
 		.err(errF),
@@ -76,7 +80,8 @@ module proc (/*AUTOARG*/
 		.rst(rst),
 		.halt(halt_ID & ~branchJumpDTaken_ID & ~JumpI_EX),
 		.branchJumpDTaken(branchJumpDTaken_ID),
-		.branchJumpDTarget(branchJumpDTarget_ID),
+		//.branchJumpDTarget(branchJumpDTarget_ID),
+		.branchJumpDTarget(siic ? 16'h0002 : (rti ? EPC_out : branchJumpDTarget_ID)),
 		.JumpI(JumpI_EX),
 		.jumpITarget(jumpITarget_EX),
 		.stall((stall & ~JumpI_EX) | DC_Stall)
@@ -90,8 +95,6 @@ module proc (/*AUTOARG*/
 		.rst(rst),
 		.Instruction_in(Instruction_IF),
 		.PC_plus_two_in(PC_plus_two_IF),
-		//.stall(stall | DC_Stall),
-		//.stall(stall | DC_Stall | (branchJumpDTaken_ID & IC_Stall)),
 		.stall(stall | DC_Stall | ((branchJumpDTaken_ID | JumpI_EX) & IC_Stall)),
 		//.flush((branchJumpDTaken_ID & ~stall) | (JumpI_EX & ~(stall & JumpI_ID)) | (IC_Stall & ~stall & ~DC_Stall)),
 		//.flush((branchJumpDTaken_ID & ~stall) | (JumpI_EX & ~(stall & JumpI_ID)) | (IC_Stall & ~branchJumpDTaken_ID & ~stall & ~DC_Stall)),
@@ -126,12 +129,13 @@ module proc (/*AUTOARG*/
 		.link(link_ID),
 		.specialOP(specialOP_ID),
 		.RegWrite(RegWrite_ID),
+		.siic(siic),
+		.rti(rti),
 		.clk(clk),
 		.rst(rst),
 		.Instruction(Instruction_ID),
 		.WBdata(WBdata),
 		.WBreg(Write_register_WB),
-		//.WBregwrite(RegWrite_WB & ~err_WB & ~DC_Stall & ~(JumpI_EX & IC_Stall)),
 		.WBregwrite(RegWrite_WB & ~err_WB & ~DC_Stall & ~(IC_Stall & JumpI_EX & (line1_EXEX | line1_MEMEX))),
 		.PC_plus_two(PC_plus_two_ID)
 	);
@@ -324,6 +328,16 @@ module proc (/*AUTOARG*/
 		.MemRead_MEM(MemRead_MEM),
 		.RegWrite_WB(RegWrite_WB),
 		.Write_register_WB(Write_register_WB)
+	);
+	
+	// extra credit
+	register EPC(
+		.readData(EPC_out),
+		.err(),
+		.clk(clk),
+		.rst(rst),
+		.writeData(PC_plus_two_ID),
+		.writeEn(siic & (~DC_Stall))
 	);
 	
 endmodule // proc

@@ -65,7 +65,7 @@ module control (
 	JumpI, JumpD, Branch,
 	MemWrite, MemRead,
 	CmpSet, CmpOp, MemtoReg, RegWrite, link,
-	specialOP,
+	specialOP, siic, rti,
 	// Inputs
 	OpCode, funct
 );
@@ -107,6 +107,10 @@ module control (
 	// extending ALU functionalities
 	output reg [1:0] specialOP;				// 00: none, 01: BTR, 10 LBI, 11 SLBI
 	
+	// extra credit
+	output reg siic;
+	output reg rti;
+	
 	always @(*) begin
 		err = 1'b0;
 		halt = 1'b0;
@@ -131,6 +135,8 @@ module control (
 		MemtoReg = 1'b0;
 		RegWrite = 1'b0;
 		link = 1'b0;
+		siic = 1'b0;
+		rti = 1'b0;
 		specialOP = 2'b00;		// by default, no special operation, just take ALU out to XOut
 		
 		case(OpCode)
@@ -384,10 +390,12 @@ module control (
 			/* TODO: Extra Credit below: */
 			
 			5'b00010: begin		// siic *****************************************
-			
+				JumpD = 1'b1;
+				siic = 1'b1;
 			end
 			5'b00011: begin		// NOP / RTI ************************************
-			
+				JumpD = 1'b1;
+				rti = 1'b1;
 			end
 			
 			default: err = 1'b1;		// Control OpCode error

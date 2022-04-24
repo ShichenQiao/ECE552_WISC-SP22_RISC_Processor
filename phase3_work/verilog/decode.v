@@ -13,6 +13,7 @@ module decode (
 	JumpI, MemWrite, MemRead,
 	CmpSet, CmpOp, MemtoReg, link, specialOP,
 	branchJumpDTaken, branchJumpDTarget, RegWrite,
+	siic, rti,
 	// Inputs
 	clk, rst, Instruction, WBdata, WBreg, WBregwrite, PC_plus_two
 );
@@ -64,6 +65,9 @@ module decode (
 	// Note: changed to an output in Phase 2 for pipelining
 	output reg [2:0] Write_register;
 	output RegWrite;
+	
+	// extra credit
+	output siic, rti;
 	
 	wire [1:0] RegDst;					// 00: Instruction[10:8], 01: Instruction[7:5], 10: Instruction[4:2], 11: R7
 	wire SignImm;
@@ -130,6 +134,8 @@ module decode (
 		.RegWrite(RegWrite),
 		.link(link),
 		.specialOP(specialOP),
+		.siic(siic),
+		.rti(rti),
 		.OpCode(Instruction[15:11]),
 		.funct(Instruction[1:0])
 	);
