@@ -9,10 +9,12 @@ module EX_MEM (
 	XOut_out,
 	read2Data_out, MemWrite_out, MemRead_out, halt_out, createdump_out,
 	link_out, PC_plus_two_out, MemtoReg_out, Write_register_out, RegWrite_out, err_out,
+	read1RegSel_out, read2RegSel_out,
 	// Inputs
 	clk, rst, XOut_in,
 	read2Data_in, MemWrite_in, MemRead_in, halt_in, createdump_in,
-	link_in, PC_plus_two_in, MemtoReg_in, Write_register_in, RegWrite_in, err_in, DC_Stall
+	link_in, PC_plus_two_in, MemtoReg_in, Write_register_in, RegWrite_in, err_in, DC_Stall,
+	read1RegSel_in, read2RegSel_in
 	);
 
 	input clk;
@@ -28,6 +30,7 @@ module EX_MEM (
 	input RegWrite_in;
 	input err_in;
 	input DC_Stall;
+	input [2:0] read1RegSel_in, read2RegSel_in;
 
 	output [15:0] XOut_out;
 	output [15:0] read2Data_out;
@@ -39,6 +42,7 @@ module EX_MEM (
 	output [2:0] Write_register_out;
 	output RegWrite_out;
 	output err_out;
+	output [2:0] read1RegSel_out, read2RegSel_out;
 	
 	dff xout[15:0](
 		.q(XOut_out),
@@ -124,4 +128,18 @@ module EX_MEM (
 		.rst(rst)
 	);
 	
+	dff read1RegSel[2:0](
+		.q(read1RegSel_out),
+		.d(DC_Stall ? read1RegSel_out : read1RegSel_in),
+		.clk(clk),
+		.rst(rst)
+	);
+	
+	dff read2RegSel[2:0](
+		.q(read2RegSel_out),
+		.d(DC_Stall ? read2RegSel_out : read2RegSel_in),
+		.clk(clk),
+		.rst(rst)
+	);
+
 endmodule

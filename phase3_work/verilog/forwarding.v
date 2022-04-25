@@ -7,10 +7,12 @@
 module forwarding (
 	// Outputs
 	line1_EXEX, line2_EXEX, line1_MEMEX, line2_MEMEX,
+	MEMMEM_fwd,
 	// Inputs
 	OpCode_EX, read1RegSel_EX, read2RegSel_EX,
 	RegWrite_MEM, Write_register_MEM, MemRead_MEM,
-	RegWrite_WB, Write_register_WB
+	RegWrite_WB, Write_register_WB,
+	MemRead_WB, MemWrite_MEM, read1RegSel_MEM, read2RegSel_MEM
 	);
 	
 	input [4:0] OpCode_EX;
@@ -21,8 +23,14 @@ module forwarding (
 	input MemRead_MEM;
 	input RegWrite_WB;
 	input [2:0] Write_register_WB;
+	input MemRead_WB;
+	input MemWrite_MEM;
+	input [2:0] read1RegSel_MEM, read2RegSel_MEM;
 	
-	output line1_EXEX, line2_EXEX, line1_MEMEX, line2_MEMEX;
+	output line1_EXEX, line2_EXEX;
+	output line1_MEMEX, line2_MEMEX;
+	// extra credit
+	output MEMMEM_fwd;
 	
 	wire line1_fwdable, line2_fwdable;
 	
@@ -30,7 +38,6 @@ module forwarding (
 							 OpCode_EX == 5'b00001 |		// NOP
 							 OpCode_EX[4:2] == 3'b011 |		// branches
 							 OpCode_EX == 5'b11000 |		// LBI
-							 //OpCode_EX == 5'b10010 |		// SLBI
 							 OpCode_EX == 5'b00100 |		// J
 							 OpCode_EX == 5'b00110 |		// JAL
 							 OpCode_EX == 5'b00010 |		// siic
@@ -48,8 +55,7 @@ module forwarding (
 	assign line1_MEMEX = RegWrite_WB & line1_fwdable & (Write_register_WB == read1RegSel_EX);
 	assign line2_MEMEX = RegWrite_WB & line2_fwdable & (Write_register_WB == read2RegSel_EX);
 	
-
-	
-
+	// extra credit
+	assign MEMMEM_fwd = MemRead_WB & MemWrite_MEM & (Write_register_WB == read2RegSel_MEM) & (Write_register_WB != read1RegSel_MEM);
 	
 endmodule

@@ -7,10 +7,10 @@
 module MEM_WB (
 	// Outputs
 	MemOut_out, XOut_out, link_out, PC_plus_two_out, MemtoReg_out,
-	Write_register_out, RegWrite_out, halt_out, err_out,
+	Write_register_out, RegWrite_out, halt_out, err_out, MemRead_out,
 	// Inputs
 	clk, rst, MemOut_in, XOut_in, link_in, PC_plus_two_in, MemtoReg_in,
-	Write_register_in, RegWrite_in, halt_in, err_in, DC_Stall
+	Write_register_in, RegWrite_in, halt_in, err_in, DC_Stall, MemRead_in
 	);
 
 	input clk;
@@ -25,6 +25,7 @@ module MEM_WB (
 	input halt_in;
 	input err_in;
 	input DC_Stall;
+	input MemRead_in;
 
 	output [15:0] MemOut_out;
 	output [15:0] XOut_out;
@@ -35,6 +36,7 @@ module MEM_WB (
 	output RegWrite_out;
 	output halt_out;
 	output err_out;
+	output MemRead_out;
 
 	dff memout[15:0](
 		.q(MemOut_out),
@@ -95,6 +97,13 @@ module MEM_WB (
 	dff err(
 		.q(err_out),
 		.d(DC_Stall ? err_out : err_in),
+		.clk(clk),
+		.rst(rst)
+	);
+	
+	dff MemRead(
+		.q(MemRead_out),
+		.d(DC_Stall ? MemRead_out : MemRead_in),
 		.clk(clk),
 		.rst(rst)
 	);

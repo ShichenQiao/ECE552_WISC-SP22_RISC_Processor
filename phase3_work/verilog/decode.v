@@ -15,7 +15,8 @@ module decode (
 	branchJumpDTaken, branchJumpDTarget, RegWrite,
 	siic, rti,
 	// Inputs
-	clk, rst, Instruction, WBdata, WBreg, WBregwrite, PC_plus_two
+	clk, rst, Instruction, WBdata, WBreg, WBregwrite, PC_plus_two,
+	XD_fwd, XOut_MEM
 );
 	input clk;				// system clock
 	input rst;				// master reset, active high
@@ -24,6 +25,10 @@ module decode (
 	input [2:0] WBreg;
 	input WBregwrite;
 	input [15:0] PC_plus_two;
+	
+	// extra credit
+	input XD_fwd;
+	input [15:0] XOut_MEM;
 	
 	output err;
 	output [15:0] read1Data, read2Data;
@@ -145,7 +150,8 @@ module decode (
 		.branchJumpDTarget(branchJumpDTarget),
 		.branchJumpDCondition(branchJumpDCondition),
 		.branchOp(Instruction[12:11]),
-		.Rs(read1Data),
+		//.Rs(read1Data),
+		.Rs(XD_fwd ? XOut_MEM : read1Data),
 		.immExt(immExt),
 		.PC_plus_two(PC_plus_two),
 		.Branch(Branch),

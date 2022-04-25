@@ -38,7 +38,7 @@ module proc (/*AUTOARG*/
 	wire JumpI_ID, JumpI_EX;
 	wire branchJumpDTaken_ID;
 	wire [15:0] branchJumpDTarget_ID;
-	wire MemWrite_ID, MemRead_ID, MemWrite_EX, MemRead_EX, MemWrite_MEM, MemRead_MEM;
+	wire MemWrite_ID, MemRead_ID, MemWrite_EX, MemRead_EX, MemWrite_MEM, MemRead_MEM, MemRead_WB;
 	wire CmpSet_ID, CmpSet_EX;
 	wire [1:0] CmpOp_ID, CmpOp_EX;
 	wire MemtoReg_ID, MemtoReg_EX, MemtoReg_MEM, MemtoReg_WB;
@@ -70,6 +70,10 @@ module proc (/*AUTOARG*/
 	// extra credit
 	wire siic, rti;
 	wire [15:0] EPC_out;
+	wire MEMMEM_fwd;
+	wire [2:0] read1RegSel_MEM, read2RegSel_MEM;
+	//wire XD_fwd, MD_fwd;
+	wire XD_fwd;
 
 	fetch fetch_stage(
 		.err(errF),
@@ -80,7 +84,6 @@ module proc (/*AUTOARG*/
 		.rst(rst),
 		.halt(halt_ID & ~branchJumpDTaken_ID & ~JumpI_EX),
 		.branchJumpDTaken(branchJumpDTaken_ID),
-		//.branchJumpDTarget(branchJumpDTarget_ID),
 		.branchJumpDTarget(siic ? 16'h0002 : (rti ? EPC_out : branchJumpDTarget_ID)),
 		.JumpI(JumpI_EX),
 		.jumpITarget(jumpITarget_EX),
@@ -137,11 +140,15 @@ module proc (/*AUTOARG*/
 		.WBdata(WBdata),
 		.WBreg(Write_register_WB),
 		.WBregwrite(RegWrite_WB & ~err_WB & ~DC_Stall & ~(IC_Stall & JumpI_EX & (line1_EXEX | line1_MEMEX))),
-		.PC_plus_two(PC_plus_two_ID)
+		.PC_plus_two(PC_plus_two_ID),
+		.XD_fwd(XD_fwd),
+		.XOut_MEM(XOut_MEM)
 	);
 	
 	hazard_detection hdu(
 		.stall(stall),
+		.XD_fwd(XD_fwd), 
+		//.MD_fwd(MD_fwd),
 		.OpCode_ID(Instruction_ID[15:11]),
 		.Rs_ID(Instruction_ID[10:8]),
 		.Rt_ID(Instruction_ID[7:5]),
@@ -151,7 +158,13 @@ module proc (/*AUTOARG*/
 		.RegWrite_MEM(RegWrite_MEM),
 		.branchJumpDTaken_ID(branchJumpDTaken_ID),
 		.FWD(line1_EXEX | line2_EXEX | line1_MEMEX | line2_MEMEX),
-		.MemRead_EX(MemRead_EX)
+		.MemRead_EX(MemRead_EX),
+		.MemRead_MEM(MemRead_MEM),
+		.MemWrite_EX(MemWrite_EX),
+		.read2RegSel_EX(read2RegSel_EX),
+		.MemWrite_ID(MemWrite_ID),
+		.RegWrite_WB(RegWrite_WB), 
+		.Write_register_WB(Write_register_WB)
 	);
 	
 	ID_EX id_ex(
@@ -248,6 +261,8 @@ module proc (/*AUTOARG*/
 		.MemtoReg_out(MemtoReg_MEM),
 		.Write_register_out(Write_register_MEM),
 		.RegWrite_out(RegWrite_MEM),
+		.read1RegSel_out(read1RegSel_MEM),
+		.read2RegSel_out(read2RegSel_MEM),
 		.err_out(err_MEM),
 		.clk(clk),
 		.rst(rst),
@@ -261,11 +276,11 @@ module proc (/*AUTOARG*/
 		.PC_plus_two_in(PC_plus_two_EX),
 		.MemtoReg_in(MemtoReg_EX),
 		.Write_register_in(Write_register_EX),
-		//.RegWrite_in(RegWrite_EX),
 		.RegWrite_in(RegWrite_EX & ~(JumpI_EX & IC_Stall)),
 		.err_in(err_EX | errX),
-		//.DC_Stall(DC_Stall)
-		.DC_Stall(DC_Stall | (IC_Stall & JumpI_EX & (line1_EXEX | line1_MEMEX)))
+		.DC_Stall(DC_Stall | (IC_Stall & JumpI_EX & (line1_EXEX | line1_MEMEX))),
+		.read1RegSel_in(read1RegSel_EX),
+		.read2RegSel_in(read2RegSel_EX)
 	);
 	
 	memory memory_stage(
@@ -275,7 +290,8 @@ module proc (/*AUTOARG*/
 		.clk(clk),
 		.rst(rst),
 		.XOut(XOut_MEM),
-		.WriteData(read2Data_MEM),
+		//.WriteData(read2Data_MEM),
+		.WriteData(MEMMEM_fwd ? MemOut_WB : read2Data_MEM),
 		.MemWrite(MemWrite_MEM & ~halt_WB),
 		.MemRead(MemRead_MEM),
 		.createdump(createdump_MEM)
@@ -291,6 +307,7 @@ module proc (/*AUTOARG*/
 		.RegWrite_out(RegWrite_WB),
 		.halt_out(halt_WB),
 		.err_out(err_WB),
+		.MemRead_out(MemRead_WB),
 		.clk(clk),
 		.rst(rst),
 		.MemOut_in(MemOut_MEM),
@@ -302,7 +319,8 @@ module proc (/*AUTOARG*/
 		.RegWrite_in(RegWrite_MEM),
 		.halt_in(halt_MEM),
 		.err_in(err_MEM | errM),
-		.DC_Stall(DC_Stall | (IC_Stall & JumpI_EX & (line1_EXEX | line1_MEMEX)))
+		.DC_Stall(DC_Stall | (IC_Stall & JumpI_EX & (line1_EXEX | line1_MEMEX))),
+		.MemRead_in(MemRead_MEM)
 	);
 	
 	wb write_back_stage(
@@ -320,6 +338,7 @@ module proc (/*AUTOARG*/
 		.line2_EXEX(line2_EXEX),
 		.line1_MEMEX(line1_MEMEX),
 		.line2_MEMEX(line2_MEMEX),
+		.MEMMEM_fwd(MEMMEM_fwd),
 		.OpCode_EX(OpCode_EX),
 		.read1RegSel_EX(read1RegSel_EX),
 		.read2RegSel_EX(read2RegSel_EX),
@@ -327,7 +346,11 @@ module proc (/*AUTOARG*/
 		.Write_register_MEM(Write_register_MEM),
 		.MemRead_MEM(MemRead_MEM),
 		.RegWrite_WB(RegWrite_WB),
-		.Write_register_WB(Write_register_WB)
+		.Write_register_WB(Write_register_WB),
+		.MemRead_WB(MemRead_WB),
+		.MemWrite_MEM(MemWrite_MEM),
+		.read1RegSel_MEM(read1RegSel_MEM),
+		.read2RegSel_MEM(read2RegSel_MEM)
 	);
 	
 	// extra credit
