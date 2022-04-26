@@ -66,10 +66,8 @@ module hazard_detection (
 	
 	assign jalr_pass = (OpCode_ID == 5'b00111) & (Write_register_EX == Rs_ID) & RegWrite_EX & ~MemRead_EX;
 	
-	//assign load_stall = MemRead_EX & RegWrite_EX & (((Write_register_EX == Rs_ID) & (OpCode_ID != 5'b11000)) | (Rt_active & (Write_register_EX == Rt_ID)));
 	assign load_stall = MemRead_EX & RegWrite_EX & (((Write_register_EX == Rs_ID) & (OpCode_ID != 5'b11000)) | (Rt_active & (Write_register_EX == Rt_ID))) & ~MEMMEM_fwd;
 	
-	//assign stall = (((Rs_stall | Rt_stall) & ((OpCode_ID != 5'b00001)) & ~FWD) | branch_stall | load_stall) & ~jalr_pass;
 	assign stall = (((Rs_stall | Rt_stall) & ((OpCode_ID != 5'b00001)) & ~fwd) | branch_stall | load_stall) & ~jalr_pass;
 	
 	assign line1_fwdable = ~(OpCode_ID == 5'b00000 |		// HALT
@@ -93,14 +91,10 @@ module hazard_detection (
 	assign line1_MEMEX = RegWrite_MEM & line1_fwdable & (Write_register_MEM == Rs_ID);
 	assign line2_MEMEX = RegWrite_MEM & line2_fwdable & (Write_register_MEM == Rt_ID);
 	
-	//assign MEMMEM_fwd = MemRead_MEM & MemWrite_EX & (Write_register_MEM == read2RegSel_EX);
-	//assign MEMMEM_fwd = MemRead_EX & MemWrite_ID & (Write_register_EX == Rt_ID);
 	assign MEMMEM_fwd = MemRead_EX & MemWrite_ID & (Write_register_EX == Rt_ID) & (Write_register_EX != Rs_ID);
 	
 	assign XD_fwd = (OpCode_ID[4:2] == 3'b011) & RegWrite_MEM & (Rs_ID == Write_register_MEM);
-	//assign MD_fwd = (OpCode_ID[4:2] == 3'b011) & RegWrite_WB & (Rs_ID == Write_register_WB);
 	
-	//assign fwd = line1_EXEX | line2_EXEX | line1_MEMEX | line2_MEMEX;
 	assign fwd = line1_EXEX | line2_EXEX | line1_MEMEX | line2_MEMEX | MEMMEM_fwd;
 	
 endmodule

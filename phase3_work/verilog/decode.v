@@ -150,7 +150,6 @@ module decode (
 		.branchJumpDTarget(branchJumpDTarget),
 		.branchJumpDCondition(branchJumpDCondition),
 		.branchOp(Instruction[12:11]),
-		//.Rs(read1Data),
 		.Rs(XD_fwd ? XOut_MEM : read1Data),
 		.immExt(immExt),
 		.PC_plus_two(PC_plus_two),

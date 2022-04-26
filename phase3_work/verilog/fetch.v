@@ -37,7 +37,6 @@ module fetch (
 		.clk(clk),
 		.rst(rst),
 		.writeData(nxt_PC),
-		//.writeEn((~halt) & (~stall) & ~(IC_Stall & ~branchJumpDTaken & ~JumpI))
 		.writeEn((~halt) & (~stall) & (~IC_Stall))
 	);
 	

@@ -72,7 +72,6 @@ module proc (/*AUTOARG*/
 	wire [15:0] EPC_out;
 	wire MEMMEM_fwd;
 	wire [2:0] read1RegSel_MEM, read2RegSel_MEM;
-	//wire XD_fwd, MD_fwd;
 	wire XD_fwd;
 
 	fetch fetch_stage(
@@ -99,9 +98,6 @@ module proc (/*AUTOARG*/
 		.Instruction_in(Instruction_IF),
 		.PC_plus_two_in(PC_plus_two_IF),
 		.stall(stall | DC_Stall | ((branchJumpDTaken_ID | JumpI_EX) & IC_Stall)),
-		//.flush((branchJumpDTaken_ID & ~stall) | (JumpI_EX & ~(stall & JumpI_ID)) | (IC_Stall & ~stall & ~DC_Stall)),
-		//.flush((branchJumpDTaken_ID & ~stall) | (JumpI_EX & ~(stall & JumpI_ID)) | (IC_Stall & ~branchJumpDTaken_ID & ~stall & ~DC_Stall)),
-		//.flush((branchJumpDTaken_ID & ~stall & ~IC_Stall & ~DC_Stall) | (JumpI_EX & ~(stall & JumpI_ID)) | (IC_Stall & ~branchJumpDTaken_ID & ~stall & ~DC_Stall)),
 		.flush(((branchJumpDTaken_ID ^ IC_Stall) & ~stall & ~DC_Stall) | (JumpI_EX & ~(stall & JumpI_ID))),
 		.err_in(errF)
 	);
@@ -148,7 +144,6 @@ module proc (/*AUTOARG*/
 	hazard_detection hdu(
 		.stall(stall),
 		.XD_fwd(XD_fwd), 
-		//.MD_fwd(MD_fwd),
 		.OpCode_ID(Instruction_ID[15:11]),
 		.Rs_ID(Instruction_ID[10:8]),
 		.Rt_ID(Instruction_ID[7:5]),
