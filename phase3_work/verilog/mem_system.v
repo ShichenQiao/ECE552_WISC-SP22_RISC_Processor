@@ -49,6 +49,11 @@ module mem_system(/*AUTOARG*/
 	wire victim;
 	wire activeway;
 	
+	// extra credit
+	wire [255:0] lru_out, lru_in;
+	wire [255:0] lru_base, lru_mask_0, lru_mask_1, lru_mask_2, lru_mask_3, lru_mask_4, lru_mask_5, lru_mask_6, lru_mask_7;
+	wire lru_bit;
+	
    cache #(0 + memtype) c0(// Outputs
                           .tag_out              (c0_tag_out),
                           .data_out             (c0_data_out),
@@ -142,6 +147,7 @@ module mem_system(/*AUTOARG*/
 	assign c0_write = activeway ? 1'b0 : write;
 	assign c1_write = activeway ? write : 1'b0;
 	
+	/*
 	// sudo-random replacement
 	dff victimway(
 		.q(victimway_out),
@@ -150,6 +156,7 @@ module mem_system(/*AUTOARG*/
 		.rst(rst)
 	);
 	assign victimway_in = Done ? ~victimway_out : victimway_out;
+	*/
 	
 	/*
 	Policy to choose victim:
@@ -158,12 +165,39 @@ module mem_system(/*AUTOARG*/
 		If both ways are valid, and a block must be victimized, 
 		use victimway (after already being inverted for this access) to indicate which way to use.
 	*/
-	assign victim = (c0_valid & c1_valid) ? ~victimway_out : c0_valid;
+	//assign victim = (c0_valid & c1_valid) ? ~victimway_out : c0_valid;
+	//assign victim = (c0_valid & c1_valid) ? lru_out : c0_valid;
+	assign victim = (c0_valid & c1_valid) ? lru_bit : c0_valid;
 	
 	assign c_data_in = (write & ~comp) ? m_data_out : DataIn;
 	assign DataOut = c_data_out;
 	assign err = ((Rd | Wr) & (err_c0 | err_c1)) | err_mem | err_fsm;
-   
+	
+	// extra credit
+	dff LRU[255:0](
+		.q(lru_out),
+		.d(lru_in),
+		.clk(clk),
+		.rst(rst)
+	);
+	
+	// 8:256 decoder, equivalent to "assign lru_mask_7 = 1 << Addr[10:3];"
+	assign lru_base = {{255{1'b0}}, 1'b1};
+	assign lru_mask_0 = Addr[3] ? (lru_base << 1) : lru_base;
+	assign lru_mask_1 = Addr[4] ? (lru_mask_0 << 2) : lru_mask_0;
+	assign lru_mask_2 = Addr[5] ? (lru_mask_1 << 4) : lru_mask_1;
+	assign lru_mask_3 = Addr[6] ? (lru_mask_2 << 8) : lru_mask_2;
+	assign lru_mask_4 = Addr[7] ? (lru_mask_3 << 16) : lru_mask_3;
+	assign lru_mask_5 = Addr[8] ? (lru_mask_4 << 32) : lru_mask_4;
+	assign lru_mask_6 = Addr[9] ? (lru_mask_5 << 64) : lru_mask_5;
+	assign lru_mask_7 = Addr[10] ? (lru_mask_6 << 128) : lru_mask_6;
+	
+	assign lru_bit = |(lru_out & lru_mask_7);
+	
+	//assign lru_in = Done ? ~activeway : lru_out;
+	//assign lru_in = Done ? (({256{~activeway}} & lru_mask_7) | lru_out) : lru_out;
+	assign lru_in = Done ? (activeway ? ((~lru_mask_7) & lru_out) : (lru_mask_7 | lru_out)) : lru_out;
+	
 endmodule // mem_system
 `default_nettype wire
 // DUMMY LINE FOR REV CONTROL :9:
