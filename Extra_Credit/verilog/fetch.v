@@ -8,11 +8,12 @@ module fetch (
 	// Outputs
 	err, Instruction, PC_plus_two, IC_Stall,
 	// Inputs
-	clk, rst, halt, branchJumpDTaken, branchJumpDTarget, JumpI, jumpITarget, stall
+	clk, rst, halt, createdump, branchJumpDTaken, branchJumpDTarget, JumpI, jumpITarget, stall
 );
 	input clk;				// system clock
 	input rst;				// master reset, active high
 	input halt;				// when asserted, halt PC
+	input createdump;
 	input branchJumpDTaken;
 	input [15:0] branchJumpDTarget;
 	input JumpI;
@@ -49,7 +50,7 @@ module fetch (
 	);
 	
 	// byte-addressable, 16-bit wide, 64K-byte, instruction cache.
-	mem_system Instruction_Cache(
+	mem_system #(0) Instruction_Cache(
 		.DataOut(Instruction),
 		.Done(Done),
 		.Stall(Stall),
@@ -59,7 +60,7 @@ module fetch (
 		.DataIn(16'h0000),				// not used
 		.Rd(1'b1),						// always reading Instruction_Cache
 		.Wr(1'b0),						// never write to Instruction_Cache in the fetch stage	
-		.createdump(1'b0),				// never dump the Instruction_Cache
+		.createdump(createdump),
 		.clk(clk),
 		.rst(rst)
 	);

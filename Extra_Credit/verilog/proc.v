@@ -82,6 +82,7 @@ module proc (/*AUTOARG*/
 		.clk(clk),
 		.rst(rst),
 		.halt(halt_ID & ~branchJumpDTaken_ID & ~JumpI_EX),
+		.createdump(createdump_ID),
 		.branchJumpDTaken(branchJumpDTaken_ID),
 		.branchJumpDTarget(siic ? 16'h0002 : (rti ? EPC_out : branchJumpDTarget_ID)),
 		.JumpI(JumpI_EX),

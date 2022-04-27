@@ -25,7 +25,7 @@ module memory (
 	wire Done, Stall, CacheHit;
 	
 	// byte-addressable, 16-bit wide, 64K-byte, data memory.	
-	mem_system Data_Cache(
+	mem_system #(1) Data_Cache(
 		.DataOut(MemOut),
 		.Done(Done),
 		.Stall(Stall),
