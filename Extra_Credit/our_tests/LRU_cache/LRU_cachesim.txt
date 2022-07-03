@@ -1,0 +1,9 @@
+Load Miss for Address 0 in way 0
+Load Miss for Address 2048 in way 1
+Load Miss for Address 4096 with Eviction in way 0
+Load Hit for Address 2048 in way 1
+Load Miss for Address 0 with Eviction in way 0
+Load Hit for Address 0 in way 0
+Load Hit for Address 2048 in way 1
+Load Miss for Address 4096 with Eviction in way 0
+Load Hit for Address 2048 in way 1

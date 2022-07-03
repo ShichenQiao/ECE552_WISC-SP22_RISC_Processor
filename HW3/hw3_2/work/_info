@@ -1,0 +1,176 @@
+m255
+K4
+z2
+!s11f vlog 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/intelFPGA/20.1
+vclkrst
+Z0 !s110 1645506355
+!i10b 1
+!s100 GiATOWNJf`<ajMEob0l461
+Z1 !s11b Dg1SIo80bB@j0V0VzS_@n1
+Id8haJUFHL@d6_AUCf:l?g0
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+Z3 dC:/Users/13651/Desktop/ECE 552/HW3/hw3_2
+w1645048340
+8C:/Users/13651/Desktop/ECE 552/HW3/hw3_2/clkrst.v
+FC:/Users/13651/Desktop/ECE 552/HW3/hw3_2/clkrst.v
+!i122 16
+L0 12 40
+Z4 OV;L;2020.1;71
+r1
+!s85 0
+31
+Z5 !s108 1645506355.000000
+!s107 C:/Users/13651/Desktop/ECE 552/HW3/hw3_2/clkrst.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/13651/Desktop/ECE 552/HW3/hw3_2/clkrst.v|
+!i113 1
+Z6 o-work work
+Z7 tCvgOpt 0
+vdff
+R0
+!i10b 1
+!s100 >bXR2<Lc99eE3Fd0WWP2P2
+R1
+IlgGNjXVSVYKc8Tn;V7mCc2
+R2
+R3
+w1645048329
+8C:/Users/13651/Desktop/ECE 552/HW3/hw3_2/dff.v
+FC:/Users/13651/Desktop/ECE 552/HW3/hw3_2/dff.v
+!i122 17
+L0 10 21
+R4
+r1
+!s85 0
+31
+R5
+!s107 C:/Users/13651/Desktop/ECE 552/HW3/hw3_2/dff.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/13651/Desktop/ECE 552/HW3/hw3_2/dff.v|
+!i113 1
+R6
+R7
+vregFile
+!s110 1645564514
+!i10b 1
+!s100 FEMZWA5_WB;O=SAGVlLEH0
+R1
+IBAaQkZf2NHd;FN`SU1V3=3
+R2
+R3
+w1645564270
+8C:/Users/13651/Desktop/ECE 552/HW3/hw3_2/regFile.v
+FC:/Users/13651/Desktop/ECE 552/HW3/hw3_2/regFile.v
+!i122 24
+L0 10 146
+R4
+r1
+!s85 0
+31
+!s108 1645564514.000000
+!s107 C:/Users/13651/Desktop/ECE 552/HW3/hw3_2/regFile.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/13651/Desktop/ECE 552/HW3/hw3_2/regFile.v|
+!i113 1
+R6
+R7
+nreg@file
+vregFile_bypass
+!s110 1645509327
+!i10b 1
+!s100 S4?=UcO?@m;TINO8:6T<82
+R1
+Ij7Xi8D@g?[8=6AA9Ha]m83
+R2
+R3
+w1645509315
+8C:/Users/13651/Desktop/ECE 552/HW3/hw3_2/regFile_bypass.v
+FC:/Users/13651/Desktop/ECE 552/HW3/hw3_2/regFile_bypass.v
+!i122 23
+L0 8 46
+R4
+r1
+!s85 0
+31
+!s108 1645509327.000000
+!s107 C:/Users/13651/Desktop/ECE 552/HW3/hw3_2/regFile_bypass.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/13651/Desktop/ECE 552/HW3/hw3_2/regFile_bypass.v|
+!i113 1
+R6
+R7
+nreg@file_bypass
+vregFile_bypass_hier
+R0
+!i10b 1
+!s100 OWYImlRD4NmS4L=ljX8aK0
+R1
+I:NM3ldY3`3Rl=K^baC1=F3
+R2
+R3
+w1645048315
+8C:/Users/13651/Desktop/ECE 552/HW3/hw3_2/regFile_bypass_hier.v
+FC:/Users/13651/Desktop/ECE 552/HW3/hw3_2/regFile_bypass_hier.v
+!i122 20
+L0 10 36
+R4
+r1
+!s85 0
+31
+R5
+!s107 C:/Users/13651/Desktop/ECE 552/HW3/hw3_2/regFile_bypass_hier.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/13651/Desktop/ECE 552/HW3/hw3_2/regFile_bypass_hier.v|
+!i113 1
+R6
+R7
+nreg@file_bypass_hier
+vregister
+R0
+!i10b 1
+!s100 >zTd54GSaVdnEDMRO<Jeo0
+R1
+IY659UlHldlL;@?GKINUIi1
+R2
+R3
+w1645476423
+8C:/Users/13651/Desktop/ECE 552/HW3/hw3_2/register.v
+FC:/Users/13651/Desktop/ECE 552/HW3/hw3_2/register.v
+!i122 21
+L0 8 35
+R4
+r1
+!s85 0
+31
+R5
+!s107 C:/Users/13651/Desktop/ECE 552/HW3/hw3_2/register.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/13651/Desktop/ECE 552/HW3/hw3_2/register.v|
+!i113 1
+R6
+R7
+vtb_regFile_bypass_hier
+!s110 1645506356
+!i10b 1
+!s100 [60_mM3mn0OF[@?HcIZI>0
+R1
+If>8i5VaHZBXH3[Y;_Lc9Q0
+R2
+R3
+w1645048424
+8C:/Users/13651/Desktop/ECE 552/HW3/hw3_2/tb_regFile_bypass_hier.v
+FC:/Users/13651/Desktop/ECE 552/HW3/hw3_2/tb_regFile_bypass_hier.v
+!i122 22
+L0 7 123
+R4
+r1
+!s85 0
+31
+R5
+!s107 C:/Users/13651/Desktop/ECE 552/HW3/hw3_2/tb_regFile_bypass_hier.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/13651/Desktop/ECE 552/HW3/hw3_2/tb_regFile_bypass_hier.v|
+!i113 1
+R6
+R7
+ntb_reg@file_bypass_hier

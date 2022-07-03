@@ -1,0 +1,50 @@
+{C:/Users/13651/Desktop/ECE 552/HW3/hw3_1/register.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW3/hw3_1/register.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module register
+
+Top level modules:
+	register
+
+} {} {}} {C:/Users/13651/Desktop/ECE 552/HW3/hw3_1/regFile_hier.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW3/hw3_1/regFile_hier.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module regFile_hier
+
+Top level modules:
+	regFile_hier
+
+} {} {}} {C:/Users/13651/Desktop/ECE 552/HW3/hw3_1/tb_regFile_hier.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW3/hw3_1/tb_regFile_hier.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module tb_regFile_hier
+
+Top level modules:
+	tb_regFile_hier
+
+} {} {}} {C:/Users/13651/Desktop/ECE 552/HW3/hw3_1/regFile.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW3/hw3_1/regFile.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module regFile
+
+Top level modules:
+	regFile
+
+} {} {}} {C:/Users/13651/Desktop/ECE 552/HW3/hw3_1/test.sv} {1 {vlog -work work -sv -stats=none {C:/Users/13651/Desktop/ECE 552/HW3/hw3_1/test.sv}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module test
+
+Top level modules:
+	test
+
+} {} {}} {C:/Users/13651/Desktop/ECE 552/HW3/hw3_1/clkrst.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW3/hw3_1/clkrst.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module clkrst
+
+Top level modules:
+	clkrst
+
+} {} {}} {C:/Users/13651/Desktop/ECE 552/HW3/hw3_1/dff.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW3/hw3_1/dff.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module dff
+
+Top level modules:
+	dff
+
+} {} {}}

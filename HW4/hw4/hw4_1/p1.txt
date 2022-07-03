@@ -1,0 +1,32 @@
+// Write your answer to Problem 1 (b) here
+
+P1-1.asm:
+	When the program starts, it will first execute a jump instruction and go to the .begin label.
+	The siic and rti instructions can be resolved in either decode, execute, or some other stages.
+	When the siic instruction is resolved, control will be transferred to the exception handler at PC 0x02.
+	The exception handler in this test program has two addi instructions and one rti that give control back to the next instruction of the siic.
+	The instructions before siic and rti should continue along the pipeline, and any incorrectly fetched later instructions should be flushed.
+	The first addi in the exception handler is writing to r1, and the second addi instruction right after the first one is reading from r1.
+	EX-EX forwarding can be used here to reduce stalls caused by this RAW dependency, which can cause data hazard in the pipeline.
+	If there is no forwarding, the decode stage of the second instruction has to be stalled until the r1 value in the first addi instruction is available.
+	Note that there are many ways to make that value "available".
+	We could wait until it's written back to the registers, utilize RF bypassing, or forward it to EX from a later stage than EX.
+	But any of these actions still require at least one cycle of stall.
+
+P1-2.asm:
+	Similar to the previous test, this test also have a "real" begin point and an exception handler at PC 0x02.
+	In the "real" program, 15 is pre-stored at Mem[100] before the siic instruction.
+	In the exception handler, the first addi instruction was replaced by a load instruction, loading the pre-stored value to r3.
+	The addi instruction right below it is reading from r3, showing a RAW dependency.
+	MEM-EX forwarding can be used here to reduce stalls by forwarding the value being loaded to r3 to the addi instruction.
+	If there is no forwarding, the second instruction has to be stalled until the pre-stored value in the ld instruction is "available".
+
+P1-3.asm:
+	The structure of this test is similar to the previous test, however, MEM-MEM forwarding in the exception handler is tested here.
+	The load instruction in the exception handler here will load the prestored value, 79, to r5, when the exception handler is evoked by siic.
+	The store instruction right after that load is reading r5, and storing it to some other location, r4 + 8, which is effectively M[44].
+	If everything is working, when we return to the halt instruction at the end of this program, we should see 79 stored in M[44].
+	MEM-MEM forwarding is helpful here because the r5 in the consecutive ld and st instructions is forming a RAW dependency.
+	The address we are storing to is calculated by the ALU, and if we could know the value to store right after the cycle we figure out the location, we no longer need to stall.
+	Otherwise, if there is no MEM-MEM forwarding, the st instruction has to be stalled until r5 is "available".
+	

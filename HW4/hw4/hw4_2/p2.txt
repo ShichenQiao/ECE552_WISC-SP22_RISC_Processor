@@ -1,0 +1,42 @@
+// Write your answer to Problem 2 (b) and (c) here
+
+b)
+p2-1.asm:
+	This test should run without any stalls if predict-not-taken (which is used by MIPS) is applied.
+	This is because the value stored in r1 will never be zero in this program at the brach instructions.
+	If there is no branch prediction, we would have to stall at each beqz instruction because of its control hazard.
+	Even if we solve branches as early as in the decode stage, we still need to stall one cycle at each beqz instcution.
+	The processor will not know which instruction to fetch when the branch instructions just enter the decode stage.
+	Only after one cycle of stall can the branch decisions be made and can the next fetch happen.
+	Thus, applying predict-not-taken would improve the CPI significantly for this program compares to no branch prediction.
+
+p2-2.asm:
+	This program is a simple loop start from r1 = -5, increment by 1 in each iteration, exit loop and halt when r1 reaches 0.
+	Assume branch is resolved in decode, predict-not-taken (which is used by MIPS) could help with reducing stalls in this program.
+	If there is no branch prediction, we have to stall in all iterations to figure out which instruction to fetch right after the beqz instruction because of the control hazard.
+	However, with predict-not-taken, we could execute the instructions with no stalls untill we are exiting the loop.
+	We only waste 1 cycle in the last iteration while we flush away our misprediction, and this cost is smaller than stalling in every iteration.
+	In all, applying predict-not-taken would improve the CPI significantly for this program compares to no branch prediction.
+
+c)
+In short, Branch Prediction does NOT have to take only one cycle.
+Let's assume in our five stage pipeline processor, branch are resolved in the Execute stage, and NO branch delay slots are used.
+With no branch predictions, the following diagram shows how a branch and its next instruction (either branch taken or not) can be handled.
+<some branch>                        F  D  X  M  W
+<some instruction>                      F* F* F  D  X  M  W
+When we use a 2-cycle branch prediction, we could have something to fetch while the branch instruction enters the execute stage.
+If that prediction was correct, we can continue with that fetched instruction, and this would save one clock cycle for us, and decrease the CPI.
+<some branch>                        F  D  X  M  W
+<correctly predicted instruction>       F* F  D  X  M  W
+If we made a misprediction with the same 2-cycle branch prediction, we can flush the mispredicted instruction while the original branch instruction enters the Mem stage.
+At the same time, we would already know the proper next instruction, so we could fetch that and continue.
+Although this would not reduce any stalls, it will not do worse than without branch predictions at all.
+<some branch>                        F  D  X  M  W
+<mispredicted instruction>              F* F  =
+<proper instruction>                          F  D  X  M  W
+Overall, a branch prediction takes more than one cycle could still be benefitial.
+If branch is solved in even later stages, such as the Mem stage, the branch prediction logic can even take more cycles.
+For some other processor with more pipeline stages, the branch prediction logic can take longer as well.
+Some benefit of multi-cycle branch prediction I can think about is related to the dynamic branch prediction discussed in our text book.
+I guess we could use the extra cycles we have for branch predictions to read some buffer registers to learn from previous branch decisions and make better ones.
+We could do better overall if the number of misprediction is largely reduced.

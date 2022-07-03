@@ -1,0 +1,56 @@
+# Reading pref.tcl
+# OpenFile {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/hw2_2.mpf}
+# Loading project hw2_2
+# Compile of alu.v was successful.
+# Compile of alu_hier.v was successful.
+# Compile of alu_hier_bench.v was successful.
+# Compile of cla_4b.v was successful.
+# Compile of cla_16b.v was successful.
+# Compile of clkrst.v was successful.
+# Compile of fullAdder_1b.v was successful.
+# Compile of nand2.v was successful.
+# Compile of nand3.v was successful.
+# Compile of twosCompUnit.v was successful.
+# Compile of xor3.v was successful.
+# Compile of left_shift_rotator.v was successful.
+# Compile of not1.v was successful.
+# Compile of right_ari_log_shifter.v was successful.
+# Compile of shifter.v was successful.
+# Compile of nor2.v was successful.
+# Compile of nor3.v was successful.
+# 17 compiles, 0 failed with no errors.
+vsim work.alu_hier_bench
+# vsim work.alu_hier_bench 
+# Start time: 00:04:38 on Mar 02,2022
+# Loading work.alu_hier_bench
+# Loading work.alu_hier
+# Loading work.alu
+# Loading work.shifter
+# Loading work.left_shift_rotator
+# Loading work.right_ari_log_shifter
+# Loading work.twosCompUnit
+# Loading work.cla_16b
+# Loading work.not1
+# Loading work.nand2
+# Loading work.clkrst
+# Loading work.cla_4b
+# Loading work.nand3
+# Loading work.nor3
+# Loading work.nor2
+# Loading work.fullAdder_1b
+# Loading work.xor3
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (16) for port 'c_out'. The port definition is at: C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/cla_16b.v(7).
+#    Time: 0 ps  Iteration: 0  Instance: /alu_hier_bench/DUT/DUT/iTwosCompUnit/iCLA File: C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/twosCompUnit.v Line: 26
+add wave -position insertpoint sim:/alu_hier_bench/DUT/*
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (16) for port 'c_out'. The port definition is at: C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/cla_16b.v(7).
+#    Time: 0 ps  Iteration: 0  Instance: /alu_hier_bench/DUT/DUT/iTwosCompUnit/iCLA File: C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/twosCompUnit.v Line: 26
+run -all
+# TEST PASSED
+# ** Note: $finish    : C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/alu_hier_bench.v(58)
+#    Time: 20 ns  Iteration: 0  Instance: /alu_hier_bench
+# 1
+# Break in Module alu_hier_bench at C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/alu_hier_bench.v line 58
+# End time: 00:05:00 on Mar 02,2022, Elapsed time: 0:00:22
+# Errors: 0, Warnings: 2

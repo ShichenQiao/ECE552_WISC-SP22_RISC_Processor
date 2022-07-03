@@ -1,0 +1,53 @@
+ 
+****************************************
+Report : reference
+Design : proc
+Version: Q-2019.12-SP3
+Date   : Sun May  1 17:50:06 2022
+****************************************
+
+Attributes:
+    b - black box (unknown)
+   bo - allows boundary optimization
+    d - dont_touch
+   mo - map_only
+    h - hierarchical
+    n - noncombinational
+    r - removable
+    s - synthetic operator
+    u - contains unmapped logic
+
+Reference          Library       Unit Area   Count    Total Area   Attributes
+-----------------------------------------------------------------------------
+AND2X1             gscl45nm       2.346500       3      7.039500  
+AND2X2             gscl45nm       2.815800      16     45.052799  
+AOI22X1            gscl45nm       3.285100      63    206.961299  
+BUFX2              gscl45nm       2.346500      14     32.850999  
+EX_MEM                         1154.947280       1   1154.947280  h, n
+ID_EX                          1782.870669       1   1782.870669  h, n
+IF_ID                           668.283188       1    668.283188  h, n
+INVX1              gscl45nm       1.407900      80    112.631998  
+INVX2              gscl45nm       1.877200      21     39.421200  
+INVX4              gscl45nm       3.285100       3      9.855300  
+INVX8              gscl45nm       3.285100      12     39.421200  
+MEM_WB                          989.284383       1    989.284383  h, n
+NAND2X1            gscl45nm       1.877200      10     18.772000  
+NAND3X1            gscl45nm       2.346500       5     11.732500  
+NOR2X1             gscl45nm       2.346500       7     16.425499  
+NOR3X1             gscl45nm       2.815800       2      5.631600  
+OAI21X1            gscl45nm       2.815800      33     92.921398  
+OR2X1              gscl45nm       2.346500       3      7.039500  
+OR2X2              gscl45nm       2.815800       2      5.631600  
+decode                         5366.914717       1   5366.914717  h, n
+execute                        3478.451550       1   3478.451550  h
+fetch                         126361.369341
+                                                 1  126361.369341 h, n
+forwarding                      198.983195       1    198.983195  h
+hazard_detection                165.662896       1    165.662896  h
+memory                        124165.514677
+                                                 1  124165.514677 h, n
+register_REGWIDTH16_1           278.294895       1    278.294895  h, n
+wb                              281.110696       1    281.110696  h
+-----------------------------------------------------------------------------
+Total 27 references                                 265543.075879
+1

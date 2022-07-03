@@ -1,0 +1,36 @@
+{C:/Users/13651/Desktop/ECE 552/HW2/hw2_1/clkrst.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW2/hw2_1/clkrst.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module clkrst
+
+Top level modules:
+	clkrst
+
+} {} {}} {C:/Users/13651/Desktop/ECE 552/HW2/hw2_1/shifter_hier.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW2/hw2_1/shifter_hier.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module shifter_hier
+
+Top level modules:
+	shifter_hier
+
+} {} {}} {C:/Users/13651/Desktop/ECE 552/HW2/hw2_1/shifter.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW2/hw2_1/shifter.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module shifter
+
+Top level modules:
+	shifter
+
+} {} {}} {C:/Users/13651/Desktop/ECE 552/HW2/hw2_1/right_ari_log_shifter.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW2/hw2_1/right_ari_log_shifter.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module right_ari_log_shifter
+
+Top level modules:
+	right_ari_log_shifter
+
+} {} {}} {C:/Users/13651/Desktop/ECE 552/HW2/hw2_1/left_shift_rotator.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW2/hw2_1/left_shift_rotator.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module left_shift_rotator
+
+Top level modules:
+	left_shift_rotator
+
+} {} {}}

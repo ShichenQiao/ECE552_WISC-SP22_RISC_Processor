@@ -1,0 +1,120 @@
+{C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/alu_hier_bench.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/alu_hier_bench.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module alu_hier_bench
+
+Top level modules:
+	alu_hier_bench
+
+} {} {}} {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/left_shift_rotator.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/left_shift_rotator.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module left_shift_rotator
+
+Top level modules:
+	left_shift_rotator
+
+} {} {}} {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/clkrst.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/clkrst.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module clkrst
+
+Top level modules:
+	clkrst
+
+} {} {}} {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/nand2.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/nand2.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module nand2
+
+Top level modules:
+	nand2
+
+} {} {}} {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/nand3.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/nand3.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module nand3
+
+Top level modules:
+	nand3
+
+} {} {}} {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/xor3.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/xor3.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module xor3
+
+Top level modules:
+	xor3
+
+} {} {}} {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/shifter.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/shifter.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module shifter
+
+Top level modules:
+	shifter
+
+} {} {}} {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/right_ari_log_shifter.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/right_ari_log_shifter.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module right_ari_log_shifter
+
+Top level modules:
+	right_ari_log_shifter
+
+} {} {}} {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/cla_16b.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/cla_16b.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module cla_16b
+
+Top level modules:
+	cla_16b
+
+} {} {}} {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/nor2.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/nor2.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module nor2
+
+Top level modules:
+	nor2
+
+} {} {}} {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/alu_hier.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/alu_hier.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module alu_hier
+
+Top level modules:
+	alu_hier
+
+} {} {}} {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/nor3.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/nor3.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module nor3
+
+Top level modules:
+	nor3
+
+} {} {}} {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/not1.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/not1.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module not1
+
+Top level modules:
+	not1
+
+} {} {}} {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/alu.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/alu.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module alu
+
+Top level modules:
+	alu
+
+} {} {}} {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/twosCompUnit.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/twosCompUnit.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module twosCompUnit
+
+Top level modules:
+	twosCompUnit
+
+} {} {}} {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/cla_4b.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/cla_4b.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module cla_4b
+
+Top level modules:
+	cla_4b
+
+} {} {}} {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/fullAdder_1b.v} {1 {vlog -work work -stats=none {C:/Users/13651/Desktop/ECE 552/HW2/hw2_2/fullAdder_1b.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module fullAdder_1b
+
+Top level modules:
+	fullAdder_1b
+
+} {} {}}

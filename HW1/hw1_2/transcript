@@ -1,0 +1,1188 @@
+# Reading pref.tcl
+# OpenFile {C:/Users/13651/Desktop/ECE 552/HW1/hw1_2/hw1_2.mpf}
+# Loading project hw1_2
+# Compile of cla_4b.v failed with 1 errors.
+# Compile of cla_16b.v was successful.
+# Compile of cla_16b_bench.v was successful.
+# Compile of clkrst.v was successful.
+# Compile of fullAdder_1b.v was successful.
+# Compile of nand2.v was successful.
+# Compile of nand3.v was successful.
+# Compile of nor2.v was successful.
+# Compile of nor3.v was successful.
+# Compile of not1.v was successful.
+# Compile of xor2.v was successful.
+# Compile of xor3.v was successful.
+# Compile of fullAdder_1b_tb.sv was successful.
+# Compile of cla_4b_tb.v was successful.
+# 14 compiles, 1 failed with 1 error.
+# Compile of cla_4b.v was successful.
+vsim work.cla_4b_tb
+# vsim work.cla_4b_tb 
+# Start time: 16:26:38 on Feb 10,2022
+# Loading work.cla_4b_tb
+# Loading work.clkrst
+# Loading work.cla_4b
+# Loading work.nand2
+# Loading work.nand3
+# Loading work.nor3
+# Loading work.nor2
+# Loading work.not1
+# Loading work.fullAdder_1b
+# Loading work.xor3
+add wave -position insertpoint sim:/cla_4b_tb/DUT/*
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+run -all
+# A: 04, B: 01, Sum: 6, Golden Sum: 06
+# A: 03, B: 0d, Sum: 1, Golden Sum: 11
+# A: 05, B: 02, Sum: 8, Golden Sum: 08
+# A: 0d, B: 06, Sum: 4, Golden Sum: 14
+# A: 0d, B: 0c, Sum: a, Golden Sum: 1a
+# A: 06, B: 05, Sum: b, Golden Sum: 0b
+# A: 05, B: 07, Sum: c, Golden Sum: 0c
+# A: 0f, B: 02, Sum: 1, Golden Sum: 11
+# A: 08, B: 05, Sum: d, Golden Sum: 0d
+# A: 0d, B: 0d, Sum: b, Golden Sum: 1b
+# A: 03, B: 0a, Sum: d, Golden Sum: 0d
+# A: 00, B: 0a, Sum: b, Golden Sum: 0b
+# A: 06, B: 03, Sum: a, Golden Sum: 0a
+# ERRORCHECK CO error
+# A: 03, B: 0b, Sum: f, Golden Sum: 0f
+# A: 02, B: 0e, Sum: 1, Golden Sum: 11
+# A: 0f, B: 03, Sum: 2, Golden Sum: 12
+# A: 0a, B: 0c, Sum: 6, Golden Sum: 16
+# A: 0a, B: 01, Sum: b, Golden Sum: 0b
+# A: 08, B: 09, Sum: 2, Golden Sum: 12
+# A: 06, B: 06, Sum: c, Golden Sum: 0c
+# ERRORCHECK CO error
+# A: 0c, B: 0a, Sum: 7, Golden Sum: 17
+# A: 01, B: 05, Sum: 7, Golden Sum: 07
+# A: 0b, B: 0a, Sum: 5, Golden Sum: 15
+# A: 05, B: 01, Sum: 7, Golden Sum: 07
+# A: 02, B: 0c, Sum: f, Golden Sum: 0f
+# A: 0f, B: 08, Sum: 8, Golden Sum: 18
+# A: 0f, B: 0c, Sum: c, Golden Sum: 1c
+# A: 09, B: 09, Sum: 2, Golden Sum: 12
+# A: 07, B: 01, Sum: 8, Golden Sum: 08
+# A: 0c, B: 02, Sum: e, Golden Sum: 0e
+# A: 07, B: 0d, Sum: 4, Golden Sum: 14
+# A: 0e, B: 0d, Sum: c, Golden Sum: 1c
+# ** Note: $stop    : C:/Users/13651/Desktop/ECE 552/HW1/hw1_2/cla_4b_tb.v(21)
+#    Time: 3200 ps  Iteration: 0  Instance: /cla_4b_tb
+# Break in Module cla_4b_tb at C:/Users/13651/Desktop/ECE 552/HW1/hw1_2/cla_4b_tb.v line 21
+# Compile of cla_4b.v was successful.
+restart
+# Closing VCD file "dump.vcd"
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.cla_4b
+run -all
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# A: 04, B: 01, Sum: 6, Golden Sum: 06
+# A: 03, B: 0d, Sum: 1, Golden Sum: 11
+# A: 05, B: 02, Sum: 8, Golden Sum: 08
+# A: 0d, B: 06, Sum: 4, Golden Sum: 14
+# A: 0d, B: 0c, Sum: a, Golden Sum: 1a
+# A: 06, B: 05, Sum: b, Golden Sum: 0b
+# A: 05, B: 07, Sum: c, Golden Sum: 0c
+# A: 0f, B: 02, Sum: 1, Golden Sum: 11
+# A: 08, B: 05, Sum: d, Golden Sum: 0d
+# A: 0d, B: 0d, Sum: b, Golden Sum: 1b
+# A: 03, B: 0a, Sum: d, Golden Sum: 0d
+# A: 00, B: 0a, Sum: b, Golden Sum: 0b
+# A: 06, B: 03, Sum: a, Golden Sum: 0a
+# A: 03, B: 0b, Sum: f, Golden Sum: 0f
+# A: 02, B: 0e, Sum: 1, Golden Sum: 11
+# A: 0f, B: 03, Sum: 2, Golden Sum: 12
+# A: 0a, B: 0c, Sum: 6, Golden Sum: 16
+# A: 0a, B: 01, Sum: b, Golden Sum: 0b
+# A: 08, B: 09, Sum: 2, Golden Sum: 12
+# A: 06, B: 06, Sum: c, Golden Sum: 0c
+# A: 0c, B: 0a, Sum: 7, Golden Sum: 17
+# A: 01, B: 05, Sum: 7, Golden Sum: 07
+# A: 0b, B: 0a, Sum: 5, Golden Sum: 15
+# A: 05, B: 01, Sum: 7, Golden Sum: 07
+# A: 02, B: 0c, Sum: f, Golden Sum: 0f
+# A: 0f, B: 08, Sum: 8, Golden Sum: 18
+# A: 0f, B: 0c, Sum: c, Golden Sum: 1c
+# A: 09, B: 09, Sum: 2, Golden Sum: 12
+# A: 07, B: 01, Sum: 8, Golden Sum: 08
+# A: 0c, B: 02, Sum: e, Golden Sum: 0e
+# A: 07, B: 0d, Sum: 4, Golden Sum: 14
+# A: 0e, B: 0d, Sum: c, Golden Sum: 1c
+# ** Note: $stop    : C:/Users/13651/Desktop/ECE 552/HW1/hw1_2/cla_4b_tb.v(21)
+#    Time: 3200 ps  Iteration: 0  Instance: /cla_4b_tb
+# Break in Module cla_4b_tb at C:/Users/13651/Desktop/ECE 552/HW1/hw1_2/cla_4b_tb.v line 21
+# Compile of cla_4b_tb.v was successful.
+restart
+# Closing VCD file "dump.vcd"
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.cla_4b_tb
+run -all
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# A: 04, B: 01, Sum: 6, Golden Sum: 06
+# A: 03, B: 0d, Sum: 1, Golden Sum: 11
+# A: 05, B: 02, Sum: 8, Golden Sum: 08
+# A: 0d, B: 06, Sum: 4, Golden Sum: 14
+# A: 0d, B: 0c, Sum: a, Golden Sum: 1a
+# A: 06, B: 05, Sum: b, Golden Sum: 0b
+# A: 05, B: 07, Sum: c, Golden Sum: 0c
+# A: 0f, B: 02, Sum: 1, Golden Sum: 11
+# A: 08, B: 05, Sum: d, Golden Sum: 0d
+# A: 0d, B: 0d, Sum: b, Golden Sum: 1b
+# A: 03, B: 0a, Sum: d, Golden Sum: 0d
+# A: 00, B: 0a, Sum: b, Golden Sum: 0b
+# A: 06, B: 03, Sum: a, Golden Sum: 0a
+# A: 03, B: 0b, Sum: f, Golden Sum: 0f
+# A: 02, B: 0e, Sum: 1, Golden Sum: 11
+# A: 0f, B: 03, Sum: 2, Golden Sum: 12
+# A: 0a, B: 0c, Sum: 6, Golden Sum: 16
+# A: 0a, B: 01, Sum: b, Golden Sum: 0b
+# A: 08, B: 09, Sum: 2, Golden Sum: 12
+# A: 06, B: 06, Sum: c, Golden Sum: 0c
+# A: 0c, B: 0a, Sum: 7, Golden Sum: 17
+# A: 01, B: 05, Sum: 7, Golden Sum: 07
+# A: 0b, B: 0a, Sum: 5, Golden Sum: 15
+# A: 05, B: 01, Sum: 7, Golden Sum: 07
+# A: 02, B: 0c, Sum: f, Golden Sum: 0f
+# A: 0f, B: 08, Sum: 8, Golden Sum: 18
+# A: 0f, B: 0c, Sum: c, Golden Sum: 1c
+# A: 09, B: 09, Sum: 2, Golden Sum: 12
+# A: 07, B: 01, Sum: 8, Golden Sum: 08
+# A: 0c, B: 02, Sum: e, Golden Sum: 0e
+# A: 07, B: 0d, Sum: 4, Golden Sum: 14
+# A: 0e, B: 0d, Sum: c, Golden Sum: 1c
+# A: 0f, B: 03, Sum: 3, Golden Sum: 13
+# A: 08, B: 0b, Sum: 4, Golden Sum: 14
+# A: 0f, B: 0a, Sum: 9, Golden Sum: 19
+# A: 06, B: 0e, Sum: 4, Golden Sum: 14
+# A: 0a, B: 06, Sum: 1, Golden Sum: 11
+# A: 03, B: 0f, Sum: 3, Golden Sum: 13
+# A: 0f, B: 04, Sum: 4, Golden Sum: 14
+# A: 0b, B: 06, Sum: 1, Golden Sum: 11
+# A: 09, B: 0d, Sum: 6, Golden Sum: 16
+# A: 05, B: 05, Sum: b, Golden Sum: 0b
+# A: 09, B: 04, Sum: d, Golden Sum: 0d
+# A: 0a, B: 0b, Sum: 5, Golden Sum: 15
+# A: 0c, B: 0a, Sum: 7, Golden Sum: 17
+# A: 03, B: 06, Sum: 9, Golden Sum: 09
+# A: 07, B: 0a, Sum: 1, Golden Sum: 11
+# A: 08, B: 09, Sum: 1, Golden Sum: 11
+# A: 04, B: 03, Sum: 7, Golden Sum: 07
+# A: 09, B: 0b, Sum: 5, Golden Sum: 15
+# A: 09, B: 0d, Sum: 6, Golden Sum: 16
+# A: 0a, B: 06, Sum: 1, Golden Sum: 11
+# A: 06, B: 04, Sum: b, Golden Sum: 0b
+# A: 09, B: 04, Sum: d, Golden Sum: 0d
+# A: 08, B: 0d, Sum: 6, Golden Sum: 16
+# A: 0e, B: 08, Sum: 6, Golden Sum: 16
+# A: 0d, B: 09, Sum: 6, Golden Sum: 16
+# A: 06, B: 0a, Sum: 1, Golden Sum: 11
+# A: 06, B: 00, Sum: 7, Golden Sum: 07
+# A: 0a, B: 0e, Sum: 8, Golden Sum: 18
+# A: 05, B: 0a, Sum: 0, Golden Sum: 10
+# A: 07, B: 06, Sum: d, Golden Sum: 0d
+# A: 06, B: 06, Sum: d, Golden Sum: 0d
+# A: 0c, B: 06, Sum: 2, Golden Sum: 12
+# A: 0e, B: 0b, Sum: a, Golden Sum: 1a
+# A: 09, B: 0a, Sum: 4, Golden Sum: 14
+# A: 07, B: 01, Sum: 8, Golden Sum: 08
+# A: 00, B: 05, Sum: 6, Golden Sum: 06
+# A: 09, B: 01, Sum: b, Golden Sum: 0b
+# A: 08, B: 0b, Sum: 4, Golden Sum: 14
+# A: 0c, B: 0a, Sum: 6, Golden Sum: 16
+# A: 08, B: 09, Sum: 2, Golden Sum: 12
+# A: 0e, B: 06, Sum: 5, Golden Sum: 15
+# A: 0a, B: 0a, Sum: 5, Golden Sum: 15
+# A: 0e, B: 08, Sum: 7, Golden Sum: 17
+# A: 08, B: 0a, Sum: 3, Golden Sum: 13
+# A: 0b, B: 07, Sum: 2, Golden Sum: 12
+# A: 0a, B: 04, Sum: f, Golden Sum: 0f
+# A: 02, B: 04, Sum: 7, Golden Sum: 07
+# A: 06, B: 0a, Sum: 0, Golden Sum: 10
+# ** Note: $stop    : C:/Users/13651/Desktop/ECE 552/HW1/hw1_2/cla_4b_tb.v(21)
+#    Time: 8 ns  Iteration: 0  Instance: /cla_4b_tb
+# Break in Module cla_4b_tb at C:/Users/13651/Desktop/ECE 552/HW1/hw1_2/cla_4b_tb.v line 21
+# Compile of cla_4b_tb.v was successful.
+restart
+# Closing VCD file "dump.vcd"
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.cla_4b_tb
+run -all
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# A: 04, B: 01, Sum: 6, Golden Sum: 06
+# A: 03, B: 0d, Sum: 1, Golden Sum: 11
+# A: 05, B: 02, Sum: 8, Golden Sum: 08
+# A: 0d, B: 06, Sum: 4, Golden Sum: 14
+# A: 0d, B: 0c, Sum: a, Golden Sum: 1a
+# A: 06, B: 05, Sum: b, Golden Sum: 0b
+# A: 05, B: 07, Sum: c, Golden Sum: 0c
+# A: 0f, B: 02, Sum: 1, Golden Sum: 11
+# A: 08, B: 05, Sum: d, Golden Sum: 0d
+# A: 0d, B: 0d, Sum: b, Golden Sum: 1b
+# A: 03, B: 0a, Sum: d, Golden Sum: 0d
+# A: 00, B: 0a, Sum: b, Golden Sum: 0b
+# A: 06, B: 03, Sum: a, Golden Sum: 0a
+# A: 03, B: 0b, Sum: f, Golden Sum: 0f
+# A: 02, B: 0e, Sum: 1, Golden Sum: 11
+# A: 0f, B: 03, Sum: 2, Golden Sum: 12
+# A: 0a, B: 0c, Sum: 6, Golden Sum: 16
+# A: 0a, B: 01, Sum: b, Golden Sum: 0b
+# A: 08, B: 09, Sum: 2, Golden Sum: 12
+# A: 06, B: 06, Sum: c, Golden Sum: 0c
+# A: 0c, B: 0a, Sum: 7, Golden Sum: 17
+# A: 01, B: 05, Sum: 7, Golden Sum: 07
+# A: 0b, B: 0a, Sum: 5, Golden Sum: 15
+# A: 05, B: 01, Sum: 7, Golden Sum: 07
+# A: 02, B: 0c, Sum: f, Golden Sum: 0f
+# A: 0f, B: 08, Sum: 8, Golden Sum: 18
+# A: 0f, B: 0c, Sum: c, Golden Sum: 1c
+# A: 09, B: 09, Sum: 2, Golden Sum: 12
+# A: 07, B: 01, Sum: 8, Golden Sum: 08
+# A: 0c, B: 02, Sum: e, Golden Sum: 0e
+# A: 07, B: 0d, Sum: 4, Golden Sum: 14
+# A: 0e, B: 0d, Sum: c, Golden Sum: 1c
+# A: 0f, B: 03, Sum: 3, Golden Sum: 13
+# A: 08, B: 0b, Sum: 4, Golden Sum: 14
+# A: 0f, B: 0a, Sum: 9, Golden Sum: 19
+# A: 06, B: 0e, Sum: 4, Golden Sum: 14
+# A: 0a, B: 06, Sum: 1, Golden Sum: 11
+# A: 03, B: 0f, Sum: 3, Golden Sum: 13
+# A: 0f, B: 04, Sum: 4, Golden Sum: 14
+# A: 0b, B: 06, Sum: 1, Golden Sum: 11
+# A: 09, B: 0d, Sum: 6, Golden Sum: 16
+# A: 05, B: 05, Sum: b, Golden Sum: 0b
+# A: 09, B: 04, Sum: d, Golden Sum: 0d
+# A: 0a, B: 0b, Sum: 5, Golden Sum: 15
+# A: 0c, B: 0a, Sum: 7, Golden Sum: 17
+# A: 03, B: 06, Sum: 9, Golden Sum: 09
+# A: 07, B: 0a, Sum: 1, Golden Sum: 11
+# A: 08, B: 09, Sum: 1, Golden Sum: 11
+# A: 04, B: 03, Sum: 7, Golden Sum: 07
+# A: 09, B: 0b, Sum: 5, Golden Sum: 15
+# A: 09, B: 0d, Sum: 6, Golden Sum: 16
+# A: 0a, B: 06, Sum: 1, Golden Sum: 11
+# A: 06, B: 04, Sum: b, Golden Sum: 0b
+# A: 09, B: 04, Sum: d, Golden Sum: 0d
+# A: 08, B: 0d, Sum: 6, Golden Sum: 16
+# A: 0e, B: 08, Sum: 6, Golden Sum: 16
+# A: 0d, B: 09, Sum: 6, Golden Sum: 16
+# A: 06, B: 0a, Sum: 1, Golden Sum: 11
+# A: 06, B: 00, Sum: 7, Golden Sum: 07
+# A: 0a, B: 0e, Sum: 8, Golden Sum: 18
+# A: 05, B: 0a, Sum: 0, Golden Sum: 10
+# A: 07, B: 06, Sum: d, Golden Sum: 0d
+# A: 06, B: 06, Sum: d, Golden Sum: 0d
+# A: 0c, B: 06, Sum: 2, Golden Sum: 12
+# A: 0e, B: 0b, Sum: a, Golden Sum: 1a
+# A: 09, B: 0a, Sum: 4, Golden Sum: 14
+# A: 07, B: 01, Sum: 8, Golden Sum: 08
+# A: 00, B: 05, Sum: 6, Golden Sum: 06
+# A: 09, B: 01, Sum: b, Golden Sum: 0b
+# A: 08, B: 0b, Sum: 4, Golden Sum: 14
+# A: 0c, B: 0a, Sum: 6, Golden Sum: 16
+# A: 08, B: 09, Sum: 2, Golden Sum: 12
+# A: 0e, B: 06, Sum: 5, Golden Sum: 15
+# A: 0a, B: 0a, Sum: 5, Golden Sum: 15
+# A: 0e, B: 08, Sum: 7, Golden Sum: 17
+# A: 08, B: 0a, Sum: 3, Golden Sum: 13
+# A: 0b, B: 07, Sum: 2, Golden Sum: 12
+# A: 0a, B: 04, Sum: f, Golden Sum: 0f
+# A: 02, B: 04, Sum: 7, Golden Sum: 07
+# A: 06, B: 0a, Sum: 0, Golden Sum: 10
+# A: 02, B: 0d, Sum: f, Golden Sum: 0f
+# A: 04, B: 0a, Sum: f, Golden Sum: 0f
+# A: 01, B: 0e, Sum: 0, Golden Sum: 10
+# A: 0b, B: 0f, Sum: b, Golden Sum: 1b
+# A: 06, B: 05, Sum: c, Golden Sum: 0c
+# A: 0b, B: 08, Sum: 3, Golden Sum: 13
+# A: 0b, B: 02, Sum: d, Golden Sum: 0d
+# A: 0d, B: 0b, Sum: 8, Golden Sum: 18
+# A: 0e, B: 0d, Sum: b, Golden Sum: 1b
+# A: 08, B: 01, Sum: 9, Golden Sum: 09
+# A: 01, B: 0b, Sum: c, Golden Sum: 0c
+# A: 03, B: 06, Sum: a, Golden Sum: 0a
+# A: 02, B: 04, Sum: 7, Golden Sum: 07
+# A: 08, B: 02, Sum: a, Golden Sum: 0a
+# A: 09, B: 05, Sum: f, Golden Sum: 0f
+# A: 0b, B: 01, Sum: c, Golden Sum: 0c
+# A: 07, B: 01, Sum: 9, Golden Sum: 09
+# A: 04, B: 08, Sum: c, Golden Sum: 0c
+# A: 04, B: 02, Sum: 6, Golden Sum: 06
+# A: 01, B: 05, Sum: 7, Golden Sum: 07
+# A: 0b, B: 05, Sum: 1, Golden Sum: 11
+# A: 07, B: 04, Sum: c, Golden Sum: 0c
+# A: 07, B: 09, Sum: 1, Golden Sum: 11
+# A: 0b, B: 09, Sum: 5, Golden Sum: 15
+# A: 01, B: 0a, Sum: b, Golden Sum: 0b
+# A: 05, B: 03, Sum: 8, Golden Sum: 08
+# A: 02, B: 0e, Sum: 0, Golden Sum: 10
+# A: 0f, B: 06, Sum: 5, Golden Sum: 15
+# A: 08, B: 00, Sum: 8, Golden Sum: 08
+# A: 06, B: 05, Sum: b, Golden Sum: 0b
+# A: 04, B: 09, Sum: d, Golden Sum: 0d
+# A: 0c, B: 0a, Sum: 6, Golden Sum: 16
+# A: 05, B: 01, Sum: 7, Golden Sum: 07
+# A: 03, B: 09, Sum: c, Golden Sum: 0c
+# A: 05, B: 01, Sum: 7, Golden Sum: 07
+# A: 0a, B: 07, Sum: 1, Golden Sum: 11
+# A: 0c, B: 01, Sum: e, Golden Sum: 0e
+# A: 06, B: 07, Sum: d, Golden Sum: 0d
+# A: 0c, B: 05, Sum: 1, Golden Sum: 11
+# A: 00, B: 02, Sum: 2, Golden Sum: 02
+# A: 0d, B: 0d, Sum: b, Golden Sum: 1b
+# A: 09, B: 0e, Sum: 8, Golden Sum: 18
+# A: 0b, B: 0f, Sum: b, Golden Sum: 1b
+# A: 03, B: 0d, Sum: 1, Golden Sum: 11
+# A: 04, B: 05, Sum: 9, Golden Sum: 09
+# A: 0d, B: 02, Sum: f, Golden Sum: 0f
+# A: 0d, B: 02, Sum: f, Golden Sum: 0f
+# A: 06, B: 0c, Sum: 2, Golden Sum: 12
+# A: 07, B: 0a, Sum: 1, Golden Sum: 11
+# A: 0a, B: 0c, Sum: 6, Golden Sum: 16
+# A: 0a, B: 0b, Sum: 5, Golden Sum: 15
+# A: 05, B: 02, Sum: 7, Golden Sum: 07
+# A: 09, B: 04, Sum: e, Golden Sum: 0e
+# A: 0b, B: 0c, Sum: 8, Golden Sum: 18
+# A: 06, B: 09, Sum: f, Golden Sum: 0f
+# A: 00, B: 0c, Sum: c, Golden Sum: 0c
+# A: 07, B: 0a, Sum: 2, Golden Sum: 12
+# A: 08, B: 0b, Sum: 4, Golden Sum: 14
+# A: 0c, B: 03, Sum: f, Golden Sum: 0f
+# A: 09, B: 09, Sum: 3, Golden Sum: 13
+# A: 04, B: 07, Sum: c, Golden Sum: 0c
+# A: 00, B: 02, Sum: 3, Golden Sum: 03
+# A: 09, B: 00, Sum: 9, Golden Sum: 09
+# A: 03, B: 03, Sum: 6, Golden Sum: 06
+# A: 08, B: 0d, Sum: 5, Golden Sum: 15
+# A: 04, B: 0b, Sum: 0, Golden Sum: 10
+# A: 02, B: 02, Sum: 5, Golden Sum: 05
+# A: 00, B: 0e, Sum: f, Golden Sum: 0f
+# A: 0b, B: 06, Sum: 2, Golden Sum: 12
+# A: 00, B: 0f, Sum: 0, Golden Sum: 10
+# A: 0c, B: 09, Sum: 6, Golden Sum: 16
+# A: 0f, B: 00, Sum: 0, Golden Sum: 10
+# A: 09, B: 07, Sum: 0, Golden Sum: 10
+# A: 08, B: 0b, Sum: 3, Golden Sum: 13
+# A: 08, B: 07, Sum: f, Golden Sum: 0f
+# A: 00, B: 07, Sum: 8, Golden Sum: 08
+# A: 04, B: 07, Sum: b, Golden Sum: 0b
+# A: 09, B: 0b, Sum: 5, Golden Sum: 15
+# A: 0b, B: 00, Sum: b, Golden Sum: 0b
+# A: 05, B: 00, Sum: 6, Golden Sum: 06
+# A: 06, B: 0f, Sum: 6, Golden Sum: 16
+# A: 08, B: 06, Sum: f, Golden Sum: 0f
+# A: 01, B: 05, Sum: 6, Golden Sum: 06
+# A: 00, B: 05, Sum: 5, Golden Sum: 05
+# A: 04, B: 09, Sum: e, Golden Sum: 0e
+# A: 07, B: 0e, Sum: 6, Golden Sum: 16
+# A: 05, B: 08, Sum: d, Golden Sum: 0d
+# A: 0a, B: 0f, Sum: a, Golden Sum: 1a
+# A: 0d, B: 0e, Sum: b, Golden Sum: 1b
+# A: 0c, B: 09, Sum: 6, Golden Sum: 16
+# A: 0b, B: 0f, Sum: a, Golden Sum: 1a
+# A: 09, B: 03, Sum: d, Golden Sum: 0d
+# A: 05, B: 01, Sum: 7, Golden Sum: 07
+# A: 09, B: 0a, Sum: 4, Golden Sum: 14
+# A: 02, B: 04, Sum: 6, Golden Sum: 06
+# A: 0d, B: 09, Sum: 7, Golden Sum: 17
+# A: 0d, B: 09, Sum: 7, Golden Sum: 17
+# A: 0f, B: 0b, Sum: b, Golden Sum: 1b
+# A: 00, B: 06, Sum: 6, Golden Sum: 06
+# A: 0d, B: 0a, Sum: 7, Golden Sum: 17
+# A: 00, B: 0b, Sum: c, Golden Sum: 0c
+# A: 08, B: 06, Sum: e, Golden Sum: 0e
+# A: 03, B: 09, Sum: c, Golden Sum: 0c
+# A: 0b, B: 0e, Sum: a, Golden Sum: 1a
+# A: 0c, B: 0e, Sum: a, Golden Sum: 1a
+# A: 09, B: 09, Sum: 3, Golden Sum: 13
+# A: 04, B: 05, Sum: 9, Golden Sum: 09
+# A: 09, B: 02, Sum: c, Golden Sum: 0c
+# A: 05, B: 0e, Sum: 3, Golden Sum: 13
+# A: 08, B: 08, Sum: 1, Golden Sum: 11
+# A: 0f, B: 08, Sum: 7, Golden Sum: 17
+# A: 05, B: 0c, Sum: 2, Golden Sum: 12
+# A: 00, B: 05, Sum: 6, Golden Sum: 06
+# A: 00, B: 0d, Sum: e, Golden Sum: 0e
+# A: 0c, B: 00, Sum: c, Golden Sum: 0c
+# A: 00, B: 01, Sum: 2, Golden Sum: 02
+# A: 05, B: 05, Sum: b, Golden Sum: 0b
+# A: 04, B: 0a, Sum: e, Golden Sum: 0e
+# A: 08, B: 0e, Sum: 6, Golden Sum: 16
+# A: 06, B: 07, Sum: e, Golden Sum: 0e
+# ** Note: $stop    : C:/Users/13651/Desktop/ECE 552/HW1/hw1_2/cla_4b_tb.v(21)
+#    Time: 20 ns  Iteration: 0  Instance: /cla_4b_tb
+# Break in Module cla_4b_tb at C:/Users/13651/Desktop/ECE 552/HW1/hw1_2/cla_4b_tb.v line 21
+# Compile of cla_4b.v failed with 1 errors.
+# Compile of cla_16b.v was successful.
+# Compile of cla_16b_bench.v was successful.
+# Compile of clkrst.v was successful.
+# Compile of fullAdder_1b.v was successful.
+# Compile of nand2.v was successful.
+# Compile of nand3.v was successful.
+# Compile of nor2.v was successful.
+# Compile of nor3.v was successful.
+# Compile of not1.v was successful.
+# Compile of xor2.v was successful.
+# Compile of xor3.v was successful.
+# Compile of fullAdder_1b_tb.sv was successful.
+# Compile of cla_4b_tb.v was successful.
+# 14 compiles, 1 failed with 1 error.
+# Compile of cla_4b.v was successful.
+restart
+# Closing VCD file "dump.vcd"
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.cla_4b_tb
+# Loading work.clkrst
+# Loading work.cla_4b
+# Loading work.nand2
+# Loading work.nand3
+# Loading work.nor3
+# Loading work.nor2
+# Loading work.not1
+# Loading work.fullAdder_1b
+# Loading work.xor3
+run -all
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# A: 04, B: 01, Sum: 6, Golden Sum: 06
+# A: 03, B: 0d, Sum: 1, Golden Sum: 11
+# A: 05, B: 02, Sum: 8, Golden Sum: 08
+# A: 0d, B: 06, Sum: 4, Golden Sum: 14
+# A: 0d, B: 0c, Sum: a, Golden Sum: 1a
+# A: 06, B: 05, Sum: b, Golden Sum: 0b
+# A: 05, B: 07, Sum: c, Golden Sum: 0c
+# A: 0f, B: 02, Sum: 1, Golden Sum: 11
+# A: 08, B: 05, Sum: d, Golden Sum: 0d
+# A: 0d, B: 0d, Sum: b, Golden Sum: 1b
+# A: 03, B: 0a, Sum: d, Golden Sum: 0d
+# A: 00, B: 0a, Sum: b, Golden Sum: 0b
+# A: 06, B: 03, Sum: a, Golden Sum: 0a
+# A: 03, B: 0b, Sum: f, Golden Sum: 0f
+# A: 02, B: 0e, Sum: 1, Golden Sum: 11
+# A: 0f, B: 03, Sum: 2, Golden Sum: 12
+# A: 0a, B: 0c, Sum: 6, Golden Sum: 16
+# A: 0a, B: 01, Sum: b, Golden Sum: 0b
+# A: 08, B: 09, Sum: 2, Golden Sum: 12
+# A: 06, B: 06, Sum: c, Golden Sum: 0c
+# A: 0c, B: 0a, Sum: 7, Golden Sum: 17
+# A: 01, B: 05, Sum: 7, Golden Sum: 07
+# A: 0b, B: 0a, Sum: 5, Golden Sum: 15
+# A: 05, B: 01, Sum: 7, Golden Sum: 07
+# A: 02, B: 0c, Sum: f, Golden Sum: 0f
+# A: 0f, B: 08, Sum: 8, Golden Sum: 18
+# A: 0f, B: 0c, Sum: c, Golden Sum: 1c
+# A: 09, B: 09, Sum: 2, Golden Sum: 12
+# A: 07, B: 01, Sum: 8, Golden Sum: 08
+# A: 0c, B: 02, Sum: e, Golden Sum: 0e
+# A: 07, B: 0d, Sum: 4, Golden Sum: 14
+# A: 0e, B: 0d, Sum: c, Golden Sum: 1c
+# A: 0f, B: 03, Sum: 3, Golden Sum: 13
+# A: 08, B: 0b, Sum: 4, Golden Sum: 14
+# A: 0f, B: 0a, Sum: 9, Golden Sum: 19
+# A: 06, B: 0e, Sum: 4, Golden Sum: 14
+# A: 0a, B: 06, Sum: 1, Golden Sum: 11
+# A: 03, B: 0f, Sum: 3, Golden Sum: 13
+# A: 0f, B: 04, Sum: 4, Golden Sum: 14
+# A: 0b, B: 06, Sum: 1, Golden Sum: 11
+# A: 09, B: 0d, Sum: 6, Golden Sum: 16
+# A: 05, B: 05, Sum: b, Golden Sum: 0b
+# A: 09, B: 04, Sum: d, Golden Sum: 0d
+# A: 0a, B: 0b, Sum: 5, Golden Sum: 15
+# A: 0c, B: 0a, Sum: 7, Golden Sum: 17
+# A: 03, B: 06, Sum: 9, Golden Sum: 09
+# A: 07, B: 0a, Sum: 1, Golden Sum: 11
+# A: 08, B: 09, Sum: 1, Golden Sum: 11
+# A: 04, B: 03, Sum: 7, Golden Sum: 07
+# A: 09, B: 0b, Sum: 5, Golden Sum: 15
+# A: 09, B: 0d, Sum: 6, Golden Sum: 16
+# A: 0a, B: 06, Sum: 1, Golden Sum: 11
+# A: 06, B: 04, Sum: b, Golden Sum: 0b
+# A: 09, B: 04, Sum: d, Golden Sum: 0d
+# A: 08, B: 0d, Sum: 6, Golden Sum: 16
+# A: 0e, B: 08, Sum: 6, Golden Sum: 16
+# A: 0d, B: 09, Sum: 6, Golden Sum: 16
+# A: 06, B: 0a, Sum: 1, Golden Sum: 11
+# A: 06, B: 00, Sum: 7, Golden Sum: 07
+# A: 0a, B: 0e, Sum: 8, Golden Sum: 18
+# A: 05, B: 0a, Sum: 0, Golden Sum: 10
+# A: 07, B: 06, Sum: d, Golden Sum: 0d
+# A: 06, B: 06, Sum: d, Golden Sum: 0d
+# A: 0c, B: 06, Sum: 2, Golden Sum: 12
+# A: 0e, B: 0b, Sum: a, Golden Sum: 1a
+# A: 09, B: 0a, Sum: 4, Golden Sum: 14
+# A: 07, B: 01, Sum: 8, Golden Sum: 08
+# A: 00, B: 05, Sum: 6, Golden Sum: 06
+# A: 09, B: 01, Sum: b, Golden Sum: 0b
+# A: 08, B: 0b, Sum: 4, Golden Sum: 14
+# A: 0c, B: 0a, Sum: 6, Golden Sum: 16
+# A: 08, B: 09, Sum: 2, Golden Sum: 12
+# A: 0e, B: 06, Sum: 5, Golden Sum: 15
+# A: 0a, B: 0a, Sum: 5, Golden Sum: 15
+# A: 0e, B: 08, Sum: 7, Golden Sum: 17
+# A: 08, B: 0a, Sum: 3, Golden Sum: 13
+# A: 0b, B: 07, Sum: 2, Golden Sum: 12
+# A: 0a, B: 04, Sum: f, Golden Sum: 0f
+# A: 02, B: 04, Sum: 7, Golden Sum: 07
+# A: 06, B: 0a, Sum: 0, Golden Sum: 10
+# A: 02, B: 0d, Sum: f, Golden Sum: 0f
+# A: 04, B: 0a, Sum: f, Golden Sum: 0f
+# A: 01, B: 0e, Sum: 0, Golden Sum: 10
+# A: 0b, B: 0f, Sum: b, Golden Sum: 1b
+# A: 06, B: 05, Sum: c, Golden Sum: 0c
+# A: 0b, B: 08, Sum: 3, Golden Sum: 13
+# A: 0b, B: 02, Sum: d, Golden Sum: 0d
+# A: 0d, B: 0b, Sum: 8, Golden Sum: 18
+# A: 0e, B: 0d, Sum: b, Golden Sum: 1b
+# A: 08, B: 01, Sum: 9, Golden Sum: 09
+# A: 01, B: 0b, Sum: c, Golden Sum: 0c
+# A: 03, B: 06, Sum: a, Golden Sum: 0a
+# A: 02, B: 04, Sum: 7, Golden Sum: 07
+# A: 08, B: 02, Sum: a, Golden Sum: 0a
+# A: 09, B: 05, Sum: f, Golden Sum: 0f
+# A: 0b, B: 01, Sum: c, Golden Sum: 0c
+# A: 07, B: 01, Sum: 9, Golden Sum: 09
+# A: 04, B: 08, Sum: c, Golden Sum: 0c
+# A: 04, B: 02, Sum: 6, Golden Sum: 06
+# A: 01, B: 05, Sum: 7, Golden Sum: 07
+# A: 0b, B: 05, Sum: 1, Golden Sum: 11
+# A: 07, B: 04, Sum: c, Golden Sum: 0c
+# A: 07, B: 09, Sum: 1, Golden Sum: 11
+# A: 0b, B: 09, Sum: 5, Golden Sum: 15
+# A: 01, B: 0a, Sum: b, Golden Sum: 0b
+# A: 05, B: 03, Sum: 8, Golden Sum: 08
+# A: 02, B: 0e, Sum: 0, Golden Sum: 10
+# A: 0f, B: 06, Sum: 5, Golden Sum: 15
+# A: 08, B: 00, Sum: 8, Golden Sum: 08
+# A: 06, B: 05, Sum: b, Golden Sum: 0b
+# A: 04, B: 09, Sum: d, Golden Sum: 0d
+# A: 0c, B: 0a, Sum: 6, Golden Sum: 16
+# A: 05, B: 01, Sum: 7, Golden Sum: 07
+# A: 03, B: 09, Sum: c, Golden Sum: 0c
+# A: 05, B: 01, Sum: 7, Golden Sum: 07
+# A: 0a, B: 07, Sum: 1, Golden Sum: 11
+# A: 0c, B: 01, Sum: e, Golden Sum: 0e
+# A: 06, B: 07, Sum: d, Golden Sum: 0d
+# A: 0c, B: 05, Sum: 1, Golden Sum: 11
+# A: 00, B: 02, Sum: 2, Golden Sum: 02
+# A: 0d, B: 0d, Sum: b, Golden Sum: 1b
+# A: 09, B: 0e, Sum: 8, Golden Sum: 18
+# A: 0b, B: 0f, Sum: b, Golden Sum: 1b
+# A: 03, B: 0d, Sum: 1, Golden Sum: 11
+# A: 04, B: 05, Sum: 9, Golden Sum: 09
+# A: 0d, B: 02, Sum: f, Golden Sum: 0f
+# A: 0d, B: 02, Sum: f, Golden Sum: 0f
+# A: 06, B: 0c, Sum: 2, Golden Sum: 12
+# A: 07, B: 0a, Sum: 1, Golden Sum: 11
+# A: 0a, B: 0c, Sum: 6, Golden Sum: 16
+# A: 0a, B: 0b, Sum: 5, Golden Sum: 15
+# A: 05, B: 02, Sum: 7, Golden Sum: 07
+# A: 09, B: 04, Sum: e, Golden Sum: 0e
+# A: 0b, B: 0c, Sum: 8, Golden Sum: 18
+# A: 06, B: 09, Sum: f, Golden Sum: 0f
+# A: 00, B: 0c, Sum: c, Golden Sum: 0c
+# A: 07, B: 0a, Sum: 2, Golden Sum: 12
+# A: 08, B: 0b, Sum: 4, Golden Sum: 14
+# A: 0c, B: 03, Sum: f, Golden Sum: 0f
+# A: 09, B: 09, Sum: 3, Golden Sum: 13
+# A: 04, B: 07, Sum: c, Golden Sum: 0c
+# A: 00, B: 02, Sum: 3, Golden Sum: 03
+# A: 09, B: 00, Sum: 9, Golden Sum: 09
+# A: 03, B: 03, Sum: 6, Golden Sum: 06
+# A: 08, B: 0d, Sum: 5, Golden Sum: 15
+# A: 04, B: 0b, Sum: 0, Golden Sum: 10
+# A: 02, B: 02, Sum: 5, Golden Sum: 05
+# A: 00, B: 0e, Sum: f, Golden Sum: 0f
+# A: 0b, B: 06, Sum: 2, Golden Sum: 12
+# A: 00, B: 0f, Sum: 0, Golden Sum: 10
+# A: 0c, B: 09, Sum: 6, Golden Sum: 16
+# A: 0f, B: 00, Sum: 0, Golden Sum: 10
+# A: 09, B: 07, Sum: 0, Golden Sum: 10
+# A: 08, B: 0b, Sum: 3, Golden Sum: 13
+# A: 08, B: 07, Sum: f, Golden Sum: 0f
+# A: 00, B: 07, Sum: 8, Golden Sum: 08
+# A: 04, B: 07, Sum: b, Golden Sum: 0b
+# A: 09, B: 0b, Sum: 5, Golden Sum: 15
+# A: 0b, B: 00, Sum: b, Golden Sum: 0b
+# A: 05, B: 00, Sum: 6, Golden Sum: 06
+# A: 06, B: 0f, Sum: 6, Golden Sum: 16
+# A: 08, B: 06, Sum: f, Golden Sum: 0f
+# A: 01, B: 05, Sum: 6, Golden Sum: 06
+# A: 00, B: 05, Sum: 5, Golden Sum: 05
+# A: 04, B: 09, Sum: e, Golden Sum: 0e
+# A: 07, B: 0e, Sum: 6, Golden Sum: 16
+# A: 05, B: 08, Sum: d, Golden Sum: 0d
+# A: 0a, B: 0f, Sum: a, Golden Sum: 1a
+# A: 0d, B: 0e, Sum: b, Golden Sum: 1b
+# A: 0c, B: 09, Sum: 6, Golden Sum: 16
+# A: 0b, B: 0f, Sum: a, Golden Sum: 1a
+# A: 09, B: 03, Sum: d, Golden Sum: 0d
+# A: 05, B: 01, Sum: 7, Golden Sum: 07
+# A: 09, B: 0a, Sum: 4, Golden Sum: 14
+# A: 02, B: 04, Sum: 6, Golden Sum: 06
+# A: 0d, B: 09, Sum: 7, Golden Sum: 17
+# A: 0d, B: 09, Sum: 7, Golden Sum: 17
+# A: 0f, B: 0b, Sum: b, Golden Sum: 1b
+# A: 00, B: 06, Sum: 6, Golden Sum: 06
+# A: 0d, B: 0a, Sum: 7, Golden Sum: 17
+# A: 00, B: 0b, Sum: c, Golden Sum: 0c
+# A: 08, B: 06, Sum: e, Golden Sum: 0e
+# A: 03, B: 09, Sum: c, Golden Sum: 0c
+# A: 0b, B: 0e, Sum: a, Golden Sum: 1a
+# A: 0c, B: 0e, Sum: a, Golden Sum: 1a
+# A: 09, B: 09, Sum: 3, Golden Sum: 13
+# A: 04, B: 05, Sum: 9, Golden Sum: 09
+# A: 09, B: 02, Sum: c, Golden Sum: 0c
+# A: 05, B: 0e, Sum: 3, Golden Sum: 13
+# A: 08, B: 08, Sum: 1, Golden Sum: 11
+# A: 0f, B: 08, Sum: 7, Golden Sum: 17
+# A: 05, B: 0c, Sum: 2, Golden Sum: 12
+# A: 00, B: 05, Sum: 6, Golden Sum: 06
+# A: 00, B: 0d, Sum: e, Golden Sum: 0e
+# A: 0c, B: 00, Sum: c, Golden Sum: 0c
+# A: 00, B: 01, Sum: 2, Golden Sum: 02
+# A: 05, B: 05, Sum: b, Golden Sum: 0b
+# A: 04, B: 0a, Sum: e, Golden Sum: 0e
+# A: 08, B: 0e, Sum: 6, Golden Sum: 16
+# A: 06, B: 07, Sum: e, Golden Sum: 0e
+# ** Note: $stop    : C:/Users/13651/Desktop/ECE 552/HW1/hw1_2/cla_4b_tb.v(21)
+#    Time: 20 ns  Iteration: 0  Instance: /cla_4b_tb
+# Break in Module cla_4b_tb at C:/Users/13651/Desktop/ECE 552/HW1/hw1_2/cla_4b_tb.v line 21
+# Compile of cla_16b.v was successful.
+quit -sim
+# End time: 18:09:38 on Feb 10,2022, Elapsed time: 1:43:00
+# Errors: 0, Warnings: 2
+vsim work.cla_16b_bench
+# vsim work.cla_16b_bench 
+# Start time: 18:09:51 on Feb 10,2022
+# Loading work.cla_16b_bench
+# Loading work.clkrst
+# Loading work.cla_16b
+# Loading work.not1
+# Loading work.nand2
+# Loading work.nor2
+# Loading work.cla_4b
+# Loading work.nand3
+# Loading work.nor3
+# Loading work.fullAdder_1b
+# Loading work.xor3
+add wave -position insertpoint sim:/cla_16b_bench/DUT/*
+restart
+run -all
+# A: 03524, B: 05e81, Sum: 93a6, Golden Sum: 093a6
+# ERRORCHECK CO error
+# A: 05663, B: 07b0d, Sum: d271, Golden Sum: 0d171
+# ERRORCHECK Sum error
+# ERRORCHECK CO error
+# A: 08465, B: 05212, Sum: d678, Golden Sum: 0d678
+# ERRORCHECK CO error
+# A: 0cd0d, B: 0f176, Sum: bf84, Golden Sum: 1be84
+# ERRORCHECK Sum error
+# A: 057ed, B: 0f78c, Sum: 4f7a, Golden Sum: 14f7a
+# A: 024c6, B: 084c5, Sum: a98b, Golden Sum: 0a98b
+# A: 0f7e5, B: 07277, Sum: 6a5c, Golden Sum: 16a5c
+# A: 0db8f, B: 069f2, Sum: 4581, Golden Sum: 14581
+# A: 07ae8, B: 04ec5, Sum: c9ad, Golden Sum: 0c9ad
+# A: 028bd, B: 0582d, Sum: 80eb, Golden Sum: 080eb
+# ERRORCHECK CO error
+# A: 06263, B: 0870a, Sum: e96d, Golden Sum: 0e96d
+# A: 02120, B: 045aa, Sum: 66cb, Golden Sum: 066cb
+# ERRORCHECK CO error
+# A: 03e96, B: 0b813, Sum: f6aa, Golden Sum: 0f6aa
+# ERRORCHECK CO error
+# A: 0d653, B: 0dd6b, Sum: b3bf, Golden Sum: 1b3bf
+# A: 04a02, B: 03eae, Sum: 88b1, Golden Sum: 088b1
+# ERRORCHECK CO error
+# A: 072cf, B: 04923, Sum: bbf2, Golden Sum: 0bbf2
+# A: 00aca, B: 04c3c, Sum: 5706, Golden Sum: 05706
+# A: 0618a, B: 0b341, Sum: 14cb, Golden Sum: 114cb
+# A: 0f378, B: 01289, Sum: 0602, Golden Sum: 10602
+# A: 065b6, B: 0f9c6, Sum: 5f7c, Golden Sum: 15f7c
+# A: 002bc, B: 0dd2a, Sum: dfe7, Golden Sum: 0dfe7
+# ERRORCHECK CO error
+# A: 0be71, B: 04185, Sum: 00f7, Golden Sum: 0fff7
+# ERRORCHECK Sum error
+# ERRORCHECK CO error
+# A: 0603b, B: 0333a, Sum: 9375, Golden Sum: 09375
+# A: 04b15, B: 09bf1, Sum: e707, Golden Sum: 0e707
+# ERRORCHECK CO error
+# A: 00762, B: 0fb4c, Sum: 02af, Golden Sum: 102af
+# A: 0a18f, B: 0a9f8, Sum: 4b88, Golden Sum: 14b88
+# A: 0569f, B: 0945c, Sum: ebfc, Golden Sum: 0eafc
+# ERRORCHECK Sum error
+# ERRORCHECK CO error
+# A: 03789, B: 03249, Sum: 69d2, Golden Sum: 069d2
+# A: 0c0d7, B: 0fc51, Sum: bd28, Golden Sum: 1bd28
+# A: 07f0c, B: 0cec2, Sum: 4dce, Golden Sum: 14dce
+# A: 05a77, B: 0ed3d, Sum: 47b4, Golden Sum: 147b4
+# A: 0007e, B: 0816d, Sum: 82ec, Golden Sum: 081ec
+# ERRORCHECK Sum error
+# ERRORCHECK CO error
+# ** Note: $stop    : C:/Users/13651/Desktop/ECE 552/HW1/hw1_2/cla_16b_bench.v(20)
+#    Time: 3200 ps  Iteration: 0  Instance: /cla_16b_bench
+# Break in Module cla_16b_bench at C:/Users/13651/Desktop/ECE 552/HW1/hw1_2/cla_16b_bench.v line 20
+# Compile of cla_16b.v was successful.
+restart
+# Closing VCD file "dump.vcd"
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.cla_16b
+run -all
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# A: 03524, B: 05e81, Sum: 93a6, Golden Sum: 093a6
+# ERRORCHECK CO error
+# A: 05663, B: 07b0d, Sum: d271, Golden Sum: 0d171
+# ERRORCHECK Sum error
+# ERRORCHECK CO error
+# A: 08465, B: 05212, Sum: d678, Golden Sum: 0d678
+# A: 0cd0d, B: 0f176, Sum: bf84, Golden Sum: 1be84
+# ERRORCHECK Sum error
+# A: 057ed, B: 0f78c, Sum: 4f7a, Golden Sum: 14f7a
+# A: 024c6, B: 084c5, Sum: a98b, Golden Sum: 0a98b
+# A: 0f7e5, B: 07277, Sum: 6a5c, Golden Sum: 16a5c
+# A: 0db8f, B: 069f2, Sum: 4581, Golden Sum: 14581
+# A: 07ae8, B: 04ec5, Sum: c9ad, Golden Sum: 0c9ad
+# A: 028bd, B: 0582d, Sum: 80eb, Golden Sum: 080eb
+# A: 06263, B: 0870a, Sum: e96d, Golden Sum: 0e96d
+# A: 02120, B: 045aa, Sum: 66cb, Golden Sum: 066cb
+# A: 03e96, B: 0b813, Sum: f6aa, Golden Sum: 0f6aa
+# A: 0d653, B: 0dd6b, Sum: b3bf, Golden Sum: 1b3bf
+# A: 04a02, B: 03eae, Sum: 88b1, Golden Sum: 088b1
+# A: 072cf, B: 04923, Sum: bbf2, Golden Sum: 0bbf2
+# A: 00aca, B: 04c3c, Sum: 5706, Golden Sum: 05706
+# A: 0618a, B: 0b341, Sum: 14cb, Golden Sum: 114cb
+# A: 0f378, B: 01289, Sum: 0602, Golden Sum: 10602
+# A: 065b6, B: 0f9c6, Sum: 5f7c, Golden Sum: 15f7c
+# A: 002bc, B: 0dd2a, Sum: dfe7, Golden Sum: 0dfe7
+# ERRORCHECK CO error
+# A: 0be71, B: 04185, Sum: 00f7, Golden Sum: 0fff7
+# ERRORCHECK Sum error
+# ERRORCHECK CO error
+# A: 0603b, B: 0333a, Sum: 9375, Golden Sum: 09375
+# A: 04b15, B: 09bf1, Sum: e707, Golden Sum: 0e707
+# ERRORCHECK CO error
+# A: 00762, B: 0fb4c, Sum: 02af, Golden Sum: 102af
+# A: 0a18f, B: 0a9f8, Sum: 4b88, Golden Sum: 14b88
+# A: 0569f, B: 0945c, Sum: ebfc, Golden Sum: 0eafc
+# ERRORCHECK Sum error
+# ERRORCHECK CO error
+# A: 03789, B: 03249, Sum: 69d2, Golden Sum: 069d2
+# A: 0c0d7, B: 0fc51, Sum: bd28, Golden Sum: 1bd28
+# A: 07f0c, B: 0cec2, Sum: 4dce, Golden Sum: 14dce
+# A: 05a77, B: 0ed3d, Sum: 47b4, Golden Sum: 147b4
+# A: 0007e, B: 0816d, Sum: 82ec, Golden Sum: 081ec
+# ERRORCHECK Sum error
+# ERRORCHECK CO error
+# ** Note: $stop    : C:/Users/13651/Desktop/ECE 552/HW1/hw1_2/cla_16b_bench.v(20)
+#    Time: 3200 ps  Iteration: 0  Instance: /cla_16b_bench
+# Break in Module cla_16b_bench at C:/Users/13651/Desktop/ECE 552/HW1/hw1_2/cla_16b_bench.v line 20
+# Compile of cla_16b.v was successful.
+restart
+# Closing VCD file "dump.vcd"
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.cla_16b
+run -all
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# A: 03524, B: 05e81, Sum: 93a6, Golden Sum: 093a6
+# A: 05663, B: 07b0d, Sum: d171, Golden Sum: 0d171
+# A: 08465, B: 05212, Sum: d678, Golden Sum: 0d678
+# A: 0cd0d, B: 0f176, Sum: be84, Golden Sum: 1be84
+# A: 057ed, B: 0f78c, Sum: 4f7a, Golden Sum: 14f7a
+# A: 024c6, B: 084c5, Sum: a98b, Golden Sum: 0a98b
+# A: 0f7e5, B: 07277, Sum: 6a5c, Golden Sum: 16a5c
+# A: 0db8f, B: 069f2, Sum: 4581, Golden Sum: 14581
+# A: 07ae8, B: 04ec5, Sum: c9ad, Golden Sum: 0c9ad
+# A: 028bd, B: 0582d, Sum: 80eb, Golden Sum: 080eb
+# A: 06263, B: 0870a, Sum: e96d, Golden Sum: 0e96d
+# A: 02120, B: 045aa, Sum: 66cb, Golden Sum: 066cb
+# A: 03e96, B: 0b813, Sum: f6aa, Golden Sum: 0f6aa
+# A: 0d653, B: 0dd6b, Sum: b3bf, Golden Sum: 1b3bf
+# A: 04a02, B: 03eae, Sum: 88b1, Golden Sum: 088b1
+# A: 072cf, B: 04923, Sum: bbf2, Golden Sum: 0bbf2
+# A: 00aca, B: 04c3c, Sum: 5706, Golden Sum: 05706
+# A: 0618a, B: 0b341, Sum: 14cb, Golden Sum: 114cb
+# A: 0f378, B: 01289, Sum: 0602, Golden Sum: 10602
+# A: 065b6, B: 0f9c6, Sum: 5f7c, Golden Sum: 15f7c
+# A: 002bc, B: 0dd2a, Sum: dfe7, Golden Sum: 0dfe7
+# A: 0be71, B: 04185, Sum: fff7, Golden Sum: 0fff7
+# A: 0603b, B: 0333a, Sum: 9375, Golden Sum: 09375
+# A: 04b15, B: 09bf1, Sum: e707, Golden Sum: 0e707
+# A: 00762, B: 0fb4c, Sum: 02af, Golden Sum: 102af
+# A: 0a18f, B: 0a9f8, Sum: 4b88, Golden Sum: 14b88
+# A: 0569f, B: 0945c, Sum: eafc, Golden Sum: 0eafc
+# A: 03789, B: 03249, Sum: 69d2, Golden Sum: 069d2
+# A: 0c0d7, B: 0fc51, Sum: bd28, Golden Sum: 1bd28
+# A: 07f0c, B: 0cec2, Sum: 4dce, Golden Sum: 14dce
+# A: 05a77, B: 0ed3d, Sum: 47b4, Golden Sum: 147b4
+# A: 0007e, B: 0816d, Sum: 81ec, Golden Sum: 081ec
+# ** Note: $stop    : C:/Users/13651/Desktop/ECE 552/HW1/hw1_2/cla_16b_bench.v(20)
+#    Time: 3200 ps  Iteration: 0  Instance: /cla_16b_bench
+# Break in Module cla_16b_bench at C:/Users/13651/Desktop/ECE 552/HW1/hw1_2/cla_16b_bench.v line 20
+# Compile of cla_4b.v was successful.
+# Compile of cla_16b.v was successful.
+# Compile of cla_16b_bench.v was successful.
+# Compile of clkrst.v was successful.
+# Compile of fullAdder_1b.v was successful.
+# Compile of nand2.v was successful.
+# Compile of nand3.v was successful.
+# Compile of nor2.v was successful.
+# Compile of nor3.v was successful.
+# Compile of not1.v was successful.
+# Compile of xor2.v was successful.
+# Compile of xor3.v was successful.
+# Compile of fullAdder_1b_tb.sv was successful.
+# Compile of cla_4b_tb.v was successful.
+# 14 compiles, 0 failed with no errors.
+restart
+# Closing VCD file "dump.vcd"
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.cla_16b_bench
+# Loading work.clkrst
+# Loading work.cla_16b
+# Loading work.not1
+# Loading work.nand2
+# Loading work.cla_4b
+# Loading work.nand3
+# Loading work.nor3
+# Loading work.nor2
+# Loading work.fullAdder_1b
+# Loading work.xor3
+run -all
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# A: 03524, B: 05e81, Sum: 93a6, Golden Sum: 093a6
+# A: 05663, B: 07b0d, Sum: d171, Golden Sum: 0d171
+# A: 08465, B: 05212, Sum: d678, Golden Sum: 0d678
+# A: 0cd0d, B: 0f176, Sum: be84, Golden Sum: 1be84
+# A: 057ed, B: 0f78c, Sum: 4f7a, Golden Sum: 14f7a
+# A: 024c6, B: 084c5, Sum: a98b, Golden Sum: 0a98b
+# A: 0f7e5, B: 07277, Sum: 6a5c, Golden Sum: 16a5c
+# A: 0db8f, B: 069f2, Sum: 4581, Golden Sum: 14581
+# A: 07ae8, B: 04ec5, Sum: c9ad, Golden Sum: 0c9ad
+# A: 028bd, B: 0582d, Sum: 80eb, Golden Sum: 080eb
+# A: 06263, B: 0870a, Sum: e96d, Golden Sum: 0e96d
+# A: 02120, B: 045aa, Sum: 66cb, Golden Sum: 066cb
+# A: 03e96, B: 0b813, Sum: f6aa, Golden Sum: 0f6aa
+# A: 0d653, B: 0dd6b, Sum: b3bf, Golden Sum: 1b3bf
+# A: 04a02, B: 03eae, Sum: 88b1, Golden Sum: 088b1
+# A: 072cf, B: 04923, Sum: bbf2, Golden Sum: 0bbf2
+# A: 00aca, B: 04c3c, Sum: 5706, Golden Sum: 05706
+# A: 0618a, B: 0b341, Sum: 14cb, Golden Sum: 114cb
+# A: 0f378, B: 01289, Sum: 0602, Golden Sum: 10602
+# A: 065b6, B: 0f9c6, Sum: 5f7c, Golden Sum: 15f7c
+# A: 002bc, B: 0dd2a, Sum: dfe7, Golden Sum: 0dfe7
+# A: 0be71, B: 04185, Sum: fff7, Golden Sum: 0fff7
+# A: 0603b, B: 0333a, Sum: 9375, Golden Sum: 09375
+# A: 04b15, B: 09bf1, Sum: e707, Golden Sum: 0e707
+# A: 00762, B: 0fb4c, Sum: 02af, Golden Sum: 102af
+# A: 0a18f, B: 0a9f8, Sum: 4b88, Golden Sum: 14b88
+# A: 0569f, B: 0945c, Sum: eafc, Golden Sum: 0eafc
+# A: 03789, B: 03249, Sum: 69d2, Golden Sum: 069d2
+# A: 0c0d7, B: 0fc51, Sum: bd28, Golden Sum: 1bd28
+# A: 07f0c, B: 0cec2, Sum: 4dce, Golden Sum: 14dce
+# A: 05a77, B: 0ed3d, Sum: 47b4, Golden Sum: 147b4
+# A: 0007e, B: 0816d, Sum: 81ec, Golden Sum: 081ec
+# A: 08f1f, B: 0f6d3, Sum: 85f3, Golden Sum: 185f3
+# A: 08878, B: 0595b, Sum: e1d4, Golden Sum: 0e1d4
+# A: 0ae3f, B: 0af2a, Sum: 5d69, Golden Sum: 15d69
+# A: 03886, B: 00c8e, Sum: 4514, Golden Sum: 04514
+# A: 099fa, B: 0bc26, Sum: 5621, Golden Sum: 15621
+# A: 0b4a3, B: 0a82f, Sum: 5cd3, Golden Sum: 15cd3
+# A: 0565f, B: 00d44, Sum: 63a4, Golden Sum: 063a4
+# A: 036cb, B: 01ae6, Sum: 51b1, Golden Sum: 051b1
+# A: 0c129, B: 0e2ed, Sum: a416, Golden Sum: 1a416
+# A: 0b665, B: 0e2b5, Sum: 991b, Golden Sum: 1991b
+# A: 01979, B: 0ff44, Sum: 18bd, Golden Sum: 118bd
+# A: 00b2a, B: 0adab, Sum: b8d5, Golden Sum: 0b8d5
+# A: 0addc, B: 0bc9a, Sum: 6a77, Golden Sum: 16a77
+# A: 002c3, B: 0ed56, Sum: f019, Golden Sum: 0f019
+# A: 07667, B: 0340a, Sum: aa71, Golden Sum: 0aa71
+# A: 08a38, B: 08779, Sum: 11b1, Golden Sum: 111b1
+# A: 0bf94, B: 05d93, Sum: 1d27, Golden Sum: 11d27
+# A: 0ca59, B: 069db, Sum: 3435, Golden Sum: 13435
+# A: 0b7d9, B: 0266d, Sum: de46, Golden Sum: 0de46
+# A: 049ca, B: 02db6, Sum: 7781, Golden Sum: 07781
+# A: 01a46, B: 09b04, Sum: b54b, Golden Sum: 0b54b
+# A: 00769, B: 0bab4, Sum: c21d, Golden Sum: 0c21d
+# A: 0d928, B: 0042d, Sum: dd56, Golden Sum: 0dd56
+# A: 09c2e, B: 0e408, Sum: 8036, Golden Sum: 18036
+# A: 0a6fd, B: 00729, Sum: ae26, Golden Sum: 0ae26
+# A: 06786, B: 008da, Sum: 7061, Golden Sum: 07061
+# A: 0a766, B: 0c470, Sum: 6bd7, Golden Sum: 16bd7
+# A: 099ba, B: 0b35e, Sum: 4d18, Golden Sum: 14d18
+# A: 005d5, B: 0f61a, Sum: fbf0, Golden Sum: 0fbf0
+# A: 06137, B: 03796, Sum: 98cd, Golden Sum: 098cd
+# A: 09f26, B: 01ab6, Sum: b9dd, Golden Sum: 0b9dd
+# A: 00fdc, B: 05786, Sum: 6762, Golden Sum: 06762
+# A: 09b7e, B: 080db, Sum: 1c5a, Golden Sum: 11c5a
+# A: 02b79, B: 0e4fa, Sum: 1074, Golden Sum: 11074
+# A: 00917, B: 078a1, Sum: 81b8, Golden Sum: 081b8
+# A: 09650, B: 059f5, Sum: f046, Golden Sum: 0f046
+# A: 08a29, B: 075c1, Sum: ffeb, Golden Sum: 0ffeb
+# A: 0b498, B: 07b4b, Sum: 2fe4, Golden Sum: 12fe4
+# A: 0e6ec, B: 0168a, Sum: fd76, Golden Sum: 0fd76
+# A: 080a8, B: 0fda9, Sum: 7e52, Golden Sum: 17e52
+# A: 0b90e, B: 066e6, Sum: 1ff5, Golden Sum: 11ff5
+# A: 0b52a, B: 01d2a, Sum: d255, Golden Sum: 0d255
+# A: 0ff9e, B: 0e638, Sum: e5d7, Golden Sum: 1e5d7
+# A: 0e3c8, B: 045ca, Sum: 2993, Golden Sum: 12993
+# A: 0c96b, B: 0aec7, Sum: 7832, Golden Sum: 17832
+# A: 09dba, B: 0abc4, Sum: 497f, Golden Sum: 1497f
+# A: 0d392, B: 09ab4, Sum: 6e47, Golden Sum: 16e47
+# A: 09086, B: 0f5fa, Sum: 8680, Golden Sum: 18680
+# A: 02132, B: 05ebd, Sum: 7fef, Golden Sum: 07fef
+# A: 0a4e4, B: 0cfca, Sum: 74af, Golden Sum: 174af
+# A: 0a8a1, B: 0a98e, Sum: 5230, Golden Sum: 15230
+# A: 01e0b, B: 090ef, Sum: aefb, Golden Sum: 0aefb
+# A: 0e536, B: 04875, Sum: 2dac, Golden Sum: 12dac
+# A: 0bf6b, B: 0e788, Sum: a6f3, Golden Sum: 1a6f3
+# A: 0819b, B: 04592, Sum: c72d, Golden Sum: 0c72d
+# A: 0e02d, B: 05f4b, Sum: 3f78, Golden Sum: 13f78
+# A: 0f61e, B: 0050d, Sum: fb2b, Golden Sum: 0fb2b
+# A: 09d18, B: 01bd1, Sum: b8e9, Golden Sum: 0b8e9
+# A: 02441, B: 0643b, Sum: 887c, Golden Sum: 0887c
+# A: 0e953, B: 06256, Sum: 4baa, Golden Sum: 14baa
+# A: 0fae2, B: 0e204, Sum: dce7, Golden Sum: 1dce7
+# A: 0b4d8, B: 04d12, Sum: 01ea, Golden Sum: 101ea
+# A: 01239, B: 0b6e5, Sum: c91f, Golden Sum: 0c91f
+# A: 00f2b, B: 05d81, Sum: 6cac, Golden Sum: 06cac
+# A: 05527, B: 0f9a1, Sum: 4ec9, Golden Sum: 14ec9
+# A: 03a04, B: 02358, Sum: 5d5c, Golden Sum: 05d5c
+# A: 09314, B: 0b412, Sum: 4726, Golden Sum: 14726
+# A: 0e2b1, B: 0d555, Sum: b807, Golden Sum: 1b807
+# A: 02b2b, B: 01bf5, Sum: 4721, Golden Sum: 04721
+# A: 02227, B: 0ff84, Sum: 21ac, Golden Sum: 121ac
+# A: 0a6e7, B: 090b9, Sum: 37a1, Golden Sum: 137a1
+# A: 0bbdb, B: 00fc9, Sum: cba5, Golden Sum: 0cba5
+# A: 05ea1, B: 0dd2a, Sum: 3bcb, Golden Sum: 13bcb
+# A: 02045, B: 00583, Sum: 25c8, Golden Sum: 025c8
+# A: 01472, B: 03cfe, Sum: 5170, Golden Sum: 05170
+# A: 0aa6f, B: 00d86, Sum: b7f5, Golden Sum: 0b7f5
+# A: 09738, B: 09140, Sum: 2878, Golden Sum: 12878
+# A: 0a9f6, B: 01ac5, Sum: c4bb, Golden Sum: 0c4bb
+# A: 05f74, B: 07139, Sum: d0ad, Golden Sum: 0d0ad
+# A: 0873c, B: 0932a, Sum: 1a66, Golden Sum: 11a66
+# A: 03515, B: 04ee1, Sum: 83f7, Golden Sum: 083f7
+# A: 0ee43, B: 0e3c9, Sum: d20c, Golden Sum: 1d20c
+# A: 0cb25, B: 09dc1, Sum: 68e7, Golden Sum: 168e7
+# A: 0e25a, B: 02707, Sum: 0961, Golden Sum: 10961
+# A: 05d0c, B: 0e671, Sum: 437e, Golden Sum: 1437e
+# A: 0e5b6, B: 0c2f7, Sum: a8ad, Golden Sum: 1a8ad
+# A: 0585c, B: 0f755, Sum: 4fb1, Golden Sum: 14fb1
+# A: 012a0, B: 00972, Sum: 1c12, Golden Sum: 01c12
+# A: 0f5dd, B: 0f00d, Sum: e5eb, Golden Sum: 1e5eb
+# A: 04279, B: 0da9e, Sum: 1d18, Golden Sum: 11d18
+# A: 0d27b, B: 0738f, Sum: 460b, Golden Sum: 1460b
+# A: 029e3, B: 0431d, Sum: 6d01, Golden Sum: 06d01
+# A: 09f44, B: 0bc95, Sum: 5bd9, Golden Sum: 15bd9
+# A: 078ed, B: 01552, Sum: 8e3f, Golden Sum: 08e3f
+# A: 0b78d, B: 0c452, Sum: 7bdf, Golden Sum: 17bdf
+# A: 0fd46, B: 0928c, Sum: 8fd2, Golden Sum: 18fd2
+# A: 0c117, B: 0616a, Sum: 2281, Golden Sum: 12281
+# A: 0bcaa, B: 00f7c, Sum: cc26, Golden Sum: 0cc26
+# A: 04dba, B: 0608b, Sum: ae45, Golden Sum: 0ae45
+# A: 01e25, B: 08332, Sum: a157, Golden Sum: 0a157
+# A: 07c49, B: 0b014, Sum: 2c5e, Golden Sum: 12c5e
+# A: 0034b, B: 0305c, Sum: 33a8, Golden Sum: 033a8
+# A: 09786, B: 07a39, Sum: 11bf, Golden Sum: 111bf
+# A: 0e5d0, B: 0502c, Sum: 35fc, Golden Sum: 135fc
+# A: 0b707, B: 0406a, Sum: f772, Golden Sum: 0f772
+# A: 0ffe8, B: 09e4b, Sum: 9e34, Golden Sum: 19e34
+# A: 05bec, B: 00523, Sum: 610f, Golden Sum: 0610f
+# A: 065c9, B: 00439, Sum: 6a03, Golden Sum: 06a03
+# A: 014d4, B: 06567, Sum: 7a3c, Golden Sum: 07a3c
+# A: 025b0, B: 03982, Sum: 5f33, Golden Sum: 05f33
+# A: 01ad9, B: 0b720, Sum: d1f9, Golden Sum: 0d1f9
+# A: 06f93, B: 061e3, Sum: d176, Golden Sum: 0d176
+# A: 0f8c8, B: 02e5d, Sum: 2725, Golden Sum: 12725
+# A: 0a984, B: 0a82b, Sum: 51b0, Golden Sum: 151b0
+# A: 01c12, B: 00052, Sum: 1c65, Golden Sum: 01c65
+# A: 096d0, B: 0ea6e, Sum: 813f, Golden Sum: 1813f
+# A: 087db, B: 077a6, Sum: ff82, Golden Sum: 0ff82
+# A: 07c00, B: 04c0f, Sum: c810, Golden Sum: 0c810
+# A: 0620c, B: 01959, Sum: 7b66, Golden Sum: 07b66
+# A: 035cf, B: 0e590, Sum: 1b60, Golden Sum: 11b60
+# A: 0a469, B: 0cd77, Sum: 71e0, Golden Sum: 171e0
+# A: 058d8, B: 04d9b, Sum: a673, Golden Sum: 0a673
+# A: 0b1b8, B: 0f2b7, Sum: a46f, Golden Sum: 1a46f
+# A: 05a30, B: 05377, Sum: ada8, Golden Sum: 0ada8
+# A: 0f5d4, B: 08707, Sum: 7cdb, Golden Sum: 17cdb
+# A: 0ade9, B: 08b8b, Sum: 3975, Golden Sum: 13975
+# A: 08bdb, B: 04280, Sum: ce5b, Golden Sum: 0ce5b
+# A: 0dac5, B: 0fa30, Sum: d4f6, Golden Sum: 1d4f6
+# A: 0da66, B: 0b9af, Sum: 9416, Golden Sum: 19416
+# A: 0aff8, B: 0ac06, Sum: 5bff, Golden Sum: 15bff
+# A: 037e1, B: 07c95, Sum: b476, Golden Sum: 0b476
+# A: 04d60, B: 05ee5, Sum: ac45, Golden Sum: 0ac45
+# A: 07d64, B: 03729, Sum: b48e, Golden Sum: 0b48e
+# A: 05277, B: 0156e, Sum: 67e6, Golden Sum: 067e6
+# A: 0b9d5, B: 0d568, Sum: 8f3d, Golden Sum: 18f3d
+# A: 000aa, B: 0c30f, Sum: c3ba, Golden Sum: 0c3ba
+# A: 0bc7d, B: 0958e, Sum: 520b, Golden Sum: 1520b
+# A: 04d3c, B: 0e6a9, Sum: 33e6, Golden Sum: 133e6
+# A: 0d05b, B: 03caf, Sum: 0d0a, Golden Sum: 10d0a
+# A: 00db9, B: 02d13, Sum: 3acd, Golden Sum: 03acd
+# A: 04165, B: 02751, Sum: 68b7, Golden Sum: 068b7
+# A: 01099, B: 0083a, Sum: 18d4, Golden Sum: 018d4
+# A: 00762, B: 06ae4, Sum: 7246, Golden Sum: 07246
+# A: 0447d, B: 05f59, Sum: a3d7, Golden Sum: 0a3d7
+# A: 06bed, B: 000c9, Sum: 6cb7, Golden Sum: 06cb7
+# A: 0d1af, B: 01cdb, Sum: ee8b, Golden Sum: 0ee8b
+# A: 09f70, B: 0d406, Sum: 7376, Golden Sum: 17376
+# A: 03dbd, B: 0de6a, Sum: 1c27, Golden Sum: 11c27
+# A: 05e50, B: 0f47b, Sum: 52cc, Golden Sum: 152cc
+# A: 08478, B: 089f6, Sum: 0e6e, Golden Sum: 10e6e
+# A: 09b23, B: 0ab79, Sum: 469c, Golden Sum: 1469c
+# A: 046bb, B: 0ee0e, Sum: 34ca, Golden Sum: 134ca
+# A: 0030c, B: 098ce, Sum: 9bda, Golden Sum: 09bda
+# A: 0dc59, B: 06fb9, Sum: 4c13, Golden Sum: 14c13
+# A: 0bff4, B: 0e275, Sum: a269, Golden Sum: 1a269
+# A: 07a39, B: 09302, Sum: 0d3c, Golden Sum: 10d3c
+# A: 0f905, B: 0434e, Sum: 3c53, Golden Sum: 13c53
+# A: 051b8, B: 0b208, Sum: 03c1, Golden Sum: 103c1
+# A: 08eaf, B: 031e8, Sum: c097, Golden Sum: 0c097
+# A: 0abf5, B: 0904c, Sum: 3c42, Golden Sum: 13c42
+# A: 0a640, B: 00325, Sum: a966, Golden Sum: 0a966
+# A: 01070, B: 0f92d, Sum: 099e, Golden Sum: 1099e
+# A: 051bc, B: 00830, Sum: 59ec, Golden Sum: 059ec
+# A: 06950, B: 06aa1, Sum: d3f2, Golden Sum: 0d3f2
+# A: 02ef5, B: 0aff5, Sum: deeb, Golden Sum: 0deeb
+# A: 01294, B: 0a66a, Sum: b8fe, Golden Sum: 0b8fe
+# A: 008b8, B: 09c9e, Sum: a556, Golden Sum: 0a556
+# A: 00b46, B: 06407, Sum: 6f4e, Golden Sum: 06f4e
+# A: 07455, B: 0dbb7, Sum: 500d, Golden Sum: 1500d
+# A: 00a63, B: 0e059, Sum: eabc, Golden Sum: 0eabc
+# A: 07668, B: 0e41e, Sum: 5a86, Golden Sum: 15a86
+# A: 0a55a, B: 0851c, Sum: 2a77, Golden Sum: 12a77
+# A: 01fab, B: 0d9d0, Sum: f97c, Golden Sum: 0f97c
+# A: 06dd8, B: 08845, Sum: f61e, Golden Sum: 0f61e
+# A: 0238b, B: 091fc, Sum: b587, Golden Sum: 0b587
+# A: 00aa4, B: 08d19, Sum: 97be, Golden Sum: 097be
+# A: 08e3e, B: 0c0f3, Sum: 4f31, Golden Sum: 14f31
+# A: 06bc4, B: 0435c, Sum: af20, Golden Sum: 0af20
+# A: 0509a, B: 01918, Sum: 69b3, Golden Sum: 069b3
+# A: 0d1aa, B: 0031a, Sum: d4c5, Golden Sum: 0d4c5
+# A: 0e9b2, B: 0630c, Sum: 4cbf, Golden Sum: 14cbf
+# A: 0fdc3, B: 073eb, Sum: 71ae, Golden Sum: 171ae
+# A: 003f2, B: 0ad89, Sum: b17c, Golden Sum: 0b17c
+# A: 04b1b, B: 028ad, Sum: 73c8, Golden Sum: 073c8
+# A: 01225, B: 057cf, Sum: 69f5, Golden Sum: 069f5
+# A: 0d21b, B: 03e80, Sum: 109c, Golden Sum: 1109c
+# A: 0fd82, B: 04204, Sum: 3f87, Golden Sum: 13f87
+# A: 08b36, B: 00332, Sum: 8e69, Golden Sum: 08e69
+# A: 0aee4, B: 0ec16, Sum: 9afa, Golden Sum: 19afa
+# A: 065c0, B: 0882e, Sum: edee, Golden Sum: 0edee
+# A: 0c271, B: 08ffb, Sum: 526c, Golden Sum: 1526c
+# A: 068dc, B: 05717, Sum: bff4, Golden Sum: 0bff4
+# A: 021eb, B: 03bb5, Sum: 5da1, Golden Sum: 05da1
+# A: 0e28f, B: 0f6bf, Sum: d94e, Golden Sum: 1d94e
+# A: 09ad3, B: 002d6, Sum: 9da9, Golden Sum: 09da9
+# A: 0751a, B: 0a771, Sum: 1c8c, Golden Sum: 11c8c
+# A: 08e0e, B: 014f1, Sum: a300, Golden Sum: 0a300
+# A: 04305, B: 0eb1c, Sum: 2e21, Golden Sum: 12e21
+# A: 088ec, B: 0d62a, Sum: 5f17, Golden Sum: 15f17
+# A: 00537, B: 03603, Sum: 3b3a, Golden Sum: 03b3a
+# A: 0dcfd, B: 00e3e, Sum: eb3b, Golden Sum: 0eb3b
+# A: 03874, B: 089b0, Sum: c224, Golden Sum: 0c224
+# A: 04d12, B: 0fc68, Sum: 497b, Golden Sum: 1497b
+# A: 02efe, B: 00d36, Sum: 3c35, Golden Sum: 03c35
+# A: 0abfb, B: 07c6b, Sum: 2867, Golden Sum: 12867
+# A: 0360f, B: 0b614, Sum: ec23, Golden Sum: 0ec23
+# A: 06ea6, B: 026d4, Sum: 957b, Golden Sum: 0957b
+# A: 0c26b, B: 0eb04, Sum: ad6f, Golden Sum: 1ad6f
+# A: 0618d, B: 070e1, Sum: d26f, Golden Sum: 0d26f
+# A: 074b9, B: 016c9, Sum: 8b82, Golden Sum: 08b82
+# A: 03246, B: 0cb3c, Sum: fd83, Golden Sum: 0fd83
+# A: 05558, B: 05773, Sum: accb, Golden Sum: 0accb
+# A: 023dc, B: 0c330, Sum: e70c, Golden Sum: 0e70c
+# A: 0e500, B: 00f43, Sum: f443, Golden Sum: 0f443
+# A: 09aa1, B: 01f53, Sum: b9f4, Golden Sum: 0b9f4
+# A: 03d5f, B: 09287, Sum: cfe6, Golden Sum: 0cfe6
+# A: 0d12d, B: 00270, Sum: d39e, Golden Sum: 0d39e
+# A: 03831, B: 0c012, Sum: f843, Golden Sum: 0f843
+# A: 06b0d, B: 01315, Sum: 7e22, Golden Sum: 07e22
+# A: 08d94, B: 0a354, Sum: 30e8, Golden Sum: 130e8
+# A: 01513, B: 086c3, Sum: 9bd7, Golden Sum: 09bd7
+# A: 0e6dc, B: 01078, Sum: f755, Golden Sum: 0f755
+# A: 0265f, B: 05b23, Sum: 8183, Golden Sum: 08183
+# A: 01738, B: 04d22, Sum: 645b, Golden Sum: 0645b
+# A: 04cc7, B: 06282, Sum: af49, Golden Sum: 0af49
+# A: 022c7, B: 0a424, Sum: c6ec, Golden Sum: 0c6ec
+# A: 01408, B: 06f75, Sum: 837e, Golden Sum: 0837e
+# A: 0721a, B: 01338, Sum: 8552, Golden Sum: 08552
+# A: 0a058, B: 06a50, Sum: 0aa9, Golden Sum: 10aa9
+# A: 0e3a4, B: 0df65, Sum: c309, Golden Sum: 1c309
+# A: 03906, B: 08054, Sum: b95b, Golden Sum: 0b95b
+# A: 0f0c8, B: 03948, Sum: 2a11, Golden Sum: 12a11
+# A: 0f3f8, B: 032b5, Sum: 26ae, Golden Sum: 126ae
+# A: 0d583, B: 0e39b, Sum: b91f, Golden Sum: 1b91f
+# A: 053b0, B: 082fb, Sum: d6ac, Golden Sum: 0d6ac
+# A: 0a630, B: 0c418, Sum: 6a49, Golden Sum: 16a49
+# A: 0e846, B: 00f61, Sum: f7a8, Golden Sum: 0f7a8
+# A: 07355, B: 0972f, Sum: 0a85, Golden Sum: 10a85
+# A: 0eade, B: 02cd3, Sum: 17b1, Golden Sum: 117b1
+# A: 069e9, B: 07958, Sum: e342, Golden Sum: 0e342
+# A: 0e5c3, B: 013d4, Sum: f997, Golden Sum: 0f997
+# A: 0ef7e, B: 09dd6, Sum: 8d55, Golden Sum: 18d55
+# A: 04483, B: 0efa0, Sum: 3423, Golden Sum: 13423
+# A: 0cbbf, B: 0db45, Sum: a705, Golden Sum: 1a705
+# A: 00b45, B: 01075, Sum: 1bba, Golden Sum: 01bba
+# A: 03bc6, B: 0596c, Sum: 9532, Golden Sum: 09532
+# A: 06331, B: 0fe9c, Sum: 61cd, Golden Sum: 161cd
+# A: 01eaf, B: 02c0e, Sum: 4abe, Golden Sum: 04abe
+# A: 040b2, B: 09ede, Sum: df91, Golden Sum: 0df91
+# A: 00faa, B: 0f128, Sum: 00d2, Golden Sum: 100d2
+# A: 0099a, B: 051d3, Sum: 5b6d, Golden Sum: 05b6d
+# A: 07cfb, B: 0728b, Sum: ef86, Golden Sum: 0ef86
+# A: 028cc, B: 01371, Sum: 3c3d, Golden Sum: 03c3d
+# A: 0db61, B: 0487b, Sum: 23dd, Golden Sum: 123dd
+# A: 0bc91, B: 098c0, Sum: 5552, Golden Sum: 15552
+# A: 0b47e, B: 07354, Sum: 27d3, Golden Sum: 127d3
+# A: 02849, B: 07de7, Sum: a630, Golden Sum: 0a630
+# A: 0d583, B: 0005b, Sum: d5df, Golden Sum: 0d5df
+# A: 0bf95, B: 04a77, Sum: 0a0d, Golden Sum: 10a0d
+# A: 05fe6, B: 0aeaf, Sum: 0e95, Golden Sum: 10e95
+# A: 06012, B: 0b3fc, Sum: 140f, Golden Sum: 1140f
+# A: 0f0c4, B: 0813f, Sum: 7203, Golden Sum: 17203
+# A: 01973, B: 09b5a, Sum: b4cd, Golden Sum: 0b4cd
+# A: 0cafe, B: 06b74, Sum: 3673, Golden Sum: 13673
+# A: 0bbe2, B: 048e2, Sum: 04c5, Golden Sum: 104c5
+# A: 0e298, B: 0ed9f, Sum: d037, Golden Sum: 1d037
+# A: 089f2, B: 07bbd, Sum: 05b0, Golden Sum: 105b0
+# A: 00fb4, B: 0ac54, Sum: bc09, Golden Sum: 0bc09
+# A: 0d413, B: 091ac, Sum: 65c0, Golden Sum: 165c0
+# A: 01f3b, B: 02435, Sum: 4371, Golden Sum: 04371
+# A: 09934, B: 0a255, Sum: 3b89, Golden Sum: 13b89
+# A: 0fef2, B: 036a7, Sum: 359a, Golden Sum: 1359a
+# A: 016e4, B: 0a241, Sum: b926, Golden Sum: 0b926
+# A: 0d8fa, B: 0d0cd, Sum: a9c8, Golden Sum: 1a9c8
+# A: 086b5, B: 082e8, Sum: 099e, Golden Sum: 1099e
+# A: 02e12, B: 08f37, Sum: bd49, Golden Sum: 0bd49
+# A: 0a4f8, B: 04e20, Sum: f318, Golden Sum: 0f318
+# A: 00222, B: 055ec, Sum: 580e, Golden Sum: 0580e
+# A: 05b7a, B: 0511e, Sum: ac99, Golden Sum: 0ac99
+# A: 0f2eb, B: 0f70b, Sum: e9f6, Golden Sum: 1e9f6
+# A: 05e5e, B: 02d7c, Sum: 8bdb, Golden Sum: 08bdb
+# A: 0548b, B: 0d312, Sum: 279e, Golden Sum: 1279e
+# A: 0d683, B: 000e1, Sum: d764, Golden Sum: 0d764
+# A: 05c4a, B: 073d5, Sum: d020, Golden Sum: 0d020
+# A: 0eee4, B: 08cf4, Sum: 7bd8, Golden Sum: 17bd8
+# A: 03f1a, B: 02ee3, Sum: 6dfd, Golden Sum: 06dfd
+# A: 081f3, B: 0472d, Sum: c920, Golden Sum: 0c920
+# A: 045dd, B: 0c8ec, Sum: 0eca, Golden Sum: 10eca
+# ** Note: $stop    : C:/Users/13651/Desktop/ECE 552/HW1/hw1_2/cla_16b_bench.v(20)
+#    Time: 32 ns  Iteration: 0  Instance: /cla_16b_bench
+# Break in Module cla_16b_bench at C:/Users/13651/Desktop/ECE 552/HW1/hw1_2/cla_16b_bench.v line 20
+# End time: 18:38:38 on Feb 10,2022, Elapsed time: 0:28:47
+# Errors: 0, Warnings: 1
