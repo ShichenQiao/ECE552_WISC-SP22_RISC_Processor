@@ -1,5 +1,6 @@
 # ECE552_WISC-SP22_RISC_Processor
 
+Five-Stage-Pipelined MIPS Processor Verilog Implementation
 Project Specification: https://pages.cs.wisc.edu/~sinclair/courses/cs552/spring2022/project.html
 
 Final CPI = 5.286744
